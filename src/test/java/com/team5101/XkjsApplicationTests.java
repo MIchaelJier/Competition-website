@@ -1,4 +1,4 @@
-package com.team5101.xkjs;
+package com.team5101;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

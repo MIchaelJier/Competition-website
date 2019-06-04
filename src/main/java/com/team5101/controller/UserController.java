@@ -1,8 +1,8 @@
-package com.team5101.xkjs.controller;
+package com.team5101.controller;
 
 
-import com.team5101.xkjs.pojo.User;
-import com.team5101.xkjs.service.UserService;
+import com.team5101.pojo.User;
+import com.team5101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

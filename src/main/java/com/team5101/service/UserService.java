@@ -1,14 +1,12 @@
-package com.team5101.xkjs.service;
+package com.team5101.service;
 
 
 
-import com.team5101.xkjs.mapper.UserMapper;
-import com.team5101.xkjs.pojo.User;
+import com.team5101.mapper.UserMapper;
+import com.team5101.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 
 
 @Service

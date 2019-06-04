@@ -1,4 +1,4 @@
-package com.team5101.xkjs.pojo;
+package com.team5101.pojo;
 
 
 

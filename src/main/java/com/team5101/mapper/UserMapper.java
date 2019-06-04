@@ -1,7 +1,7 @@
-package com.team5101.xkjs.mapper;
+package com.team5101.mapper;
 
 
-import com.team5101.xkjs.pojo.User;
+import com.team5101.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
