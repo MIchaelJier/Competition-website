@@ -31,6 +31,11 @@ public class UserController {
         else
             return "/login";
     }
+    @RequestMapping("/error")
+    public String error(){
+        return "error";
+    }
+
 
 
 
