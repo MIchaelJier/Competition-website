@@ -33,13 +33,13 @@ public class UserController {
         session.setAttribute("user",user);
         System.out.println(user);
 
-            return new ModelAndView("login") ;
+        return new ModelAndView("success") ;
 
     }
-    @RequestMapping("/error")
-    public String error(){
-        return "error";
-    }
+//    @RequestMapping("/error")
+//    public String error(){
+//        return "error";
+//    }
 
 
 
