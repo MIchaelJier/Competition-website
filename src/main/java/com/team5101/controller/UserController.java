@@ -36,6 +36,11 @@ public class UserController {
             return new ModelAndView("login") ;
 
     }
+    @RequestMapping("/error")
+    public String error(){
+        return "error";
+    }
+
 
 
 
