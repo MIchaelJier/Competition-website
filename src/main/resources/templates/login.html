@@ -1,25 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <div>
-        <div>登录系统</div>
-        <form action="/login.action" method="post">
-            <table>
-                <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" name="username" ></input></td>
-                </tr>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title>登录界面</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <style type="text/css">
+        .form-horizontal{
+            background: #fff;
+            padding-bottom: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .form-horizontal .heading{
+            display: block;
+            font-size: 35px;
+            font-weight: 700;
+            padding: 35px 0;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 30px;
+        }
+        .form-horizontal .form-group{
+            padding: 0 40px;
+            margin: 0 0 25px 0;
+            position: relative;
+        }
+        .form-horizontal .form-control{
+            background: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            box-shadow: none;
+            padding: 0 20px 0 45px;
+            height: 40px;
+            transition: all 0.3s ease 0s;
+        }
+        .form-horizontal .form-control:focus{
+            background: #e0e0e0;
+            box-shadow: none;
+            outline: 0 none;
+        }
+        .form-horizontal .btn{
+            float: right;
+            font-size: 14px;
+            color: #fff;
+            background: #00b4ef;
+            border-radius: 30px;
+            padding: 10px 25px;
+            border: none;
+            text-transform: capitalize;
+            transition: all 0.5s ease 0s;
+        }
+        .form-horizontal .btn:first-child{
+            float: left;
+        }
+        #eye,#user_pic {
+            position: absolute;
+            left: 55px;
+            top: 15px;
+        }
+        #eye{cursor: pointer}
+        @media only screen and (max-width: 479px){
+            .form-horizontal .form-group{
+                padding: 0 25px;
+            }
+            .form-horizontal .form-group i{
+                left: 45px;
+            }
+            .form-horizontal .btn{
+                padding: 10px 20px;
+            }
+        }
 
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" name="password" ></input></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="提交" ></input></td>
-                </tr>
-            </table>
-        </form>
-    </div>
+    </style>
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.backstretch.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+         $(function(){
+        //     //登录验证
+        //     $("#login_btn").click(function(){
+        //         var user = $('#username').val();
+        //         var password = $('#password').val();
+        //         if(user&&password){
+        //             alert("-----");
+        //             $.ajax({
+        //                 type:"POST",
+        //                 url:"/login.action",
+        //                 data:{"username":user,"password" :password},
+        //                 success:function() {
+        //                     alert(1);
+        //                     $.cookie("username", user, {expires: 7});
+        //                     $.cookie("password", password, {expires: 7});
+        //                 }
+        //             });
+        //         }else{
+        //             if(!user){
+        //                 $('.tooltip-show:eq(0)').tooltip('show');
+        //             }
+        //             if(!password){
+        //                 $('.tooltip-show:eq(1)').tooltip('show');
+        //             }
+        //             return false;
+        //         }
+        //     });
+            $('#username').focus(function () {
+                $('.tooltip-show:eq(0)').tooltip('destroy');
+            });
+            $('#password').focus(function () {
+                $('.tooltip-show:eq(1)').tooltip('destroy');
+            });
+            $('#goto_register').click(function () {
+                window.location.href = "register.html";
+                return false;
+            });
+            $('#eye').click(function () {
+                if($(this).hasClass('glyphicon-eye-close')){
+                    $(this).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+                    $('#password').attr('type','text')
+                }else {
+                    $(this).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+                    $('#password').attr('type', 'password')
+                }
+            });
+            $.backstretch([
+                "images/2.jpg"
+                , "images/3.jpg"
+                , "images/1.jpg"
+            ], {duration: 3000, fade: 750});
+        });
+
+    </script>
 </head>
+<body style="background-color:rgba(0,0,0,0);">
+<nav class="nav navbar-inverse navbar-fixed-top">
+    <div class="container">
+    </div>
+</nav>
+<!-- 登录 -->
+<div class="container" style="padding: 100px 0;background-color:rgba(0,0,0,0);">
+    <div class="demo form-bg" style="padding: 20px 0;background-color:rgba(0,0,0,0);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <form action="/login.action"  method="post" class="form-horizontal">
+                        <span class="heading" >用户登录</span>
+                        <div class="form-group">
+                            <div class="tooltip-show" data-toggle="tooltip"  data-placement="bottom" data-html="true" title="<h5 style='color:red'><strong>请输入用户名</strong></h5>">
+                                <input type="text" id="username" name="username" class="form-control"  placeholder="用户名">
+                                <span id="user_pic" class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                        <div class="form-group help">
+                            <div  class="tooltip-show" data-toggle="tooltip"  data-placement="bottom" data-html="true"  title="<h5 style='color:red'><strong>请输入密码</strong></h5>">
+                                <input type="password"  id="password" name="password" class="form-control"  placeholder="密　码">
+                                <span id="eye" class="glyphicon glyphicon-eye-close "></span> <!--glyphicon glyphicon-eye-open-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" id="login_btn">登录</button>
+                            <button type="submit" class="btn btn-primary" id="goto_register">注册</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

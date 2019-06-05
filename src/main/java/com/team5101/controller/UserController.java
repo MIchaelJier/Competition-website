@@ -8,28 +8,33 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 
-
-@Controller
+@RestController
 public class UserController {
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-    public String login() {
-        return "/login";
+    public ModelAndView login() {
+        return new ModelAndView("login");
     }
 
 
+
     @RequestMapping(value="/login.action",method = {RequestMethod.POST, RequestMethod.GET})
-    public String login(String username, String password){
+    public ModelAndView login(String username, String password, HttpSession session) {
         User user=userService.login(username,password);
+        session.setAttribute("user",user);
         System.out.println(user);
-        if(user!=null)
-                return "/success";
-        else
-            return "/login";
+
+            return new ModelAndView("login") ;
+
     }
 
 
