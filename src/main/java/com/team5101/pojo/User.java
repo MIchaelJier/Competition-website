@@ -3,17 +3,17 @@ package com.team5101.pojo;
 
 
 public class User {
-    private Integer id;
+    private Integer u_id;
     private String username;
     private String password;
     private Integer Authorization;
 
-    public Integer getId() {
-        return id;
+    public Integer getU_id() {
+        return u_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setU_id(Integer u_id) {
+        this.u_id = u_id;
     }
 
     public String getUsername() {
@@ -43,7 +43,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "u_id=" + u_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", Authorization=" + Authorization +

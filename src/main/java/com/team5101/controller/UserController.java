@@ -37,10 +37,7 @@ public class UserController {
         return new ModelAndView("success") ;
 
     }
-//    @RequestMapping("/error")
-//    public String error(){
-//        return "error";
-//    }
+
 
 
 
