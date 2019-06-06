@@ -4,7 +4,6 @@ package com.team5101.controller;
 import com.team5101.pojo.User;
 import com.team5101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,7 @@ public class UserController {
                               HttpServletRequest request, HttpSession session, Model model) {
         User user=userService.login(username,password);
         session.setAttribute("username",username);
+
         //request.getSession().setAttribute("username",username);
         System.out.println(user);
 
