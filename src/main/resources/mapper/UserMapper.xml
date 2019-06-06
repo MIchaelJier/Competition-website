@@ -9,7 +9,7 @@
 
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, Authorization
+    username, password
   </sql>
   <select id="findUser" parameterType="String" resultType="User"  >
 

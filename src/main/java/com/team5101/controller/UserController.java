@@ -6,12 +6,11 @@ import com.team5101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -28,9 +27,11 @@ public class UserController {
 
 
     @RequestMapping(value="/login.action",method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView login(String username, String password, HttpSession session) {
+    public ModelAndView login(@RequestParam("username")String username,@RequestParam("password")String password,
+                              HttpServletRequest request, HttpSession session, Model model) {
         User user=userService.login(username,password);
-        session.setAttribute("user",user);
+        session.setAttribute("username",username);
+        //request.getSession().setAttribute("username",username);
         System.out.println(user);
 
         return new ModelAndView("success") ;

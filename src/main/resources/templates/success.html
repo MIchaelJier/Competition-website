@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" src="js/jquery-1.11.3.min"></script>
 
     <script type="text/javascript">
-        $(function() {
-            $.ajax({
-                type : "get",
-                url : "login!getLoginName.action",
-                dataType : "text",
-                success : function(result) {
-                    document.getElementsByTagName('b')[0].innerHTML=result;
-                },
-                error : function() {
-                    alert("請求失敗");
-                }
-            });
-        });
+        // $(function() {
+        //     $.ajax({
+        //         type : "get",
+        //         url : "login!getLoginName.action",
+        //         dataType : "text",
+        //         success : function(result) {
+        //             document.getElementsByTagName('b')[0].innerHTML=result;
+        //         },
+        //         error : function() {
+        //             alert("請求失敗");
+        //         }
+        //     });
+        // });
     </script>
 
 </head>
 <body>
-Success!!!!
-<input type="text" value='<%#Session["user"]%>'>
+Success!!!!<br>
+欢迎！<p th:text="${session.username}"> </p>
 </body>
 </html>
