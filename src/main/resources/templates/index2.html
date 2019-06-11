@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.scss">
+  <link rel="stylesheet" href="../static/css/jSlider.min.css">
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/baguettebox.min.css">
+  <link rel="stylesheet" href="../static/css/style2.css">
+
+  <script src="../static/js/baguettebox.min.js"></script>
+  <script src="../static/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../static/js/jquery.jSlider.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../static/js/jquery.lazyload.min.js?v=1.9.1"></script>
+  <script src="../static/js/bootstrap.js"></script>
+  <style>
+    .cd-section:nth-child(2) {
+      background: #fff;
+    }
+    .thumbnail {
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10%;
+    }
+    .thumbnail:before {
+      content: "";
+      width: 0;
+      height: 100%;
+      background: #000;
+      padding: 14px 18px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      opacity: 0;
+      transition: all 500ms cubic-bezier(0.47, 0, 0.745, 0.715) 0s;
+    }
+    .thumbnail:hover:before{
+      width: 100%;
+      left: 0;
+      opacity: 0.5;
+    }
+    .thumbnail .box-content{
+      width: 100%;
+      padding: 14px 18px;
+      color: #fff;
+      position: absolute;
+      top: 38%;
+      left: 0;
+    }
+    .thumbnail .title{
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 30px;
+      text-transform: uppercase;
+      margin: 0;
+      opacity: 0;
+      border: 1px solid white;
+      transition: all 0.5s ease 0s;
+    }
+    .thumbnail .title:hover {
+      background: #fff;
+      color: #5e5e5e;
+      cursor: pointer;
+    }
+    .thumbnail .post{
+      font-size: 15px;
+      text-transform: capitalize;
+      opacity: 0;
+      transition: all 0.5s ease 0s;
+    }
+    .thumbnail:hover .title,
+    .thumbnail:hover .post{
+      opacity: 1;
+      transition-delay: 0.5s;
+    }
+    .welcome-title {
+      margin: 5%;
+      width: 80%;
+      border-left: 4px solid #31c4d1;
+
+    }
+    .welcome-title b{
+      color: #3f444a;
+      font-size: 20px;
+      margin-left: 2%;
+    }
+    .welcome-content {
+      width: 95%;
+      padding-left: 5%;
+      padding-bottom: 10%;
+    }
+    .welcome-content p {
+      color: #222 !important;
+      text-shadow:none !important;
+    }
+    #slider1 {
+      height: 600px;
+      margin-top: 50px;
+    }
+    #slider1 div {
+      background-size: cover;
+      background-position-x:center;
+      background-position-y:center;
+      cursor: pointer
+    }
+    #slider1 div:nth-child(1) {
+      background-image: url("../static/images/cd-background-1.jpg");
+    }
+    #slider1 div:nth-child(2) {
+      background-image: url("../static/images/cd-background-2.jpg");
+    }
+    .sub-content-sample {
+      font-size: 2em;
+      line-height: 1.25;
+      position: relative;
+      top: 45%;
+      width: 80%;
+      color: #fff;
+      background: #000;
+      background: rgba(0, 0, 0, 0.5) !important;
+      text-align: center;
+    }
+    .sub-content-sample p {
+      margin: 0;
+      padding: 0;
+      /* font-family: "Roboto Condensed", sans-serif; */
+      font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+      font-size: calc(100vw / 50 + 10px);
+      color: #fff;
+      font-weight: bold;
+    }
+    #menu a {
+      color: #989898;
+      font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+      font-size: medium;
+      font-weight: bold;
+    }
+    #menu li {
+      padding: 5px 10px 5px 0;
+    }
+    #menu a:hover{
+      color: #5bc0de;
+    }
+  </style>
+  <title>竞赛首页</title>
+
+</head>
+<body>
+<header class="cd-main-header">
+  <div class="cd-main-header__container container container--lg">
+    <nav class="nav navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+          <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span href="#" ><img src="../static/images/head_logo.png" alt=""></span>
+        </div>
+        <div id="menu" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">报名</a></li>
+            <li><a href="#">竞赛成绩</a></li>
+            <li><a href="#">优秀师生</a></li>
+            <li><a href="#">作品提交</a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              其他<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!--轮播图开始-->
+  <div class="jSlider" id="slider1" data-loop="true">
+    <div>
+      <div class="sub-content-sample center-block">
+        <p>浙江万里学院竞赛网</p>
+      </div>
+    </div>
+    <div>
+      <div class="sub-content-sample center-block">
+        <p>ACM国际大学生程序设计竞赛</p>
+      </div>
+    </div>
+  </div>
+
+  <!--轮播图结束-->
+
+  <!--各网站链接 开始-->
+  <section class="cd-section">
+    <div class="container">
+      <div class="text-component">
+        <!--比赛的一些图标-->
+        <div class="row">
+          <div class="col-xs-10 col-md-3 col-xs-offset-1 col-md-offset-0 text-center" >
+            <div class="thumbnail">
+              <img src="../static/images/icpc-icon.jpg" alt="">
+              <div class="box-content">
+                <h3 class="title">ACM-ICPC官网</h3>
+                <span class="post">icpc.baylor.edu</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-10 col-md-3 col-xs-offset-1 col-md-offset-0 text-center" >
+            <div class="thumbnail">
+              <img src="../static/images/cccc-icon.png" alt="">
+              <div class="box-content">
+                <h3 class="title">CCCC官网</h3>
+                <span class="post">hwww.appcontest.net</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-10 col-md-3 col-xs-offset-1 col-md-offset-0 text-center" >
+            <div class="thumbnail">
+              <img src="../static/images/ccpc-icon.png" alt="">
+              <div class="box-content">
+                <h3 class="title">CCPC官网</h3>
+                <span class="post">ccpc.io</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-10 col-md-3 col-xs-offset-1 col-md-offset-0 text-center" >
+            <div class="thumbnail">
+              <img src="../static/images/zjwl-icon.png" alt="">
+              <div class="box-content">
+                <h3 class="title">浙江万里学院官网</h3>
+                <span class="post">www.zjwu.net</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--比赛的一些图标-->
+      </div>
+    </div>
+  </section>
+  <!--各网站链接 结束-->
+
+  <!--欢迎介绍 开始-->
+  <section class="cd-section cd-section--bg-fixed">
+    <div class="container">
+      <div class="text-component">
+        <div class="col-xs-10 col-md-10 col-xs-offset-1 col-md-offset-0" style="background: #fff;">
+          <div class="welcome-title"><b>欢迎</b></div>
+          <div class="welcome-content">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<!--需要插入的介绍-->ACM国际大学生程序设计竞赛（ACM International
+              Collegiate Programming Contest, 简称ACM-ICPC或ICPC）是由国际计算机界具有悠久
+              历史的权威性组织(美国)计算机协会（Association for Computing Machinery, 简称ACM）
+              主办的一项旨在展示大学生创新能力、团队精神和在压力下编写程序、分析和解决问题能力的年度竞赛。
+              ACM国际大学生程序设计竞赛始于1970年，成形于1977年，并于 1996年由上海大学引入中国大陆，
+              目前已发展成为最具影响力的大学生计算机竞赛。</p>
+            <br>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<!--需要插入的介绍-->亚洲地区的高校可组队参加在亚洲的所有赛区的区域赛,
+              但每位参赛选手在一个年度内至多只能参加两场区域赛和一场决赛。
+              由方正集团赞助的第42届ACM国际大学生程序设计竞赛(简称ACM-ICPC或ICPC)
+              全球总决赛于2018年4月15日至4月20日在北京大学举行。
+              而总决赛举办地点——邱德拔体育馆曾经也是2008年北京奥运会乒乓球赛场地。时隔十年，
+              邱德拔体育馆再度举办“奥林匹克”，颇有意义。北京大学此次承办该项赛事，是继2005年上海、
+              2010年哈尔滨之后，中国第三次承办ACM-ICPC全球总决赛。 在2017年9月至12月，
+              共有来自100多个国家或地区的3000多所学校分别在6大洲的530多个赛站参加了第42届ACM-ICPC的区域赛，
+              共有来自51个国家和地区的140所高校的代表队伍脱颖而出，获得了参加全球总决赛的资格。
+              俄罗斯莫斯科国立大学作为全场唯一破解9题的队伍，获得世界冠军。 北京大学成功解决8题，位列第三，再夺金牌。
+              清华大学排名第7，上海交通大学排名第8，获得银牌。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--欢迎介绍 结束-->
+
+
+  <!--公告栏 开始-->
+    <section class="cd-section" style="background-color: #FFFFFF">
+      <div class="container">
+        <div class="text-component text--center col-md-12">
+          <div class="c-content-box c-size-md">
+
+            <div class="row">
+              <!-- INFO CONTENT -->
+              <div class="col-md-3" style="background-color: #afd9ee">
+                <h3>最新通知</h3>
+                <ul>
+                  <li><a href="#">最新通知</a></a></li>
+                </ul>
+              </div>
+
+
+              <div class="col-md-9">
+                <div class="col-md-9 col-md-offset-2" style="background-color: #afd9ee">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <!--公告栏 结束-->
+
+
+  <!--校园展示 开始-->
+    <div class="cd-section cd-section--bg-fixed">
+      <div class="container">
+        <div class="text-component text--center col-md-12">
+          <div class="row">
+            <div class="c-content-title-1 col-md-6 col-md-offset-3 clearfix">
+              <h3 class="c-center c-font-uppercase c-font-bold c-font-white" style="font-size:30px;">校园风光</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="baguetteBoxOne gallery col-md-9 clearfix">
+              <div class="col-md-4"><a href="../static/images/wanli1.jpeg" title="第1张图片"><img data-original="../static/images/thumbs/w1.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli2.jpeg" title="第2张图片"><img data-original="../static/images/thumbs/w2.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli3.jpeg" title="第3张图片"><img data-original="../static/images/thumbs/w3.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli4.jpeg" title="第4张图片"><img data-original="../static/images/thumbs/w4.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli5.jpeg" title="第5张图片"><img data-original="../static/images/thumbs/w5.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli6.jpg" title="第6张图片"> <img data-original="../static/images/thumbs/w6.jpg"    class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli7.jpeg" title="第7张图片"><img data-original="../static/images/thumbs/w7.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli8.jpeg" title="第8张图片"><img data-original="../static/images/thumbs/w8.jpeg"  class="lazy" ></a></div>
+              <div class="col-md-4"><a href="../static/images/wanli9.jpeg" title="第8张图片"><img data-original="../static/images/thumbs/w9.jpeg"  class="lazy" ></a></div>
+            </div>
+          </div>
+
+
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  <!--公告栏 结束-->
+
+  <!--footer 开始-->
+    <footer class="c-layout-footer c-layout-footer-1" style="background-color: #394048;font-size: 18px;color: #7e8b96;font-family: STFangSong;font-weight: bold;">
+      <div class="c-prefooter">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="c-logo">
+                <a href="javascript:void(0)">
+                  <img src="../static/images/head_logo.png">
+                </a>
+              </div>
+              <p class="c-about">
+                浙江万里学院（Zhejiang Wanli University）位于浙江宁波，是一所由浙江省万里教育集团为主举办，并经中华人民共和国教育部批准设立的省属普通本科高校；是经教育部批准成为“公办高校实行新的管理模式和运行机制”的新型高校；学校被国务院学位委员会批准为硕士专业学位研究生教育试点单位，并成为试点单位联盟理事长单位；是联合国教科文组织中国创业教育联盟首届理事单位、教育部首批创业教育专业指导委员会成员单位、全国深化创新创业教育改革示范高校、全国首家高校创业指导师培训基地、浙江省应用型建设试点示范学校和浙江省创业型大学试点高校。
+              </p>
+              <p class="c-contact">
+                地址：浙江省宁波市鄞州区钱湖南路8号 <br>
+                邮编：315100<br>
+                邮箱：yzb@zwu.edu.cn
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </footer>
+      <div class="c-postfooter">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <p class="c-copyright c-font-oswald c-font-14">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  <!--footer 开始-->
+  </main>
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <script type="text/javascript">
+    document.getElementsByTagName("html")[0].className += " js";
+    baguetteBox.run('.baguetteBoxOne', {
+      animation: 'fadeIn',
+    });
+
+    $(function() {
+
+      $(".lazy").lazyload({effect: "fadeIn"});
+
+
+      $.ajax({
+        url:"#",
+        data:{},
+        async:true,
+        cache:false,
+        type:"POST",
+        success:function(result){
+          $('.welcome-content p:eq(0)').append(result[1]);
+          $('.welcome-content p:eq(1)').append(result[2]);
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
