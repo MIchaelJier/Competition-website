@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
-@RestController
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
@@ -50,9 +50,9 @@ public class UserController {
 //
 //
    //初始页
-    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView  login() {
-        return new ModelAndView("index2");
+    @RequestMapping("/index2")
+    public String  login() {
+        return "index2";
     }
 
 
