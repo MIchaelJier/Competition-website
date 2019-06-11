@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div align="center">
+    <table border="1">
+        <tr>
+            <th>title</th>
+            <th>date</th>
+            <th>fabuzhe</th>
+        </tr>
+        <tr th:each="pageInfo:${pageInfo.list}">
+
+            <td th:text="${pageInfo.gg_title}"></td>
+            <td th:text="${pageInfo.gg_date}"></td>
+            <td th:text="${pageInfo.gg_fabuzhe}"></td>
+        </tr>
+    </table>
+    <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+    <a th:href="@{/Nlist.action}">首页</a>
+    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+    <a th:href="@{/Nlist.action(pageNum=${pageInfo.pages})}">尾页</a>
+
+</div>
+</body>
+</html>

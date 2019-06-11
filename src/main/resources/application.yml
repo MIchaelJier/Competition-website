@@ -3,15 +3,24 @@ server:
 
 spring:
     thymeleaf:
+      cache: false
       mode: HTML5
       encoding: UTF-8
-      cache: false
+
     datasource:
       url: jdbc:mysql://localhost:3306/xkjs?serverTimezone=UTC&username&password&useUnicode=true&characterEncoding=utf-8
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
 
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: true
+  params: count=countSql
 
 mybatis:
     mapper-locations: classpath:mapper/*.xml

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.team5101.mapper.NoticeMapper">
+    <!--SQL条件片段  -->
+    <sql id="selectNoticeListWhere">
+        <where>
+            <if test="gg_id !=null and gg_id !=''">
+                gg_id = #{gg_id}
+            </if>
+
+            <if test="gg_title !=null and gg_title !=''">
+                gg_title = #{gg_title}
+            </if>
+            <if test="gg_content != null and gg_content !='' ">
+                and gg_content = #{gg_content}
+            </if>
+            <if test="gg_fabuzhe != null and gg_fabuzhe !='' ">
+                and gg_fabuzhe = #{gg_fabuzhe}
+            </if>
+
+            <if test="gg_date != null  ">
+                and gg_date = #{gg_date}
+            </if>
+        </where>
+    </sql>
+
+   <!--数据库列-->
+    <sql id="Base_Column_List" >
+        gg_id,gg_title,gg_content,gg_date,gg_fabuzhe
+    </sql>
+
+    <!-- 查询通知列表列表 -->
+    <select id="selectNoticeList" parameterType="Notice" resultType="Notice">
+        select
+        <include refid="Base_Column_List"/>
+        from x_notice
+        <include refid="selectNoticeListWhere"/>
+    </select>
+
+
+
+    <!--
+     标题查重
+    <select id="getNoticeByTitle" parameterType="String" resultType="Integer">
+      select count(*) from t_notice where n_title = #{n_title}
+    </select>
+
+    -->
+    <!--
+     添加通知
+    <insert id="createNotice" parameterType="notice">
+       insert into t_notice(n_title,n_text,n_time)
+                            values(#{n_title},#{n_text},#{n_time} )
+   </insert>
+   -->
+    <!--
+    根据Title查信息
+    <select id="getNoticeByT" parameterType="String" resultType="Notice">
+       select * from t_notice where  n_title = #{n_title}
+   </select>
+   -->
+
+
+    <!--
+    更新客户
+    <update id="updateNotice" parameterType="Notice">
+        update t_notice
+        <set>
+            <if test="n_title !=null and n_title !=''">
+                n_title = #{n_title},
+            </if>
+            <if test="n_text != null and n_text !='' ">
+                n_text = #{n_text},
+            </if>
+            <if test="n_time != null ">
+                n_time = #{n_time}
+            </if>
+        </set>
+        where  n_id = #{n_id}
+    </update>
+    -->
+
+
+    <!--
+    删除客户
+
+    <delete id="deleteNotice" parameterType="Integer">
+          delete from t_notice where n_id = #{n_id}
+      </delete>
+
+      -->
+    <!--
+    批量删除
+    <delete id="batchDeletes" parameterType="java.util.List">
+        DELETE FROM t_notice where n_id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    -->
+</mapper>

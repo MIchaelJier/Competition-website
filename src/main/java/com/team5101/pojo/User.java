@@ -1,12 +1,12 @@
 package com.team5101.pojo;
 
 
-
+//用户
 public class User {
-    private Integer u_id;
-    private String username;
-    private String password;
-    private Integer Authorization;
+    private Integer u_id;     //用户iD
+    private String username;  //用户名
+    private String password;  //密码
+    private Integer Authorization; //权限： 1管理员  0 用户
 
     public Integer getU_id() {
         return u_id;
