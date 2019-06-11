@@ -50,9 +50,9 @@ public class UserController {
 //
 //
    //初始页
-    @RequestMapping("/index2")
+    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
     public String  login() {
-        return "index2";
+        return "login";
     }
 
 
