@@ -1,12 +1,12 @@
 package com.team5101.pojo;
 
 
-//用户
+
 public class User {
-    private Integer u_id;     //用户iD
-    private String username;  //用户名
-    private String password;  //密码
-    private Integer Authorization; //权限： 1管理员  0 用户
+    private Integer u_id;
+    private String username;
+    private String password;
+    private Integer role;
 
     public Integer getU_id() {
         return u_id;
@@ -32,12 +32,11 @@ public class User {
         this.password = password;
     }
 
-    public Integer getAuthorization() {
-        return Authorization;
+    public Integer getRole() {
+        return role;
     }
-
-    public void setAuthorization(Integer authorization) {
-        Authorization = authorization;
+    public void setRole(Integer role) {
+        this.role = role;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class User {
                 "u_id=" + u_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", Authorization=" + Authorization +
+                ", role=" + role +
                 '}';
     }
 }

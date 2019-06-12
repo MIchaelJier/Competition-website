@@ -5,16 +5,17 @@
     <id column="u_id" property="u_id" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="Authorization" property="authorization" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="INTEGER" />
 
   </resultMap>
   <sql id="Base_Column_List" >
-    u_id,username, password,Authorization
+    u_id,username, password,role
   </sql>
-  <select id="findUser" parameterType="String" resultType="User"  >
 
+  <select id="findUser" parameterType="String" resultType="com.team5101.pojo.User"  >
     select 
-    <include refid="Base_Column_List" />
+<!--    <include refid="Base_Column_List" />-->
+    *
     from x_user
     where username=#{username} and password=#{password}
   </select>

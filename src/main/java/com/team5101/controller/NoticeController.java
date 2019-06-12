@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
+//公告控制器
 @Controller
 public class NoticeController {
 
