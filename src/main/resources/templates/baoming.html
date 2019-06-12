@@ -21,8 +21,8 @@
 <!--        遍历输出-->
         <tr th:each="b : ${signups}">
             <td th:text="${b.b_id}"></td>
-            <td th:text="${b.contestInfo.j_name}"></td>
-            <td th:text="${b.competitor.c_name}"></td>
+            <td th:text="${b.j_id}"></td>
+            <td th:text="${b.u_id}"></td>
             <td th:text="${b.b_time}"></td>
             <td th:text="${b.b_state}"></td>
         </tr>
