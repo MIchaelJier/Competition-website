@@ -21,5 +21,5 @@ public interface SignUpMapper {
 //
 //        //column代表将该属性作为参数传入,property代表将查询出来的数据交给该属性
 //})
-    List<SignUp> getAll();
+    public List<SignUp> getAll();
 }
