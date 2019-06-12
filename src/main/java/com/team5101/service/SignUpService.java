@@ -5,5 +5,5 @@ import com.team5101.pojo.SignUp;
 import java.util.List;
 
 public interface SignUpService {
-    public List<SignUp> findAllSignUpInfo();
+    List<SignUp> findAllSignUpInfo();
 }

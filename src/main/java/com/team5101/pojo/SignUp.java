@@ -14,11 +14,11 @@ public class SignUp {
     private ContestInfo contestInfo;
 
     public Competitor getCompetitor() {
-        return competitor;
+        return  competitor;
     }
 
     public void setCompetitor(Competitor competitor) {
-        this.competitor = competitor;
+        this.competitor =  competitor;
     }
 
     public ContestInfo getContestInfo() {
@@ -26,7 +26,7 @@ public class SignUp {
     }
 
     public void setContestInfo(ContestInfo contestInfo) {
-        this.contestInfo = contestInfo;
+        this.contestInfo =  contestInfo;
     }
 
     public Integer getB_id() {

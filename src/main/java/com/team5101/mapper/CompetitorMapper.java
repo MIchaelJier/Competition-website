@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public  interface CompetitorMapper {
+public interface CompetitorMapper {
     Competitor getCompetitorById(Integer c_id);
 }
