@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.team5101.mapper.CompetitorMapper" >
+    <resultMap id="Competitor" type="com.team5101.pojo.Competitor">
+        <id column="c_id" property="c_id" jdbcType="INTEGER" />
+        <result column="c_name" property="c_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+<!--        查询参赛人信息-->
+    <select id="getCompetitorById" parameterType="int" resultMap="Competitor">
+       SELECT
+        *
+       FROM x_contestm WHERE c_id=#{c_id}
+    </select>
+
+</mapper>

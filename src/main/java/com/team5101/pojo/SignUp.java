@@ -7,7 +7,7 @@ import java.util.Date;
 public class SignUp {
     private Integer b_id;
     private Integer j_id;
-    private Integer u_id;
+    private Integer c_id;
     private Date b_time;
     private String b_state;
     private Competitor competitor;
@@ -46,11 +46,11 @@ public class SignUp {
     }
 
     public Integer getU_id() {
-        return u_id;
+        return c_id;
     }
 
     public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+        this.c_id = u_id;
     }
 
     public Date getB_time() {
