@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.team5101.mapper.SignUpMapper" >
-<!--    <resultMap id="SignUpMap" type="com.team5101.pojo.SignUp">-->
-<!--        <id column="b_id" property="b_id" jdbcType="INTEGER" />-->
-<!--        <result column="b_time" property="b_time" jdbcType="TIMESTAMP" />-->
-<!--        <result column="b_state" property="b_state" jdbcType="VARCHAR" />-->
-<!--        <association property="competitor" column="c_id" select="com.team5101.mapper.CompetitorMapper.getCompetitorById"/>-->
-<!--        <association property="contestInfo" column="j_id" select="com.team5101.mapper.ContestInfoMapper"/>-->
-<!--    </resultMap>-->
-
-<!--    查询所有报名信息-->
-<!--    <select id="getAll" resultMap="SignUpMap"  >-->
-<!--       SELECT-->
-<!--       *-->
-<!--       FROM x_signup-->
-<!--    </select>-->
     <select id="getAll" parameterType="String" resultMap="SignUpInfo">
         select * from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id
     </select>
@@ -25,11 +11,19 @@
         <association property="contestInfo" column="teacher_id" javaType="com.team5101.pojo.ContestInfo">
             <id property="j_id" column="j_id"/>
             <result property="j_name" column="j_name"/>
+            <result property="j_type" column="j_type"/>
+            <result property="j_int" column="j_introduction"/>
+            <result property="j_href" column="j_href"/>
+
         </association>
         <!-- ofType指定students集合中的对象类型 -->
         <collection property="competitor" ofType="com.team5101.pojo.Competitor">
             <id property="c_id" column="c_id"/>
+            <result property="c_sno" column="c_sno"/>
             <result property="c_name" column="c_name"/>
+            <result property="c_gender" column="c_gender"/>
+            <result property="c_major" column="c_major"/>
+            <result property="c_qq" column="c_QQ"/>
         </collection>
     </resultMap>
 

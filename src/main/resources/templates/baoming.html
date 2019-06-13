@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery-1.11.3.min"></script>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
 </head>
 <!--报名信息展示-->
@@ -13,6 +13,9 @@
         <tr>
             <th>报名ID</th>
             <th>竞赛名称</th>
+            <th>竞赛类型</th>
+            <th>竞赛简介</th>
+            <th>竞赛官网</th>
             <th>参赛人</th>
             <th>报名时间</th>
             <th>报名状态</th>
@@ -22,6 +25,9 @@
         <tr th:each="b : ${signups}">
             <td th:text="${b.b_id}"></td>
             <td th:text="${b.contestInfo?.j_name}"></td>
+            <td th:text="${b.contestInfo?.j_type}"></td>
+            <td th:text="${b.contestInfo?.j_int}"></td>
+            <td ><a th:href="@{${b.contestInfo?.j_href}}" th:text="${b.contestInfo?.j_href}"></a></td>
             <td th:text="${b.competitor?.c_name}"></td>
             <td th:text="${b.b_time}"></td>
             <td th:text="${b.b_state}"></td>

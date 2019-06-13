@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+<!--报名信息展示-->
+<body>
+<form action="/baoming.getall" method="post">
+    <table border="1">
+        <tr>
+            <th>竞赛ID</th>
+            <th>竞赛名称</th>
+            <th>竞赛类型</th>
+            <th>竞赛简介</th>
+            <th>竞赛官网</th>
+            <th>报名时间</th>
+
+        </tr>
+        <!--        遍历输出-->
+        <tr th:each="b : ${contestInfos}">
+            <td th:text="${b.j_id}"></td>
+            <td th:text="${b.j_name}"></td>
+            <td th:text="${b.j_type}"></td>
+            <td th:text="${b.j_int}"></td>
+            <td ><a th:href="@{${b.j_href}}" th:text="${b.j_href}"></a></td>
+            <td>1 ，2</td>
+        </tr>
+    </table>
+    <input type="submit" value="查询">
+</form><br>
+<form id="form0" action="" method="POST">
+    选择竞赛
+    <select id="selContest">
+        <option value="0">请选择</option>
+        <option th:each="c:${contestInfos}"  th:text="${c.j_name}"></option>
+    </select><br>
+    学号<input type="text" id="sno"><br>
+    姓名<input type="text" id="name"><br>
+    性别
+    <input type="radio" id="women" value="女"  name="1">女
+    <input type="radio" id="man" value="男" checked="checked" name="1">男<br>
+    专业班级<input type="text" id="major"><br>
+   手机号<input type="text" id="phone"><br>
+    QQ号<input type="text" id="qq"><br>
+    <input type="button" value="send" id="send">
+</form>
+
+
+</body>
+<script type="text/javascript">
+  $(function () {
+      $('#send').click(function () {
+          var contest=$('#selContest');
+          var sno = $('#sno').val();
+          var name = $('#name').val();
+          var sex = $('input:radio:checked').val();
+          var major = $('#major').val();
+          var phone = $('#phone').val();
+          var qq = $("#qq").val();
+          console.log(contest.val());
+          console.log(sex);
+          $.ajax({
+              type: "POST",
+              url: "/regcontestInfo",
+              data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_name':contest},
+              success: function (ok) {
+                    alert(ok);
+              }
+          });
+      });
+  });
+
+</script>
+</html>

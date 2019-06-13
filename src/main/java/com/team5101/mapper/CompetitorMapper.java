@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface CompetitorMapper {
     Competitor getCompetitorById(Integer c_id);
+   Integer addCompetitor(Competitor competitor);
 }

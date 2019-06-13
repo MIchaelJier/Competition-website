@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.team5101.mapper.ContestInfoMapper" >
+    <resultMap id="ContestInfo" type="com.team5101.pojo.ContestInfo" >
+        <id property="j_id" column="j_id"/>
+        <result property="j_name" column="j_name"/>
+        <result property="j_type" column="j_type"/>
+        <result property="j_int" column="j_introduction"/>
+        <result property="j_href" column="j_href"/>
+    </resultMap>
+
+    <select id="getContestInfoAll" parameterType="String" resultType="com.team5101.pojo.ContestInfo"  resultMap="ContestInfo" >
+        select
+        *
+        from x_contesttp
+    </select>
+
+</mapper>
