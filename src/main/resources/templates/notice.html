@@ -2,21 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
+    <style type="text/css">
+        .biaoti {
+            position: relative;
+            float: left;
+        }
+        .shijian {
+            position: relative;
+            float: right;
+        }
+        ul li{
+            clear:both;
+            line-height:28px;
+            border-bottom:#CCC 1px dashed;
+            color: #3f444a;
+        }
+        ul li:hover {
+            color: rgba(255, 190, 209, 0.8);
+            cursor: pointer;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <div align="center">
     <table border="1">
-        <tr>
-            <th>title</th>
-            <th>date</th>
-            <th>fabuzhe</th>
-        </tr>
-        <tr th:each="pageInfo:${pageInfo.list}">
-            <td th:text="${pageInfo.gg_title}"></td>
-            <td th:text="${pageInfo.gg_date}"></td>
-            <td th:text="${pageInfo.gg_fabuzhe}"></td>
-        </tr>
+        <ul th:each="pageInfo:${pageInfo.list}">
+            <li><div class="biaoti"  th:text="${pageInfo.gg_title}"></div><div class="shijian" th:text="${pageInfo.gg_date}"></div></li>
+            <!--<li th:text="${pageInfo.gg_date}"></li>
+            <li th:text="${pageInfo.gg_fabuzhe}"></li>-->
+        </ul>
     </table>
     <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
     <a th:href="@{/Nlist.action}">首页</a>

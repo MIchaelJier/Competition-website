@@ -145,6 +145,24 @@
     #menu a:hover{
       color: #5bc0de;
     }
+    .zxtz {
+      position: relative;
+      float: left;
+    }
+    .zxtz a:hover {
+      color: rgba(255, 190, 209, 0.8);
+    }
+    .ggtz {
+      position: relative;
+      float: right;
+    }
+    .ggtz a{
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .ggtz a:hover {
+      color: rgba(255, 190, 209, 0.8);
+    }
   </style>
   <title>竞赛首页</title>
 
@@ -284,29 +302,43 @@
 
 
   <!--公告栏 开始-->
-  <section class="cd-section" style="background-color: #FFFFFF">
+  <section class="cd-section" style="background-color: #FFFFFF" id="gonggaolan">
     <div class="container">
       <div class="text-component text--center col-md-12">
         <div class="c-content-box c-size-md">
 
           <div class="row">
             <!-- INFO CONTENT -->
-            <div class="col-md-3" style="background-color: #afd9ee">
-              <h3>最新通知</h3>
+            <div class="col-md-3">
+              <h3 style="color: #000;font-family: 仿宋;font-weight: bold;">公告栏</h3>
               <ul>
-                <li><a href="#">最新通知</a></a></li>
+                <li style="background-color: #afd9ee"><a href="#" style="color: #000;font-family: 黑体;text-decoration: none;">最新通知</a></a></li>
               </ul>
             </div>
 
 
             <div class="col-md-9">
-              <div class="col-md-9 col-md-offset-2" style="background-color: #afd9ee">
 
-                <iframe src="/Nlist.action"></iframe>
-
+              <div class="row">
+                <div class="col-md-8 col-md-offset-3">
+                  <div class="zxtz">
+                    <a href="#" style="color: #3f444a">最新公告</a>
+                  </div>
+                  <div class="ggtz">
+                    <a href="#" style="color: #3f444a">首页</a>  <span class="posspilt">|&nbsp;</span>
+                    <a href="#" style="color: #3f444a">公告栏</a> <span class="posspilt">|&nbsp;</span>
+                    <a href="#" style="color: #3f444a">最新公告</a><span class="posspilt">&nbsp;</span>
+                  </div>
+                  <br>
+                  <br>
+                </div>
               </div>
+              <iframe src="/Nlist.action" class="col-md-9 col-md-offset-2"></iframe>
+
+
             </div>
           </div>
+          <img src="images/gelou.png">
         </div>
       </div>
     </div>
