@@ -35,7 +35,7 @@
     选择竞赛
     <select id="selContest">
         <option value="0">请选择</option>
-        <option th:each="c:${contestInfos}"  th:text="${c.j_name}"></option>
+        <option th:each="c:${contestInfos}"  th:text="${c.j_name}" th:value="${c.j_id}"></option>
     </select><br>
     学号<input type="text" id="sno"><br>
     姓名<input type="text" id="name"><br>
@@ -53,19 +53,18 @@
 <script type="text/javascript">
   $(function () {
       $('#send').click(function () {
-          var contest=$('#selContest');
+          var contest=$('#selContest').val();
           var sno = $('#sno').val();
           var name = $('#name').val();
           var sex = $('input:radio:checked').val();
           var major = $('#major').val();
           var phone = $('#phone').val();
           var qq = $("#qq").val();
-          console.log(contest.val());
-          console.log(sex);
+          console.log(contest);
           $.ajax({
               type: "POST",
               url: "/regcontestInfo",
-              data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_name':contest},
+              data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_id':contest},
               success: function (ok) {
                     alert(ok);
               }

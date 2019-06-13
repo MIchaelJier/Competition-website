@@ -57,6 +57,8 @@ public class RegController {
         String major=competitor.getC_major();
         String phone =competitor.getC_phone();
         String qq=competitor.getC_qq();
+        String contestid=request.getParameter("j_id");
+        System.out.println(contestid);
         competitorMapper.addCompetitor(competitor);
         ModelAndView mv=new ModelAndView("ContestInfo");
         return "报名成功！";
