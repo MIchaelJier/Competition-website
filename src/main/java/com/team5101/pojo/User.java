@@ -1,8 +1,9 @@
 package com.team5101.pojo;
 
 
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     private Integer u_id;
     private String username;
     private String password;

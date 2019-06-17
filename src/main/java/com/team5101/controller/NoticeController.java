@@ -26,7 +26,8 @@ public class NoticeController {
         PageInfo<Notice> notices = noticeService.findNoticeList(pageNum, rows, gg_title, gg_fabuzhe, gg_date);
         model.addAttribute("pageInfo", notices);
         System.out.println(notices);
-        return "notice";
+      // return "index2";
+         return "notice";
     }
 
 

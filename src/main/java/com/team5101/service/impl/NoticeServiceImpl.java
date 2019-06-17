@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-@Service("noticeService")
+
+@Service( "noticeService")
 @Transactional
+
 public class NoticeServiceImpl implements NoticeService {
 
     @Autowired
@@ -36,7 +38,7 @@ public class NoticeServiceImpl implements NoticeService {
         //判断gg_date
         if(gg_date!=null) {
             notice.setGg_date(gg_date);
-            // student.setStud_gender(studGender);
+
         }
 
 

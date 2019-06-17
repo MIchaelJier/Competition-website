@@ -58,15 +58,31 @@ public class UserController {
     public String login( @RequestParam("username")String username, @RequestParam("password")String password,
                         HttpServletRequest request, HttpSession session, Model model) {
         User user=userService.login(username,password);
-        session.setAttribute("username",username);
+        //session.setAttribute("username",username);
 
         //request.getSession().setAttribute("username",username);
-       System.out.println(user);
+        if(user!=null){
+            System.out.println(user);
+            session.setAttribute("USER",user);
+            return "index2" ;
+        }
+      // else
+       // return
+         return "ERROR";
 
-        return "index2" ;
 
     }
 
+    //注销
+    @RequestMapping(value="/logout.action")
+    public String logout(HttpServletRequest request, HttpSession session, Model model){
+       // String username=  session.getAttribute("USER.username").toString();
+        //System.out.println("1:"+username);
+        session.removeAttribute("USER");
+        //username=  session.getAttribute("USER.username").toString();
+        //System.out.println("2:"+username);
+            return "redirect:/";
+    }
 
 
 }
