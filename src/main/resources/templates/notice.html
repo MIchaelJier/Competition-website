@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="js/bootstrap.js"></script>
     <style type="text/css">
         .biaoti {
             position: relative;
@@ -27,23 +30,25 @@
     </style>
 </head>
 <body>
+<div class="container">
+    <div class="col-md-12">
+        <div align="center">
+            <table border="1">
+                <ul th:each="pageInfo:${pageInfo.list}">
+                    <li><div class="biaoti"  th:text="${pageInfo.gg_title}"></div><div class="shijian" th:text="${pageInfo.gg_date}"></div></li>
+                    <!--<li th:text="${pageInfo.gg_date}"></li>
+                    <li th:text="${pageInfo.gg_fabuzhe}"></li>-->
+                </ul>
+            </table>
+            <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+            <a th:href="@{/Nlist.action}">首页</a>
+            <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+            <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+            <a th:href="@{/Nlist.action(pageNum=${pageInfo.pages})}">尾页</a>
 
-        <ul th:each="pageInfo:${pageInfo.list}">
-            <li>
-                <div class="biaoti"  th:text="${pageInfo.gg_title}"></div>
-                <div class="shijian" th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></div>
-            </li>
-            <!--<li th:text="${pageInfo.gg_date}"></li>
-            <li th:text="${pageInfo.gg_fabuzhe}"></li>-->
-        </ul>
-
-    <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
-
-    <a th:href="@{/Nlist.action}" >首页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.pages})}" >尾页</a>
-
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
