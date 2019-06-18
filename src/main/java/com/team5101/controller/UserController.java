@@ -64,6 +64,7 @@ public class UserController {
         if(user!=null){
             System.out.println(user);
             session.setAttribute("USER",user);
+
             return "index2" ;
         }
       // else

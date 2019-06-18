@@ -14,7 +14,7 @@ import java.util.Date;
 
 //公告控制器
 @Controller
-public class NoticeController {
+public class  NoticeController {
 
     @Autowired
     private NoticeService noticeService;
