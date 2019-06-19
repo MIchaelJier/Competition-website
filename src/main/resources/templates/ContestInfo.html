@@ -49,16 +49,17 @@
                 </div>
                 <div id="menu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">首页</a></li>
+                        <li><a href="/index">首页</a></li>
                         <li><a href="#">报名</a></li>
-                        <li><a href="#">竞赛成绩</a></li>
+                        <li><a href="/baoming">竞赛成绩</a></li>
                         <li><a href="#">优秀师生</a></li>
                         <li><a href="#">作品提交</a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            其他<span class="caret"></span></a>
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
+                                <li><a href="#">个人信息</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
+                                <li><a href="/logout.action">注销</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -215,6 +216,7 @@
                     alert(ok);
               }
           });
+
       });
   });
 

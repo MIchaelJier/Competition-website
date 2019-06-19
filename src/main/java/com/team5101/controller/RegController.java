@@ -39,6 +39,7 @@ public class RegController {
         List<SignUp> signUps=signUpService.findAllSignUpInfo();
         model.addAttribute("signups",signUps);
         ModelAndView mv=new ModelAndView("baoming");
+        System.out.println(signUps.toString());
         return mv;
     }
     @RequestMapping("/contestInfo")

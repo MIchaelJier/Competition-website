@@ -84,6 +84,10 @@ public class UserController {
         //System.out.println("2:"+username);
             return "redirect:/";
     }
+    @RequestMapping(value="/index")
+    public String index(HttpServletRequest request, HttpSession session, Model model){
 
+        return "index2";
+    }
 
 }

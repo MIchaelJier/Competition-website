@@ -23,14 +23,14 @@
         </tr>
 <!--        遍历输出-->
         <tr th:each="b : ${signups}">
-            <td th:text="${b.b_id}"></td>
-            <td th:text="${b.contestInfo?.j_name}"></td>
-            <td th:text="${b.contestInfo?.j_type}"></td>
-            <td th:text="${b.contestInfo?.j_int}"></td>
+            <td th:text="${b?.b_id}"></td>
+            <td th:text="${b?.contestInfo?.j_name}"></td>
+            <td th:text="${b?.contestInfo?.j_type}"></td>
+            <td th:text="${b?.contestInfo?.j_int}"></td>
             <td ><a th:href="@{${b.contestInfo?.j_href}}" th:text="${b.contestInfo?.j_href}"></a></td>
-            <td th:text="${b.competitor?.c_name}"></td>
-            <td th:text="${b.b_time}"></td>
-            <td th:text="${b.b_state}"></td>
+            <td th:text="${b?.competitor?.c_name}"></td>
+            <td th:text="${b?.b_time}"></td>
+            <td th:text="${b?.b_state}"></td>
         </tr>
     </table>
     <input type="submit" value="查询">

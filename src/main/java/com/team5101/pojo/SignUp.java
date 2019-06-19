@@ -68,4 +68,17 @@ public class SignUp {
     public void setB_state(String b_state) {
         this.b_state = b_state;
     }
+
+    @Override
+    public String toString() {
+        return "SignUp{" +
+                "b_id=" + b_id +
+                ", j_id=" + j_id +
+                ", c_id=" + c_id +
+                ", b_time=" + b_time +
+                ", b_state='" + b_state + '\'' +
+                ", competitor=" + competitor +
+                ", contestInfo=" + contestInfo +
+                '}';
+    }
 }
