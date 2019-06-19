@@ -64,6 +64,7 @@ public class UserController {
         if(user!=null){
             System.out.println(user);
             session.setAttribute("USER",user);
+
             return "index2" ;
         }
       // else
@@ -83,6 +84,10 @@ public class UserController {
         //System.out.println("2:"+username);
             return "redirect:/";
     }
+    @RequestMapping(value="/index")
+    public String index(HttpServletRequest request, HttpSession session, Model model){
 
+        return "index2";
+    }
 
 }

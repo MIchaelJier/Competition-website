@@ -2,56 +2,203 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>报名</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        body {
+            background: #edeeef;
+        }
+        /*导航栏开始*/
+        #menu a {
+            color: #989898;
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: medium;
+            font-weight: bold;
+        }
+        #menu li {
+            padding: 5px 10px 5px 0;
+        }
+        #menu a:hover{
+            color: #5bc0de;
+        }
+        /*导航栏结束*/
+        .col-xs-6 p {
+            font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <!--报名信息展示-->
 <body>
-<form action="/baoming.getall" method="post">
-    <table border="1">
-        <tr>
-            <th>竞赛ID</th>
-            <th>竞赛名称</th>
-            <th>竞赛类型</th>
-            <th>竞赛简介</th>
-            <th>竞赛官网</th>
-            <th>报名时间</th>
-
-        </tr>
-        <!--        遍历输出-->
-        <tr th:each="b : ${contestInfos}">
-            <td th:text="${b.j_id}"></td>
-            <td th:text="${b.j_name}"></td>
-            <td th:text="${b.j_type}"></td>
-            <td th:text="${b.j_int}"></td>
-            <td ><a th:href="@{${b.j_href}}" th:text="${b.j_href}"></a></td>
-            <td>1 ，2</td>
-        </tr>
-    </table>
-    <input type="submit" value="查询">
-</form><br>
-<form id="form0" action="" method="POST">
-    选择竞赛
-    <select id="selContest">
-        <option value="0">请选择</option>
-        <option th:each="c:${contestInfos}"  th:text="${c.j_name}" th:value="${c.j_id}"></option>
-    </select><br>
-    学号<input type="text" id="sno"><br>
-    姓名<input type="text" id="name"><br>
-    性别
-    <input type="radio" id="women" value="女"  name="1">女
-    <input type="radio" id="man" value="男" checked="checked" name="1">男<br>
-    专业班级<input type="text" id="major"><br>
-   手机号<input type="text" id="phone"><br>
-    QQ号<input type="text" id="qq"><br>
-    <input type="button" value="send" id="send">
-</form>
-
+<!--导航栏开始-->
+<header class="cd-main-header">
+    <div class="cd-main-header__container container container--lg">
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span><img src="images/head_logo.png" alt=""></span>
+                </div>
+                <div id="menu" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="#">报名</a></li>
+                        <li><a href="/baoming">竞赛成绩</a></li>
+                        <li><a href="#">优秀师生</a></li>
+                        <li><a href="#">作品提交</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">个人信息</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
+                                <li><a href="/logout.action">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--导航栏结束-->
+<div class="container" style="background:#fff;margin-top: 100px;">
+    <div class="row">
+            <div class="breadcrumb" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">
+                <h6>竞赛报名</h6>
+            </div>
+            <form action="/baoming.getall" method="post">
+            <div class="col-xs-6 col-md-3 text-center" th:each="b : ${contestInfos}">
+                <img src="images/trophy_yellow.png" alt="#">
+                <div class="breadcrumb">
+                    <p  th:text="${b.j_name}"></p>
+                </div>
+                <div class="alert alert-info">
+                    <p>报名时间:<b>-----</b></p>
+                    <p>决赛时间:<b>-----</b></p>
+                    <div class="container-fluid">
+                        <div class="accordion" id="accordion2">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" th:href="@{'#'+${b.j_id}}">
+                                        更多信息<span class="caret"></span>
+                                    </p>
+                                </div>
+                                <div th:id="${b.j_id}" class="accordion-body collapse" style="height: 0px; ">
+                                    <div class="accordion-inner">
+                                        <form action="/baoming.getall" method="post">
+                                            <table>
+                                                <tr>
+                                                    <td>ID</td>
+                                                    <td th:text="${b.j_id}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>名称</td>
+                                                    <td th:text="${b.j_name}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>类型</td>
+                                                    <td th:text="${b.j_type}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>简介</td>
+                                                    <td th:text="${b.j_int}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>官网</td>
+                                                    <td><a th:href="@{${b.j_href}}" th:text="${b.j_href}"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>时间</td>
+                                                    <td>2019.5.6</td>
+                                                </tr>
+                                            </table>
+                                            <input type="submit" value="查询"  class="btn btn-primary uploadbtn">
+                                        </form><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p><a href="#" class="btn btn-success goapply" role="button">报名</a></p><br>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal）开始 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">请完善个人信息</h4>
+            </div>
+            <div class="modal-body form-inline">
+                <table>
+                    <tr>
+                        <td> 选择竞赛</td>
+                        <td>
+                            <select id="selContest" class="form-control">
+                                <option value="0"></option>
+                            </select><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>学号</td>
+                        <td> <input type="text" id="sno" class="form-control"><br></td>
+                    </tr>
+                    <tr>
+                        <td> 姓名</td>
+                        <td><input type="text" id="name" class="form-control"><br></td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td>
+                            <input type="radio" id="women" value="女"  name="1" >女
+                            <input type="radio" id="man" value="男" checked="checked" name="1">男<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>专业班级</td>
+                        <td> <input type="text" id="major" class="form-control"><br></td>
+                    </tr>
+                    <tr>
+                        <td>手机号</td>
+                        <td><input type="text" id="phone" class="form-control"><br></td>
+                    </tr>
+                    <tr>
+                        <td>QQ号</td>
+                        <td><input type="text" id="qq" class="form-control"><br></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="send">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
+<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
   $(function () {
+      $('.goapply').click(function () {
+          var testid = $(this).parent().prev().prev().children().text();
+          $('#selContest option').html(testid);
+          $('#myModal').modal({keyboard: true});
+      });
       $('#send').click(function () {
           var contest=$('#selContest').val();
           var sno = $('#sno').val();
@@ -69,6 +216,7 @@
                     alert(ok);
               }
           });
+
       });
   });
 
