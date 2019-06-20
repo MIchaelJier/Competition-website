@@ -140,34 +140,25 @@
       font-weight: bold;
     }
     #menu li {
-      padding: 5px 10px 5px 0;
+      padding: 5px 5px 5px 0;
     }
     #menu a:hover{
       color: #5bc0de;
     }
-    .zxtz {
-      position: relative;
-      float: left;
-    }
-    .zxtz a:hover {
+    .leftnews a:hover {
       color: rgba(255, 190, 209, 0.8);
     }
-    .ggtz {
+    .rightnews {
       position: relative;
       float: right;
       right: 7%;
       color: #3f444a;
       margin-bottom: 3%;
     }
-    .ggtz a{
+    .rightnews a{
       text-decoration: none;
       color: #3f444a;
     }
-    .ggtz a:hover {
-      color: #00b4ef;
-      background-color: #a6e1ec;
-    }
-
     .outer-container {
       position: relative;
       overflow: hidden;
@@ -323,17 +314,18 @@
             <div class="col-md-3">
               <h3 style="color: #000;font-family: 仿宋;font-weight: bold;">公告栏</h3>
               <ul>
-                <li style="background-color: #afd9ee"><a href="#" style="color: #000;font-family: 黑体;text-decoration: none;">最新通知</a></a></li>
+                <li style="background-color: #afd9ee">
+                  <a href="#" style="color: #000;font-family: 黑体;text-decoration: none;">最新通知</a>
+                </li>
               </ul>
             </div>
-
             <div class="col-md-9">
               <div class="row">
-                <div class="col-md-8 col-md-offset-3">
-                  <div class="zxtz">
+                <div class="col-md-10 col-md-offset-2">
+                  <div class="leftnews pull-left">
                     <a href="#" style="color: #3f444a">最新公告</a>
                   </div>
-                  <div class="ggtz">
+                  <div class="rightnews pull-right">
                     <a href="#" style="color: #3f444a">首页</a>  <span class="posspilt">|&nbsp;</span>
                     <a href="#" style="color: #3f444a">公告栏</a> <span class="posspilt">|&nbsp;</span>
                     <a href="#" style="color: #3f444a">最新公告</a><span class="posspilt">&nbsp;</span>
@@ -363,12 +355,12 @@
     <div class="container">
       <div class="text-component text--center col-md-12">
         <div class="row">
-          <div class="c-content-title-1 col-md-6 col-md-offset-3 clearfix">
+          <div class="c-content-title-1 col-md-6 col-md-offset-3">
             <h3 class="c-center c-font-uppercase c-font-bold c-font-white" style="font-size:30px;">校园风光</h3>
           </div>
         </div>
         <div class="row">
-          <div class="baguetteBoxOne gallery col-md-9 clearfix">
+          <div class="baguetteBoxOne gallery col-md-9">
             <div class="col-md-4"><a href="images/wanli1.jpeg" title="第1张图片"><img data-original="images/thumbs/w1.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli2.jpeg" title="第2张图片"><img data-original="images/thumbs/w2.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli3.jpeg" title="第3张图片"><img data-original="images/thumbs/w3.jpeg" class="lazy" ></a></div>
@@ -437,7 +429,7 @@
 
   $(function() {
 
-    $(".lazy").lazyload({effect: "fadeIn"});
+    $(".lazy").lazyload({effect: "slideDown"});
 
 
     $.ajax({

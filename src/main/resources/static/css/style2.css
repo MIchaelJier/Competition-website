@@ -13,17 +13,6 @@ h1, h2, h3 .gallery {
     text-align: center;
 }
 
-
-
-.row .gallery:after {
-    content: '';
-    display: block;
-    height: 2px;
-    margin: .5em 0 1.4em;
-    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(77,77,77,1) 50%, rgba(0, 0, 0, 0) 100%);
-    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(77,77,77,1) 50%, rgba(0, 0, 0, 0) 100%);
-}
-
 .row .gallery img {
     height: 100%;
 }
@@ -36,9 +25,7 @@ h1, h2, h3 .gallery {
     margin: 4px 6px;
     box-shadow: 0 0 4px -1px #000;
 }
-.row .gallery a:hover {
-    border: 1px solid skyblue;
-    opacity: 0.3;
+.row .gallery a:hover {    opacity: 0.5;
 }
 
 

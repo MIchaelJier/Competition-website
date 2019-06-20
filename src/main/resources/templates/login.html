@@ -80,32 +80,19 @@
     <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script>
          $(function(){
-        //     //登录验证
-        //     $("#login_btn").click(function(){
-        //         var user = $('#username').val();
-        //         var password = $('#password').val();
-        //         if(user&&password){
-        //             alert("-----");
-        //             $.ajax({
-        //                 type:"POST",
-        //                 url:"/login.action",
-        //                 data:{"username":user,"password" :password},
-        //                 success:function() {
-        //                     alert(1);
-        //                     $.cookie("username", user, {expires: 7});
-        //                     $.cookie("password", password, {expires: 7});
-        //                 }
-        //             });
-        //         }else{
-        //             if(!user){
-        //                 $('.tooltip-show:eq(0)').tooltip('show');
-        //             }
-        //             if(!password){
-        //                 $('.tooltip-show:eq(1)').tooltip('show');
-        //             }
-        //             return false;
-        //         }
-        //     });
+             //登录验证
+             $("#login_btn").click(function(){
+                 var user = $('#username').val();
+                 var password = $('#password').val();
+                 if(!user){
+                     $('.tooltip-show:eq(0)').tooltip('show');
+                     return false;
+                 }
+                 if(!password){
+                     $('.tooltip-show:eq(1)').tooltip('show');
+                     return false;
+                 }
+             });
             $('#username').focus(function () {
                 $('.tooltip-show:eq(0)').tooltip('destroy');
             });
@@ -126,8 +113,9 @@
                 }
             });
             $.backstretch([
-                 "images/0.jpeg"
-
+                "images/2.jpg"
+                , "images/3.jpg"
+                , "images/1.jpg"
             ], {duration: 3000, fade: 750});
         });
 
@@ -144,7 +132,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <form action="/login.action"  method="post" class="form-horizontal" style="background-color:rgba(0,0,0,0.3)">
+                    <form action="/login.action"  method="post" class="form-horizontal">
                         <span class="heading" >用户登录</span>
                         <div class="form-group">
                             <div class="tooltip-show" data-toggle="tooltip"  data-placement="bottom" data-html="true" title="<h5 style='color:red'><strong>请输入用户名</strong></h5>">
