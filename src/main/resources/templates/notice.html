@@ -3,47 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <style type="text/css">
-        .biaoti {
-            position: relative;
-            float: left;
-        }
-        .shijian {
-            position: relative;
-            float: right;
+        ul{
+            padding-top: 20px;
         }
         ul li{
-            clear:both;
-            line-height:28px;
             border-bottom:#CCC 1px dashed;
             color: #3f444a;
+        }
+        .list-group-item {
+            padding:10px !important;
         }
         ul li:hover {
             color: rgba(255, 190, 209, 0.8);
             cursor: pointer;
         }
-        a {
+        a,li {
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: medium;
             text-decoration: none;
         }
     </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 
-        <ul th:each="pageInfo:${pageInfo.list}">
-            <li>
-                <div class="biaoti"  th:text="${pageInfo.gg_title}"></div>
-                <div class="shijian" th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></div>
+        <ul  class="list-group">
+            <li  th:each="pageInfo:${pageInfo.list}" class="list-group-item">
+                <a   th:text="${pageInfo.gg_title}" style="display: inline-block;vertical-align: middle;"></a>
+                <span class="badge" th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></span>
             </li>
             <!--<li th:text="${pageInfo.gg_date}"></li>
             <li th:text="${pageInfo.gg_fabuzhe}"></li>-->
         </ul>
-
-    <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span th:text="${pageInfo.total}"></span> 条记录</p>
-
-    <a th:href="@{/Nlist.action}" >首页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-    <a th:href="@{/Nlist.action(pageNum=${pageInfo.pages})}" >尾页</a>
-
+    <div class="text-center" style="width: 100%;position: absolute;top: 500px">
+        <p class="text-center">
+            当前 <span th:text="${pageInfo.pageNum}"></span> 页,总
+            <span th:text="${pageInfo.pages}"></span> 页,共
+            <span th:text="${pageInfo.total}"></span> 条记录
+            <br>
+        </p>
+        <div class="btn-group text-center">
+            <a class="btn btn-default" th:href="@{/Nlist.action}" >首页</a>
+            <a class="btn btn-default" th:href="@{/Nlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
+            <a class="btn btn-default" th:href="@{/Nlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+            <a class="btn btn-default" th:href="@{/Nlist.action(pageNum=${pageInfo.pages})}" >尾页</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
