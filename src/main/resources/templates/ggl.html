@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.scss">
+    <link rel="stylesheet" href="css/jSlider.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/baguettebox.min.css">
+    <link rel="stylesheet" href="css/style2.css">
+
+    <script src="js/baguettebox.min.js"></script>
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.jSlider.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        #menu a {
+            color: #989898;
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: medium;
+            font-weight: bold;
+        }
+        #menu li {
+            padding: 5px 10px 5px 0;
+        }
+        #menu a:hover{
+            color: #5bc0de;
+        }
+        .page-header {
+            padding-bottom: 10px;
+            margin: 75px 0 20px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+<header class="cd-main-header">
+    <div class="cd-main-header__container container container--lg">
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span href="#" ><img src="images/head_logo.png" alt=""></span>
+                </div>
+                <div id="menu" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">报名</a></li>
+                        <li><a href="#">竞赛成绩</a></li>
+                        <li><a href="#">优秀师生</a></li>
+                        <li><a href="#">作品提交</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="#">个人信息</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
+                                <li><a href="/logout.action">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- 添加 ed -->
+    <!-- 显示表格 bg -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-header">公告管理</h1>
+            </div>
+            <!--/.col-lg-12-->
+        </div>
+        <!-- 标 题 ed -->
+
+        <!-- 添加 bg -->
+        <div class="row">
+            <div class="col-md-12 text--center" style="margin-bottom: 3%">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newMessageDialog" onclick="clearMessage()">添加</a>
+                <a href="#" class="btn btn-primary" data-toggle="model" data-target="#" onclick="alldel()">批量删除</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-heading" >
+                            校内通知
+
+                        </div>
+
+                    </div>
+
+                    <table class="table table-hover table-bordered table-responsive">
+                        <thead>
+                        <tr>
+                            <th width="10"> <input type="checkbox" id="SelectAll"   onclick="selectAll()" /> </th><!-- 反选 -->
+                            <th>编号</th>
+                            <th>标题</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${page.list}" var="row" varStatus="status">
+                            <tr>
+                                <td><input type="checkbox" name="ck" value="${row.n_id}"/></td>
+                                <td align="center">${(page.pageNum-1)*page.pageSize+status.count}</td>
+                                <td align="center">${row.n_title}</td>
+                                <td align="center">${row.n_time}</td>
+                                <td align="center">
+                                    <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
+                                       data-target="#noticeEditDialog" onclick="editNotice( '${row.n_title}' )">修改</a>
+                                    <a href="<%=basePath%>notice/getNoticeByTT.action?n_title=${row.n_title}" class="btn btn-warning btn-xs" >详情</a>
+
+                                    <a href="#" class="btn btn-danger btn-xs" onclick="deleteNotice(${row.n_id})">删除</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <div class="col-md-12 text-left">
+                <span>总共 <strong id="total">${page.total}</strong> 条内容，共 <strong id="pages">${page.pages}</strong> 页，当前第 <strong
+                        id="pageNum">${page.pageNum}</strong>页，每页显示 <strong id="pageSize">${page.pageSize}</strong> 条内容</span>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <itheima:page url="${pageContext.request.contextPath }/notice/list.action"/>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- 客户列表查询部分 end-->
+        <!-- 创建客户模态框 -->
+        <div class="modal fade" id="newMessageDialog" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel1">添加公告</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="new_notice_form">
+
+                            <div class="form-group">
+                                <label for="new_noticeTitle" class="col-sm-2 control-label">
+                                    标题：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="new_noticeTitle" placeholder="公告内容标题"
+                                           name="n_title"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="new_noticeText" class="col-sm-2 control-label">
+                                    正文：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="new_noticeText" placeholder="公告正文"
+                                           name="n_text"/>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="createNotice()">发布公告</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改客户模态框 -->
+        <div class="modal fade" id="noticeEditDialog" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">修改公告信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="edit_notice_form">
+
+                            <input type="hidden" id="edit_noticeId" name="n_id"/>
+
+                            <div class="form-group">
+                                <label for="edit_noticeTitle" class="col-sm-2 control-label">
+                                    标题：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="edit_noticeTitle" placeholder="公告内容标题"
+                                           name="n_title"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_noticeText" class="col-sm-2 control-label">
+                                    正文：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" style="width: 470px; height: 100px" id="edit_noticeText" placeholder="公告正文"
+                                           name="n_text"/>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="updateNotice()">保存修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+<!-- 编写js代码 -->
+<script type="text/javascript">
+    //清空新建客户窗口中的数据
+    function clearMessage() {
+        $("#new_noticeTitle").val("");
+        $("#new_noticeText").val("");
+    }
+
+    // 发布通知
+    function createNotice() {
+        $.post("<%=basePath%>notice/create.action",
+            $("#new_notice_form").serialize(), function (data) {
+                if (data == "OK") {
+                    alert("通知添加成功！" + data);
+                    window.location.reload();
+                } else {
+                    if (data == "EXIST") {
+                        alert("通知标题已经存在，请重新设置标题！");
+                        $("#new_noticeTitle").focus();
+                    } else if (data == "empty1") {
+                        alert("通知标题不能为空，请重新设置标题！");
+                        $("#new_noticeTitle").focus();
+                    } else if (data == "empty2") {
+                        alert("通知内容不能为空，请重新设置内容！");
+                        $("#new_noticeText").focus();
+                    }
+                    if (data == "FAIL") {
+                        alert("通知创建失败！" + data);
+                        window.location.reload();
+                    }
+                }
+            });
+    }
+
+    // 通过标题获取修改的通知信息
+    function editNotice(title) {
+
+        $.ajax({
+            type: "get",
+            url: "<%=basePath%>notice/getNoticeByT.action",
+            data: {"n_title": title},
+            success: function (data) {
+                $("#edit_noticeId").val(data.n_id);
+                $("#edit_noticeTitle").val(data.n_title);
+                $("#edit_noticeText").val(data.n_text);
+            }
+        });
+    }
+
+    // 执行修改通知内容操作
+    function updateNotice() {
+        alert("updateNotice");
+        $.post("<%=basePath%>notice/Noticeupdate.action",$("#edit_notice_form").serialize(), function (data) {
+            if (data == "OK") {
+                alert("通知信息更新成功！" + data);
+                window.location.reload();
+            } else {
+                alert("通知信息更新失败！" + data);
+                window.location.reload();
+            }
+        });
+    }
+
+
+
+    // 删除客户
+    function deleteNotice(id) {
+        if (confirm('确实要删除该通知吗?')) {
+            $.post("<%=basePath%>notice/delete.action", {"id": id},
+                function (data) {
+                    if (data == "OK") {
+                        alert("通知删除成功！" + data);
+                        window.location.reload();
+                    } else {
+                        alert("删除通知失败！" + data);
+                        window.location.reload();
+                    }
+                });
+        }
+    }
+
+    //全选的功能
+    function selectAll(){
+        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
+        var cak=document.getElementById("SelectAll");
+        if(cak.checked==true){
+            //循环这一组checkbox让每一个checkbox选中
+            for(var i=0;i<ck.length;i++){
+                var c=ck[i];//得到一个checkbox
+                c.checked=true;//false代表不选
+            }
+        }
+        else{
+            for(var i=0;i<ck.length;i++){
+                var c=ck[i];//得到一个checkbox
+                c.checked=false;//false代表不选
+            }
+        }
+    }
+
+
+    //反选
+    function uselectAll(){//先得到所有的checkbox
+        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
+        var cak=document.getElementById("SelectAll");
+        if(cak.checked==true)
+            cak.checked=false;
+        for(var i=0;i<ck.length;i++){
+            var c=ck[i];//得到一个checkbox
+            if(c.checked==true){//如果当前的checkbox是选中的则不让其选中
+                ck[i].checked=false;
+            }else{
+                ck[i].checked=true;
+            }
+        }
+    }
+
+    //批量删除
+    function alldel(){
+        var checkedNum = $("input[name='ck']:checked").length;
+        if(checkedNum==0){
+            alert("请至少选择一项!");
+            return false;
+        }
+        if(confirm("确定删除所选项目?")){
+            var checkedList = new Array();
+            $("input[name='ck']:checked").each(function(){
+                checkedList.push($(this).val());
+            });
+            $.ajax({
+                type:"POST",
+                url:"<%=basePath%>notice/delete_all.action",
+                data:{"delitems":checkedList.toString()},
+                datatype:"html",
+                success:function(data){
+                    alert("删除成功！");
+                    window.location.reload();
+                },
+                error:function(data){
+                    //art.dialog.tips('删除失败!');
+                    alert("删除失败！");
+                    window.location.reload();
+                }
+            });
+        }
+
+
+
+    }
+</script>
