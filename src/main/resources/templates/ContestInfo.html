@@ -81,8 +81,8 @@
                     <p  th:text="${b.j_name}"></p>
                 </div>
                 <div class="alert alert-info">
-                    <p>报名时间:<b>-----</b></p>
-                    <p>决赛时间:<b>-----</b></p>
+                    <p>报名时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
+                    <p>决赛时间:<b th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
                     <div class="container-fluid">
                         <div class="accordion" id="accordion2">
                             <div class="accordion-group">

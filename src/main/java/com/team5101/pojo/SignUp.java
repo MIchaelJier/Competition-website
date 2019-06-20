@@ -1,14 +1,12 @@
 package com.team5101.pojo;
 
 
-import java.util.Date;
-
 //报名实体类
 public class SignUp {
     private Integer b_id;
     private Integer j_id;
     private Integer c_id;
-    private Date b_time;
+    private String b_time;
     private String b_state;
     private Competitor competitor;
     private ContestInfo contestInfo;
@@ -53,11 +51,11 @@ public class SignUp {
         this.c_id = u_id;
     }
 
-    public Date getB_time() {
+    public String getB_time() {
         return b_time;
     }
 
-    public void setB_time(Date b_time) {
+    public void setB_time(String b_time) {
         this.b_time = b_time;
     }
 

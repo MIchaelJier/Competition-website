@@ -14,6 +14,8 @@
             <result property="j_type" column="j_type"/>
             <result property="j_int" column="j_introduction"/>
             <result property="j_href" column="j_href"/>
+            <result property="j_starttime" column="j_starttime"/>
+            <result property="j_endtime" column="j_endtime"/>
 
         </association>
         <!-- ofType指定students集合中的对象类型 -->

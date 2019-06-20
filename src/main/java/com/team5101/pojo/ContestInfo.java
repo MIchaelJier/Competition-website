@@ -1,6 +1,8 @@
 package com.team5101.pojo;
 
 
+import java.util.Date;
+
 //竞赛信息实体类
 public class ContestInfo {
     private Integer j_id;
@@ -8,6 +10,24 @@ public class ContestInfo {
     private String j_type;
     private String j_int;
     private String j_href;
+    private Date j_starttime;
+    private Date j_endtime;
+
+    public Date getJ_starttime() {
+        return j_starttime;
+    }
+
+    public void setJ_starttime(Date j_starttime) {
+        this.j_starttime = j_starttime;
+    }
+
+    public Date getJ_endtime() {
+        return j_endtime;
+    }
+
+    public void setJ_endtime(Date j_endtime) {
+        this.j_endtime = j_endtime;
+    }
 
     public Integer getJ_id() {
         return j_id;
