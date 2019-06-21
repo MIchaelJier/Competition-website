@@ -104,7 +104,7 @@ main p {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  background: rgba(135, 92, 67, 0.8) url(../images/cd-top-arrow.svg) no-repeat center 50%;
+  background:  url(../images/top.jpeg) no-repeat center 50%;
   visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity .3s 0s, visibility 0s .3s;
