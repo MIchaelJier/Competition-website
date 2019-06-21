@@ -1,9 +1,10 @@
 package com.team5101.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 //公告
-public class Notice {
+public class Notice implements Serializable {
     private Integer gg_id;//发布id
     private String  gg_title;//发布标题
     private String gg_content;//发布内容

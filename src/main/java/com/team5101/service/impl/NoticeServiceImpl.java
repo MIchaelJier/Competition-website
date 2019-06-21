@@ -34,19 +34,45 @@ public class NoticeServiceImpl implements NoticeService {
         if(StringUtils.isNotBlank(gg_fabuzhe)) {
             notice.setGg_fabuzhe(gg_fabuzhe);
         }
-
         //判断gg_date
         if(gg_date!=null) {
             notice.setGg_date(gg_date);
 
         }
-
-
-        System.out.println(page+"\n"+rows);
+       // System.out.println(page+"\n"+rows);
         PageHelper.startPage(page, rows);
         List<Notice> notices = noticeMapper.selectNoticeList(notice);
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
         return pageInfo;
+    }
 
+    @Override
+    public int getNoticeByTitle(String gg_title) {
+        return noticeMapper.getNoticeByTitle(gg_title);
+    }
+
+    @Override
+    public int createNotice(Notice notice) {
+        return noticeMapper.createNotice(notice);
+    }
+
+    @Override
+    public Notice getNoticeByT(String gg_title) {
+        return noticeMapper.getNoticeByT(gg_title);
+    }
+
+    @Override
+    public int updateNotice(Notice notice) {
+        return noticeMapper.updateNotice(notice);
+    }
+
+    @Override
+    public int deleteNotice(Integer gg_id) {
+        return noticeMapper.deleteNotice(gg_id);
+    }
+
+    @Override
+    public void batchDeletes(List delList) {
+            noticeMapper.batchDeletes(delList);
     }
 }

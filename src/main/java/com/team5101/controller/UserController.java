@@ -86,7 +86,6 @@ public class UserController {
     }
     @RequestMapping(value="/index")
     public String index(HttpServletRequest request, HttpSession session, Model model){
-
         return "index2";
     }
 
