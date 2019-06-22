@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style.scss">
     <link rel="stylesheet" href="css/jSlider.min.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/baguettebox.min.css">
     <link rel="stylesheet" href="css/style2.css">
 
@@ -17,6 +17,7 @@
     <script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
     <script src="js/bootstrap.js"></script>
     <style>
+        /*导航栏开始*/
         #menu a {
             color: #989898;
             font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
@@ -24,19 +25,32 @@
             font-weight: bold;
         }
         #menu li {
-            padding: 5px 10px 5px 0;
+            padding: 5px 5px 5px 0;
         }
         #menu a:hover{
             color: #5bc0de;
         }
-        .page-header {
-            padding-bottom: 10px;
-            margin: 75px 0 20px;
-            border-bottom: 1px solid #eee;
+        /*导航栏结束*/
+        /*table begin*/
+        .table th, .table td{
+            text-align: center;
+            vertical-align: middle!important;
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: small;
+            color: #080808;
         }
+        /*table over*/
+        /*modal begin*/
+        .modal{
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: small;
+            color: #080808;
+        }
+        /*modal over*/
     </style>
 </head>
 <body>
+<!--导航栏开始-->
 <header class="cd-main-header">
     <div class="cd-main-header__container container container--lg">
         <nav class="nav navbar-default navbar-fixed-top">
@@ -72,42 +86,25 @@
         </nav>
     </div>
 </header>
-
+<!--导航栏结束-->
 <main>
     <!-- 添加 ed -->
     <!-- 显示表格 bg -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="page-header">公告管理</h1>
-            </div>
-            <!--/.col-lg-12-->
-        </div>
-        <!-- 标 题 ed -->
-
-        <!-- 添加 bg -->
-        <div class="row">
-            <div class="col-md-12 text--center" style="margin-bottom: 3%">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newMessageDialog" onclick="clearMessage()">添加</a>
-                <a href="#" class="btn btn-primary" data-toggle="model" data-target="#" onclick="alldel()">批量删除</a>
-            </div>
-        </div>
-
+    <div class="container" style="padding-top: 100px">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-heading" >
-                            校内通知
-
+                    <div class="panel-heading clearfix">
+                        <div class="panel-heading pull-left" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">校内通知</div>
+                        <div class="pull-right text-center col-md-4">
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newMessageDialog" onclick="clearMessage()">添加</a>
+                            <a href="#" class="btn btn-primary" data-toggle="model" data-target="#" id="alldel">批量删除</a>
                         </div>
-
                     </div>
-
                     <table class="table table-hover table-bordered table-responsive">
                         <thead>
                         <tr>
-                            <th width="10"> <input type="checkbox" id="SelectAll"   onclick="selectAll()" /> </th><!-- 反选 -->
+                            <th><input type="checkbox" id="SelectAll" onclick="selectAll()" />全选</th><!-- 反选 -->
                             <th>编号</th>
                             <th>标题</th>
                             <th>时间</th>
@@ -117,23 +114,22 @@
                         </thead>
                         <tbody>
                             <tr th:each="pageInfo:${pageInfo.list}">
-                                <td align="center"><input type="checkbox" name="ck" value="${pageInfo.gg_id}"/></td>
-                                <td align="center" th:text="${pageInfo.gg_id}"></td>
-                                <td align="center" th:text="${pageInfo.gg_title}"></td>
-                                <td align="center" th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></td>
-                                <td align="center" th:text="${pageInfo.gg_fabuzhe}"></td>
-                                <td align="center">
-                                    <a href="#" class="btn btn-primary btn-xse editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</a>
-                                    <a href="<%=basePath%>notice/getNoticeByTT.action?gg_title=${pageInfo.gg_title}" class="btn btn-warning btn-xs" >详情</a>
-
-                                    <a href="#" class="btn btn-danger btn-xs" onclick="deleteNotice(${pageInfo.gg_id})">删除</a>
+                                <td><input type="checkbox" name="ck"/></td>
+                                <td th:text="${pageInfo.gg_id}"></td>
+                                <td th:text="${pageInfo.gg_title}"></td>
+                                <td th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></td>
+                                <td th:text="${pageInfo.gg_fabuzhe}"></td>
+                                <td>
+                                    <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
+                                    <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
+                                    <span class="btn btn-danger btn-md delbtn">删除</span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <!-- /.panel-body -->
-                    <div class="text-center" style="width: 100%;position: absolute;top: 500px">
-                        <p class="text-center">
+                    <div class="text-center" style="width: 100%;position: absolute;top: 700px">
+                        <p class="text-center" style="color: #080808">
                             当前 <span th:text="${pageInfo.pageNum}"></span> 页,总
                             <span th:text="${pageInfo.pages}"></span> 页,共
                             <span th:text="${pageInfo.total}"></span> 条记录
@@ -148,9 +144,7 @@
                     </div>
                 <!-- /.panel -->
             </div>
-
             </div>
-
             <!-- /.col-lg-12 -->
         </div>
         <!-- 客户列表查询部分 end-->
@@ -243,6 +237,25 @@
                 </div>
             </div>
         </div>
+        <!-- 查询通知模态框 -->
+        <div class="modal fade" id="noticeLookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </main>
@@ -251,14 +264,11 @@
 <!-- 编写js代码 -->
 <script type="text/javascript">
     //清空新建客户窗口中的数据
-
     function clearMessage() {
         $("#new_noticeTitle").val("");
         $("#new_noticeText").val("");
     }
-
     // 发布通知
-
     function createNotice() {
         $.post("/Ncreate.action",
             $("#new_notice_form").serialize(), function (data) {
@@ -283,9 +293,9 @@
                 }
             });
     }
-
-    // 通过标题获取修改的通知信息
+    //操作：查看 删除 批删
     $(function () {
+        // 通过标题获取修改的通知信息
         $('.editbtn').click(function () {
             var edit = $(this).parent().prev().prev().prev().text();
             console.log(edit);
@@ -299,22 +309,66 @@
                     $("#edit_noticeText").val(data.gg_content);
                 }
             });
-        })
-    })
-   /* function editNotice(title) {
-        alert(1);
-        $.ajax({
-            type: "get",
-            url: "/NgetNoticeByT.action",
-            data: {"gg_title": title},
-            success: function (data) {
-                $("#edit_noticeId").val(data.gg_id);
-                $("#edit_noticeTitle").val(data.gg_title);
-                $("#edit_noticeText").val(data.gg_content);
+        });
+        // 删除客户
+        $('.delbtn').click(function () {
+            if (confirm('确实要删除该通知吗?')) {
+                var editid = $(this).parent().prev().prev().prev().prev().text();
+                $.post("/Ndelete.action", {"gg_id": editid},
+                    function (data) {
+                        if (data == "OK") {
+                            alert("通知删除成功！" + data);
+                            window.location.reload();
+                        } else {
+                            alert("删除通知失败！" + data);
+                            window.location.reload();
+                        }
+                    });
             }
         });
-    }*/
-
+        //详情
+        $('.lookbtn').click(function () {
+            var edit = $(this).parent().prev().prev().prev().text();
+            console.log(edit);
+            $.ajax({
+                type: "get",
+                url: "/NgetNoticeByT.action",
+                data: {"gg_title": edit},
+                success: function (data) {
+                    $('#noticeLookDialog .modal-body').html(data.gg_content);
+                    $('#noticeLookDialog h4').html(data.gg_title);
+                }
+            });
+        });
+        //批删
+        $('#alldel').click(function () {
+            var checkedList = [];
+            $("input:checked").each(function(){
+                checkedList.push($(this).parent().next().text());
+            });
+            if(checkedList.length==0){
+                alert("请至少选择一项!");
+                return false;
+            }
+            if(confirm("确定删除所选项目?")){
+                $.ajax({
+                    type:"POST",
+                    url:"/Ndelete_all.action",
+                    data:{"delitems":checkedList.toString()},
+                    datatype:"html",
+                    success:function(data){
+                        alert("删除成功！");
+                        window.location.reload();
+                    },
+                    error:function(data){
+                        //art.dialog.tips('删除失败!');
+                        alert("删除失败！");
+                        window.location.reload();
+                    }
+                });
+            }
+        })
+    });
     // 执行修改通知内容操作
     function updateNotice() {
         alert("updateNotice");
@@ -328,25 +382,6 @@
             }
         });
     }
-
-
-
-    // 删除客户
-    function deleteNotice(id) {
-        if (confirm('确实要删除该通知吗?')) {
-            $.post("/Ndelete.action", {"gg_id": id},
-                function (data) {
-                    if (data == "OK") {
-                        alert("通知删除成功！" + data);
-                        window.location.reload();
-                    } else {
-                        alert("删除通知失败！" + data);
-                        window.location.reload();
-                    }
-                });
-        }
-    }
-
     //全选的功能
     function selectAll(){
         var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
@@ -365,8 +400,6 @@
             }
         }
     }
-
-
     //反选
     function uselectAll(){//先得到所有的checkbox
         var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
@@ -382,37 +415,5 @@
             }
         }
     }
-
-    //批量删除
-    function alldel(){
-        var checkedNum = $("input[name='ck']:checked").length;
-        if(checkedNum==0){
-            alert("请至少选择一项!");
-            return false;
-        }
-        if(confirm("确定删除所选项目?")){
-            var checkedList = new Array();
-            $("input[name='ck']:checked").each(function(){
-                checkedList.push($(this).val());
-            });
-            $.ajax({
-                type:"POST",
-                url:"/Ndelete_all.action",
-                data:{"delitems":checkedList.toString()},
-                datatype:"html",
-                success:function(data){
-                    alert("删除成功！");
-                    window.location.reload();
-                },
-                error:function(data){
-                    //art.dialog.tips('删除失败!');
-                    alert("删除失败！");
-                    window.location.reload();
-                }
-            });
-        }
-
-
-
-    }
 </script>
+</html>

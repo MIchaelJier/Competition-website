@@ -81,13 +81,13 @@
                     <p  th:text="${b.j_name}"></p>
                 </div>
                 <div class="alert alert-info">
-                    <p>报名时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
-                    <p>决赛时间:<b th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
+                    <p>报名开始时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
+                    <p>报名截止时间:<b th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
                     <div class="container-fluid">
                         <div class="accordion" id="accordion2">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                    <p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" th:href="@{'#'+${b.j_id}}">
+                                    <p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" th:href="@{'#'+${b.j_id}}" style="cursor: pointer">
                                         更多信息<span class="caret"></span>
                                     </p>
                                 </div>

@@ -177,7 +177,6 @@ public class  NoticeController {
     public void delectAll(HttpServletRequest request, HttpServletResponse response) {
         String items = request.getParameter("delitems");
         List<String> delList = new ArrayList<String>();
-        System.out.println(delList);
         String[] strs = items.split(",");
         for (String str : strs) {
             delList.add(str);
