@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="css/jSlider.min.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/baguettebox.min.css">
-  <style>
+  <link rel="stylesheet" href="css/component.css" />
+    <style>
     .cd-section:nth-child(2) {
       background: #fff;
     }
@@ -72,7 +73,6 @@
       margin: 5%;
       width: 80%;
       border-left: 4px solid #31c4d1;
-
     }
     .welcome-title b{
       color: #3f444a;
@@ -146,13 +146,27 @@
       color: #3f444a;
       margin-bottom: 3%;
     }
-    .rightnews a{
+    .rightnews a {
       text-decoration: none;
       color: #3f444a;
     }
-    .outer-container {
-      position: relative;
-      overflow: hidden;
+    #grid:after, #grid:before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .baguetteBoxOne h4{
+        color: #fff;
+        font-size: 30px;
+    }
+    .baguetteBoxOne h4:after {
+        content: "";
+        display: block;
+        background: #1b6d85;
+        width: 40px;
+        height: 3px;
+        margin:20px auto;
+        text-align: center;
     }
   </style>
   <title>竞赛首页</title>
@@ -326,11 +340,7 @@
               <!--
               <iframe src="/Nlist.action" class="col-md-9 col-md-offset-2" scrolling="no"></iframe>
               -->
-
               <embed src="/Nlist.action" width="100%" height=600 class="col-md-9 col-md-offset-2"/>
-
-
-
             </div>
           </div>
           <img src="images/gelou.png">
@@ -344,15 +354,8 @@
   <!--校园展示 开始-->
   <div class="cd-section cd-section--bg-fixed">
     <div class="container">
-      <div class="text-component text--center col-md-12">
-        <div class="row">
-          <div class="c-content-title-1 col-md-6 col-md-offset-3">
-            <h3 class="c-center c-font-uppercase c-font-bold c-font-white" style="font-size:30px;">校园风光</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="baguetteBoxOne gallery col-md-9">
-            <div class="col-md-4"><a href="images/wanli1.jpeg" title="第1张图片"><img data-original="images/thumbs/w1.jpeg" class="lazy" ></a></div>
+      <div class="row">
+          <!--  <div class="col-md-4"><a href="images/wanli1.jpeg" title="第1张图片"><img data-original="images/thumbs/w1.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli2.jpeg" title="第2张图片"><img data-original="images/thumbs/w2.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli3.jpeg" title="第3张图片"><img data-original="images/thumbs/w3.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli4.jpeg" title="第4张图片"><img data-original="images/thumbs/w4.jpeg" class="lazy" ></a></div>
@@ -360,13 +363,23 @@
             <div class="col-md-4"><a href="images/wanli6.jpg"  title="第6张图片"> <img data-original="images/thumbs/w6.jpg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli7.jpeg" title="第7张图片"><img data-original="images/thumbs/w7.jpeg" class="lazy" ></a></div>
             <div class="col-md-4"><a href="images/wanli8.jpeg" title="第8张图片"><img data-original="images/thumbs/w8.jpeg" class="lazy" ></a></div>
-            <div class="col-md-4"><a href="images/wanli9.jpeg" title="第9张图片"><img data-original="images/thumbs/w9.jpeg" class="lazy" ></a></div>
+            <div class="col-md-4"><a href="images/wanli9.jpeg" title="第9张图片"><img data-original="images/thumbs/w9.jpeg" class="lazy" ></a></div>-->
+          <div class="baguetteBoxOne col-md-offset-1 col-md-10">
+              <h4 class="text-center"><b>校园风光</b></h4>
+              <ul class="grid effect-3" id="grid">
+                  <li><a href="images/school_pic/1.jpg"><img src="images/school_pic/1.jpg"></a></li>
+                  <li><a href="images/school_pic/3.jpg"><img src="images/school_pic/3.jpg"></a></li>
+                  <li><a href="images/school_pic/4.jpg"><img src="images/school_pic/4.jpg"></a></li>
+                  <li><a href="images/school_pic/5.jpg"><img src="images/school_pic/5.jpg"></a></li>
+                  <li><a href="images/school_pic/6.jpg"><img src="images/school_pic/6.jpg"></a></li>
+                  <li><a href="images/school_pic/7.jpg"><img src="images/school_pic/7.jpg"></a></li>
+                  <li><a href="images/school_pic/8.jpg"><img src="images/school_pic/8.jpg"></a></li>
+                  <li><a href="images/school_pic/9.jpg"><img src="images/school_pic/9.jpg"></a></li>
+                  <li><a href="images/school_pic/10.jpg"><img src="images/school_pic/10.jpg"></a></li>
+              </ul>
           </div>
-        </div>
       </div>
     </div>
-  </div>
-  </div>
   </div>
   <!--公告栏 结束-->
 
@@ -377,7 +390,7 @@
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
             <div class="c-logo">
-              <a href="javascript:void(0)">
+              <a href="#">
                 <img src="images/head_logo.png">
               </a>
             </div>
@@ -390,7 +403,6 @@
               邮箱：yzb@zwu.edu.cn
             </p>
           </div>
-
         </div>
       </div>
     </div>
@@ -407,22 +419,30 @@
   </div>
   </footer>
   <!--footer 开始-->
+
 </main>
 <script src="js/baguettebox.min.js"></script>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.jSlider.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
+<!--<script src="js/jquery.lazyload.min.js?v=1.9.1"></script>-->
+<script src="js/modernizr.custom.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/imagesloaded.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/AnimOnScroll.js"></script>
 <script src="js/bootstrap.js"></script>
-<script>document.getElementsByTagName("html")[0].className += " js";</script>
 <script type="text/javascript">
+    new AnimOnScroll( document.getElementById( 'grid' ), {
+        minDuration : 0.4,
+        maxDuration : 0.7,
+        viewportFactor : 0.2
+    });
   document.getElementsByTagName("html")[0].className += " js";
   //控制图片展示点击动画
   baguetteBox.run('.baguetteBoxOne', {
-    animation: 'fadeIn',
-  });
+    animation: 'fadeIn',  });
   //jq控制
   $(function() {
-    $(".lazy").lazyload({effect: "slideDown"});
    /* $.ajax({
       url:"#",
       data:{},
