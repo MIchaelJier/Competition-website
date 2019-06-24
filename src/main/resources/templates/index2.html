@@ -150,6 +150,50 @@
       text-decoration: none;
       color: #3f444a;
     }
+    /*回到顶部按钮*/
+    p#back-to-top{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      opacity: 0.7;
+      z-index: 15;
+      font-size: 64px;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    p#back-to-top:hover {
+      opacity: 1;
+      transition: all 500ms;
+    }
+    p#back-to-top a{
+      text-align:center;
+      text-decoration:none;
+      color:#d1d1d1;
+      display:block;
+      width:64px;
+      /*使用CSS3中的transition属性给跳转链接中的文字添加渐变效果*/
+      -moz-transition:color 1s;
+      -webkit-transition:color 1s;
+      -o-transition:color 1s;
+    }
+    p#back-to-top a:hover{
+      color:#979797;
+    }
+    p#back-to-top a span{
+      background:transparent url(/static/imgs/sprite.png?1202) no-repeat -25px -290px;
+      border-radius:6px;
+      display:block;
+      height:64px;
+      width:56px;
+      margin-bottom:5px;
+      /*使用CSS3中的transition属性给<span>标签背景颜色添加渐变效果*/
+      -moz-transition:background 1s;
+      -webkit-transition:background 1s;
+      -o-transition:background 1s;
+    }
+    #back-to-top a:hover span{
+      background:transparent url(/static/imgs/sprite.png?1202) no-repeat -25px -290px;
+    }
     /*图片展示begin*/
     #grid:after, #grid:before {
         -webkit-box-sizing: border-box;
@@ -248,6 +292,7 @@
   <title>竞赛首页</title>
 </head>
 <body>
+<span><p id="back-to-top" class="pull-right glyphicon glyphicon-circle-arrow-up"><a href="#top"></a></p></span>
 <header class="cd-main-header">
   <div class="cd-main-header__container container container--lg">
     <nav class="nav navbar-default navbar-fixed-top">
@@ -529,6 +574,28 @@
       window.open("https://www.zjwu.net/");
     });
   });
+    $(function () {
+      $(window).scroll(function(){
+        if ($(window).scrollTop()>100){
+          $("#back-to-top").fadeIn(1500);
+        }
+        else
+        {
+          $("#back-to-top").fadeOut(1500);
+        }
+      });
+
+      //当点击跳转链接后，回到页面顶部位置
+      $("#back-to-top").click(function(){
+        //$('body,html').animate({scrollTop:0},1000);
+        if ($('html').scrollTop()) {
+          $('html').animate({ scrollTop: 0 }, 1000);
+          return false;
+        }
+        $('body').animate({ scrollTop: 0 }, 1000);
+        return false;
+      });
+    });
 
 </script>
 </body>
