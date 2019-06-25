@@ -6,26 +6,13 @@
 </head>
 <body>
 <form action="/userInfo" method="post">
-    <table border="1">
-        <tr>
-            <th>学号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>专业</th>
-            <th>手机号</th>
-            <th>QQ</th>
+           <input name="c_sno" type="text" th:value="${userInfo?.c_sno}"><button>修改</button><br>
+           <input name="c_name" type="text" th:value="${userInfo?.c_name}"><br>
+           <input name="c_gender" type="text" th:value="${userInfo?.c_gender}"><br>
+           <input name="c_major" type="text" th:value="${userInfo?.c_major}"><br>
+           <input name="c_phone" type="text" th:value="${userInfo?.c_phone}"><br>
+           <input name="c_qq" type="text" th:value="${userInfo?.c_qq}"><br>
 
-        </tr>
-
-        <tr>
-            <td th:text="${userInfo?.c_sno}"></td>
-            <td th:text="${userInfo?.c_name}"></td>
-            <td th:text="${userInfo?.c_gender}"></td>
-            <td th:text="${userInfo?.c_major}"></td>
-            <td th:text="${userInfo?.c_phone}"></td>
-            <td th:text="${userInfo?.c_qq}"></td>
-        </tr>
-    </table>
 </form>
 </body>
 </html>
