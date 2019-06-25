@@ -8,6 +8,15 @@ public class User implements Serializable {
     private String username;
     private String password;
     private Integer role;
+    private String u_sno;
+
+    public String getU_sno() {
+        return u_sno;
+    }
+
+    public void setU_sno(String u_sno) {
+        this.u_sno = u_sno;
+    }
 
     public Integer getU_id() {
         return u_id;
@@ -47,6 +56,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", u_sno=" + u_sno +
                 '}';
     }
 }

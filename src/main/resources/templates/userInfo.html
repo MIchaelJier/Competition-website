@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/userInfo" method="post">
+    <table border="1">
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>专业</th>
+            <th>手机号</th>
+            <th>QQ</th>
+
+        </tr>
+
+        <tr>
+            <td th:text="${userInfo?.c_sno}"></td>
+            <td th:text="${userInfo?.c_name}"></td>
+            <td th:text="${userInfo?.c_gender}"></td>
+            <td th:text="${userInfo?.c_major}"></td>
+            <td th:text="${userInfo?.c_phone}"></td>
+            <td th:text="${userInfo?.c_qq}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

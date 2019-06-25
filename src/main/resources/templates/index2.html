@@ -317,7 +317,7 @@
               <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
               <ul class="dropdown-menu">
 
-                <li><a href="#">个人信息</a></li>
+                <li><a href="/userInfo">个人信息</a></li>
                 <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
                 <li><a href="/logout.action">注销</a></li>
               </ul>

@@ -6,10 +6,15 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="u_sno" property="u_sno" jdbcType="VARCHAR" />
 
   </resultMap>
+
   <sql id="Base_Column_List" >
-    u_id,username, password,role
+    u_id,username, password,role,u_sno
+  </sql>
+  <sql id="sno">
+    u_sno
   </sql>
 
   <select id="findUser" parameterType="String" resultType="com.team5101.pojo.User"  >
@@ -18,6 +23,12 @@
     *
     from x_user
     where username=#{username} and password=#{password}
+  </select>
+  <select id="findInfo" parameterType="String" resultType="com.team5101.pojo.Competitor">
+    select
+    *
+    from x_contestm
+    where c_sno=#{u_sno}
   </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.team5101.controller;
 
 
+import com.team5101.pojo.Competitor;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
@@ -72,6 +73,15 @@ public class UserController {
          return "ERROR";
 
 
+    }
+    //个人信息
+    @RequestMapping(value = "/userInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public String  userInfo(HttpServletRequest request, HttpSession session, Model model) {
+
+        User u= (User) request.getSession().getAttribute("USER");
+        Competitor competitor =userService.findInfo(u.getU_sno());
+        model.addAttribute("userInfo",competitor);
+        return "userInfo";
     }
 
     //注销
