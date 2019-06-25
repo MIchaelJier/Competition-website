@@ -8,5 +8,6 @@ import com.team5101.pojo.User;
 public interface UserService {
     public User login(String username, String password);
     Competitor findInfo(String u_sno);
+    Competitor updateOne(String c_name,String c_gender,String c_major,String c_phone,String c_QQ,String c_sno);
 
 }

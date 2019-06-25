@@ -5,8 +5,10 @@ import com.team5101.mapper.CompetitorMapper;
 import com.team5101.pojo.Competitor;
 import com.team5101.pojo.ContestInfo;
 import com.team5101.pojo.SignUp;
+import com.team5101.pojo.User;
 import com.team5101.service.ContestInfoService;
 import com.team5101.service.SignUpService;
+import com.team5101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,8 @@ public class RegController {
     private ContestInfoService contestInfoService;
     @Autowired
     private CompetitorMapper competitorMapper;
+    @Autowired
+    private UserService userService;
     @RequestMapping("/baoming")
     public ModelAndView RegInfo(Model model){
         List<SignUp> signUps=signUpService.findAllSignUpInfo();
@@ -43,10 +47,13 @@ public class RegController {
         return mv;
     }
     @RequestMapping("/contestInfo")
-    public ModelAndView getAlltestInfo(Model model, Competitor competitor){
+    public ModelAndView getAlltestInfo(Model model, Competitor competitor,HttpServletRequest request){
         List<ContestInfo> contestInfos=contestInfoService.findAllContestInfo();
         model.addAttribute("contestInfos",contestInfos);
         ModelAndView mv=new ModelAndView("ContestInfo");
+        User u= (User) request.getSession().getAttribute("USER");
+        Competitor c =userService.findInfo(u.getU_sno());
+        model.addAttribute("userInfo",c);
 
         return mv;
     }
@@ -57,7 +64,7 @@ public class RegController {
         String sex = competitor.getC_gender();
         String major=competitor.getC_major();
         String phone =competitor.getC_phone();
-        String qq=competitor.getC_qq();
+        String qq=competitor.getC_QQ();
         String contestid=request.getParameter("j_id");
         System.out.println(contestid);
         competitorMapper.addCompetitor(competitor);

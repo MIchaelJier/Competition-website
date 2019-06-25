@@ -55,7 +55,7 @@
                         <li><a href="#">优秀师生</a></li>
                         <li><a href="#">作品提交</a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span th:text="${session.USER.username}" class="qwer"></span><span class="caret "></span></a>
+                            <span th:text="${session.userInfo.c_name}" class="qwer"></span><span class="caret "></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">个人信息</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
@@ -155,30 +155,30 @@
                     </tr>
                     <tr>
                         <td>学号</td>
-                        <td> <input type="text" id="sno" class="form-control"><br></td>
+                        <td> <input type="text" id="sno" class="form-control" th:value="${userInfo.c_sno}"><br></td>
                     </tr>
                     <tr>
                         <td> 姓名</td>
-                        <td><input type="text" id="name" class="form-control"><br></td>
+                        <td><input type="text" id="name" class="form-control" th:value="${userInfo.c_name}"><br></td>
                     </tr>
                     <tr>
                         <td>性别</td>
                         <td>
-                            <input type="radio" id="women" value="女"  name="1" >女
-                            <input type="radio" id="man" value="男" checked="checked" name="1">男<br>
+                            <input type="radio" id="women" value="女"  name="1" th:checked="${userInfo.c_gender=='女'}">女
+                            <input type="radio" id="man" value="男" checked="checked" name="1" th:checked="${userInfo.c_gender=='男'}">男<br>
                         </td>
                     </tr>
                     <tr>
                         <td>专业班级</td>
-                        <td> <input type="text" id="major" class="form-control"><br></td>
+                        <td> <input type="text" id="major" class="form-control" th:value="${userInfo.c_major}"><br></td>
                     </tr>
                     <tr>
                         <td>手机号</td>
-                        <td><input type="text" id="phone" class="form-control"><br></td>
+                        <td><input type="text" id="phone" class="form-control" th:value="${userInfo.c_phone}"><br></td>
                     </tr>
                     <tr>
                         <td>QQ号</td>
-                        <td><input type="text" id="qq" class="form-control"><br></td>
+                        <td><input type="text" id="qq" class="form-control" th:value="${userInfo.c_QQ}"><br></td>
                     </tr>
                 </table>
             </div>

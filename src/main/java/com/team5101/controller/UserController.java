@@ -65,7 +65,10 @@ public class UserController {
         if(user!=null){
             System.out.println(user);
             session.setAttribute("USER",user);
-
+            User u= (User) request.getSession().getAttribute("USER");
+            Competitor competitor =userService.findInfo(u.getU_sno());
+            session.setAttribute("userInfo",competitor);
+            System.out.println(competitor);
             return "index2" ;
         }
       // else
@@ -83,6 +86,30 @@ public class UserController {
         model.addAttribute("userInfo",competitor);
         return "userInfo";
     }
+    //个人信息修改
+    @RequestMapping(value = "/updateInfo")
+    public String updateOne(@RequestParam("c_name")String c_name, @RequestParam("c_gender")String c_gender,
+                            @RequestParam("c_major")String c_major,
+                            @RequestParam("c_phone")String c_phone,@RequestParam("c_QQ")String c_QQ,
+                            HttpServletRequest request) throws Exception {
+        User u= (User) request.getSession().getAttribute("USER");
+        Competitor competitor =userService.findInfo(u.getU_sno());
+
+        String c_sno=competitor.setC_sno(u.getU_sno());
+        competitor.setC_name(c_name);
+        competitor.setC_gender(c_gender);
+        competitor.setC_major(c_major);
+        competitor.setC_phone(c_phone);
+        competitor.setC_QQ(c_QQ);
+        System.out.println(competitor);
+        userService.updateOne(c_name,c_gender,c_major,c_phone,c_QQ,c_sno);
+
+        return "修改成功";
+
+
+    }
+
+
 
     //注销
     @RequestMapping(value="/logout.action")
@@ -98,5 +125,6 @@ public class UserController {
     public String index(HttpServletRequest request, HttpSession session, Model model){
         return "index2";
     }
+
 
 }

@@ -24,11 +24,28 @@
     from x_user
     where username=#{username} and password=#{password}
   </select>
+<!--  根据学号查询个人信息-->
   <select id="findInfo" parameterType="String" resultType="com.team5101.pojo.Competitor">
     select
     *
     from x_contestm
     where c_sno=#{u_sno}
   </select>
+
+<!--  动态修改-->
+  <update id="updateOne"  parameterType="com.team5101.pojo.Competitor">
+        UPDATE x_contestm
+        <set>
+            <if test="c_name!=null">c_name=#{c_name},</if>
+            <if test="c_gender!=null">c_gender=#{c_gender},</if>
+            <if test="c_major!=null">c_major=#{c_major},</if>
+            <if test="c_phone!=null">c_phone=#{c_phone},</if>
+            <if test="c_QQ!=null">c_QQ=#{c_QQ}</if>
+        </set>
+
+        WHERE c_sno=#{c_sno}
+
+  </update>
+
 
 </mapper>

@@ -8,7 +8,7 @@ public class Competitor {
     private String c_gender;
     private String c_major;
     private String c_phone;
-    private String c_qq;
+    private String c_QQ;
 
     public Integer getC_id() {
         return c_id;
@@ -22,8 +22,9 @@ public class Competitor {
         return c_sno;
     }
 
-    public void setC_sno(String c_sno) {
+    public String setC_sno(String c_sno) {
         this.c_sno = c_sno;
+        return c_sno;
     }
 
     public String getC_name() {
@@ -58,11 +59,24 @@ public class Competitor {
         this.c_phone = c_phone;
     }
 
-    public String getC_qq() {
-        return c_qq;
+    public String getC_QQ() {
+        return c_QQ;
     }
 
-    public void setC_qq(String c_qq) {
-        this.c_qq = c_qq;
+    public void setC_QQ(String c_QQ) {
+        this.c_QQ = c_QQ;
+    }
+
+    @Override
+    public String toString() {
+        return "Competitor{" +
+                "c_id=" + c_id +
+                ", c_sno='" + c_sno + '\'' +
+                ", c_name='" + c_name + '\'' +
+                ", c_gender='" + c_gender + '\'' +
+                ", c_major='" + c_major + '\'' +
+                ", c_phone='" + c_phone + '\'' +
+                ", c_QQ='" + c_QQ + '\'' +
+                '}';
     }
 }
