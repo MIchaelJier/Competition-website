@@ -6,12 +6,13 @@
 </head>
 <body>
 <form action="/userInfo" method="post">
-           <input name="c_sno" type="text" th:value="${userInfo?.c_sno}"><button>修改</button><br>
+           <input name="c_sno" type="text" disabled th:value="${userInfo?.c_sno}"><br>
            <input name="c_name" type="text" th:value="${userInfo?.c_name}"><br>
            <input name="c_gender" type="text" th:value="${userInfo?.c_gender}"><br>
            <input name="c_major" type="text" th:value="${userInfo?.c_major}"><br>
            <input name="c_phone" type="text" th:value="${userInfo?.c_phone}"><br>
            <input name="c_qq" type="text" th:value="${userInfo?.c_qq}"><br>
+    <button>提交修改</button>
 
 </form>
 </body>
