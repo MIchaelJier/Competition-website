@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <p><a href="#" class="btn btn-success goapply" role="button">报名</a></p><br>
+                <p><span class="btn btn-success goapply">报名</span></p><br>
             </div>
             </form>
         </div>
@@ -196,18 +196,14 @@
   $(function () {
       //判断时间是否过期
       $('.endtime').each(function () {
-          var endDate = $(this).text();
-          console.log(endDate);
+          var endDateString = $(this).text().replace(/-/g, '/');
+          var endDate = new Date(endDateString);
+          endDate.setDate(endDate.getDate() + 1);
           var nowDate = new Date;
-          var endDatesplit = endDate.split('-');
-          if(parseInt(endDatesplit[0])<parseInt(nowDate.getFullYear()) || (parseInt(endDatesplit[1])<parseInt(nowDate.getMonth())+1 ) || parseInt(endDatesplit[2])<parseInt(nowDate.getDate())) {
+          if(endDate.getTime() < nowDate.getTime()) {
               $(this).parent().parent().next().children().text('报名结束').attr('disabled', true);
               $(this).parent().parent().prev().prev().attr("src","images/trophy_grey.png");
           }
-          console.log(parseInt(endDatesplit[0])>parseInt(nowDate.getFullYear()));
-          console.log(parseInt(endDatesplit[1])>parseInt(nowDate.getMonth())+1);
-          console.log(parseInt(endDatesplit[2])>parseInt(nowDate.getDate()));
-
       });
       //报名 按钮 弹出拟态框
       $('.goapply').on('click',function (e) {
