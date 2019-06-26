@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.scss">
+    <link rel="stylesheet" href="css/jSlider.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/baguettebox.min.css">
+    <link rel="stylesheet" href="css/style2.css">
+
+    <script src="js/baguettebox.min.js"></script>
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.jSlider.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        /*导航栏开始*/
+        #menu a {
+            color: #989898;
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: medium;
+            font-weight: bold;
+        }
+        #menu li {
+            padding: 5px 5px 5px 0;
+        }
+        #menu a:hover{
+            color: #5bc0de;
+        }
+        /*导航栏结束*/
+        /*table begin*/
+        .table th, .table td{
+            text-align: center;
+            vertical-align: middle!important;
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: small;
+            color: #080808;
+        }
+        /*table over*/
+        /*modal begin*/
+        .modal{
+            font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+            font-size: small;
+            color: #080808;
+        }
+        /*modal over*/
+    </style>
+</head>
+<body>
+<!--导航栏开始-->
+<header class="cd-main-header">
+    <div class="cd-main-header__container container container--lg">
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span href="#" ><img src="images/head_logo.png" alt=""></span>
+                </div>
+                <div id="menu" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="/contestInfo">报名</a></li>
+                        <li><a href="#">竞赛成绩</a></li>
+                        <li><a href="#">优秀师生</a></li>
+                        <li><a href="#">作品提交</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="#">个人信息</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="ContestInfoM.html">竞赛管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="noticeM.html">通知管理</a></li>
+                                <li><a href="/logout.action">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--导航栏结束-->
+<main>
+    <!-- 添加 ed -->
+    <!-- 显示表格 bg -->
+    <div class="container" style="padding-top: 100px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="panel-heading pull-left" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">校内通知</div>
+                        <div class="pull-right text-center col-md-4">
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newMessageDialog" onclick="clearMessage()">添加</a>
+                            <a href="#" class="btn btn-primary" data-toggle="model" data-target="#" id="alldel">批量删除</a>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered table-responsive">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="SelectAll" onclick="selectAll()" />全选</th><!-- 反选 -->
+                            <th>编号</th>
+                            <th>竞赛名称</th>
+                            <th>竞赛类型</th>
+                            <th>竞赛说明</th>
+                            <th>竞赛链接</th>
+                            <th>开始时间</th>
+                            <th>截止时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pageInfo:${pageInfo.list}">
+                                <td><input type="checkbox" name="ck"/></td>
+                                <td th:text="${pageInfo.gg_id}"></td>
+                                <td th:text="${pageInfo.gg_title}"></td>
+                                <td th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></td>
+                                <td th:text="${pageInfo.gg_fabuzhe}"></td>
+                                <td>
+                                    <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
+                                    <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
+                                    <span class="btn btn-danger btn-md delbtn">删除</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- /.panel-body -->
+                    <div class="text-center" style="width: 100%;position: absolute;top: 700px">
+                        <p class="text-center" style="color: #080808">
+                            当前 <span th:text="${pageInfo.pageNum}"></span> 页,总
+                            <span th:text="${pageInfo.pages}"></span> 页,共
+                            <span th:text="${pageInfo.total}"></span> 条记录
+                            <br>
+                        </p>
+                        <div class="btn-group text-center">
+                            <a class="btn btn-default" th:href="@{/MNlist.action}" >首页</a>
+                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
+                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.pages})}" >尾页</a>
+                        </div>
+                    </div>
+                <!-- /.panel -->
+            </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- 客户列表查询部分 end-->
+        <!-- 创建客户模态框 -->
+        <div class="modal fade" id="newMessageDialog" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel1">添加公告</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="new_notice_form">
+
+                            <div class="form-group">
+                                <label for="new_noticeTitle" class="col-sm-2 control-label">
+                                    标题：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="new_noticeTitle" placeholder="公告内容标题"
+                                           name="gg_title"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="new_noticeText" class="col-sm-2 control-label">
+                                    正文：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="new_noticeText" placeholder="公告正文"
+                                           name="gg_content"/>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="createNotice()">发布公告</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改客户模态框 -->
+        <div class="modal fade" id="noticeEditDialog" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">修改公告信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" id="edit_notice_form">
+
+                            <input type="hidden" id="edit_noticeId" name="gg_id"/>
+
+                            <div class="form-group">
+                                <label for="edit_noticeTitle" class="col-sm-2 control-label">
+                                    标题：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="edit_noticeTitle" placeholder="公告内容标题"
+                                           name="gg_title"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_noticeText" class="col-sm-2 control-label">
+                                    正文：
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" style="width: 470px; height: 100px" id="edit_noticeText" placeholder="公告正文"
+                                           name="gg_content"/>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="updateNotice()">保存修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 查询通知模态框 -->
+        <div class="modal fade" id="noticeLookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+<!-- 编写js代码 -->
+<script type="text/javascript">
+    //清空新建客户窗口中的数据
+    function clearMessage() {
+        $("#new_noticeTitle").val("");
+        $("#new_noticeText").val("");
+    }
+    // 发布通知
+    function createNotice() {
+        $.post("/Ncreate.action",
+            $("#new_notice_form").serialize(), function (data) {
+                if (data == "OK") {
+                    alert("通知添加成功！" + data);
+                    window.location.reload();
+                } else {
+                    if (data == "EXIST") {
+                        alert("通知标题已经存在，请重新设置标题！");
+                        $("#new_noticeTitle").focus();
+                    } else if (data == "empty1") {
+                        alert("通知标题不能为空，请重新设置标题！");
+                        $("#new_noticeTitle").focus();
+                    } else if (data == "empty2") {
+                        alert("通知内容不能为空，请重新设置内容！");
+                        $("#new_noticeText").focus();
+                    }
+                    if (data == "FAIL") {
+                        alert("通知创建失败！" + data);
+                        window.location.reload();
+                    }
+                }
+            });
+    }
+    //操作：查看 删除 批删
+    $(function () {
+        // 通过标题获取修改的通知信息
+        $('.editbtn').click(function () {
+            var edit = $(this).parent().prev().prev().prev().text();
+            console.log(edit);
+            $.ajax({
+                type: "get",
+                url: "/NgetNoticeByT.action",
+                data: {"gg_title": edit},
+                success: function (data) {
+                    $("#edit_noticeId").val(data.gg_id);
+                    $("#edit_noticeTitle").val(data.gg_title);
+                    $("#edit_noticeText").val(data.gg_content);
+                }
+            });
+        });
+        // 删除客户
+        $('.delbtn').click(function () {
+            if (confirm('确实要删除该通知吗?')) {
+                var editid = $(this).parent().prev().prev().prev().prev().text();
+                $.post("/Ndelete.action", {"gg_id": editid},
+                    function (data) {
+                        if (data == "OK") {
+                            alert("通知删除成功！" + data);
+                            window.location.reload();
+                        } else {
+                            alert("删除通知失败！" + data);
+                            window.location.reload();
+                        }
+                    });
+            }
+        });
+        //详情
+        $('.lookbtn').click(function () {
+            var edit = $(this).parent().prev().prev().prev().text();
+            console.log(edit);
+            $.ajax({
+                type: "get",
+                url: "/NgetNoticeByT.action",
+                data: {"gg_title": edit},
+                success: function (data) {
+                    $('#noticeLookDialog .modal-body').html(data.gg_content);
+                    $('#noticeLookDialog h4').html(data.gg_title);
+                }
+            });
+        });
+        //批删
+        $('#alldel').click(function () {
+            var checkedList = [];
+            $("input:checked").each(function(){
+                checkedList.push($(this).parent().next().text());
+            });
+            if(checkedList.length==0){
+                alert("请至少选择一项!");
+                return false;
+            }
+            if(confirm("确定删除所选项目?")){
+                $.ajax({
+                    type:"POST",
+                    url:"/Ndelete_all.action",
+                    data:{"delitems":checkedList.toString()},
+                    datatype:"html",
+                    success:function(data){
+                        alert("删除成功！");
+                        window.location.reload();
+                    },
+                    error:function(data){
+                        //art.dialog.tips('删除失败!');
+                        alert("删除失败！");
+                        window.location.reload();
+                    }
+                });
+            }
+        })
+    });
+    // 执行修改通知内容操作
+    function updateNotice() {
+        alert("updateNotice");
+        $.post("/Nupdate.action",$("#edit_notice_form").serialize(), function (data) {
+            if (data == "OK") {
+                alert("通知信息更新成功！" + data);
+                window.location.reload();
+            } else {
+                alert("通知信息更新失败！" + data);
+                window.location.reload();
+            }
+        });
+    }
+    //全选的功能
+    function selectAll(){
+        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
+        var cak=document.getElementById("SelectAll");
+        if(cak.checked==true){
+            //循环这一组checkbox让每一个checkbox选中
+            for(var i=0;i<ck.length;i++){
+                var c=ck[i];//得到一个checkbox
+                c.checked=true;//false代表不选
+            }
+        }
+        else{
+            for(var i=0;i<ck.length;i++){
+                var c=ck[i];//得到一个checkbox
+                c.checked=false;//false代表不选
+            }
+        }
+    }
+    //反选
+    function uselectAll(){//先得到所有的checkbox
+        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
+        var cak=document.getElementById("SelectAll");
+        if(cak.checked==true)
+            cak.checked=false;
+        for(var i=0;i<ck.length;i++){
+            var c=ck[i];//得到一个checkbox
+            if(c.checked==true){//如果当前的checkbox是选中的则不让其选中
+                ck[i].checked=false;
+            }else{
+                ck[i].checked=true;
+            }
+        }
+    }
+</script>
+</html>

@@ -3,7 +3,7 @@ package com.team5101.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-//公告
+//公告实体类
 public class Notice implements Serializable {
     private Integer gg_id;//发布id
     private String  gg_title;//发布标题
