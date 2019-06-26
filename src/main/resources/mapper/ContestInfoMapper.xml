@@ -11,6 +11,41 @@
         <result property="j_endtime" column="j_endtime"/>
     </resultMap>
 
+    <!--SQL条件片段  -->
+    <sql id="selectContestListWhere">
+        <where>
+            <if test="j_id !=null and j_id !=''">
+                j_id = #{j_id}
+            </if>
+
+            <if test="j_name !=null and j_name !=''">
+                j_name = #{j_name}
+            </if>
+
+            <if test="j_type != null and j_type !='' ">
+                and j_type = #{j_type}
+            </if>
+
+            <if test="j_int != null and j_int !='' ">
+                and j_int = #{j_int}
+            </if>
+
+            <if test="j_href != null andj_href !='' ">
+                and j_href = #{j_href}
+            </if>
+
+            <if test="j_starttime != null ' ">
+                and j_starttime = #{j_starttime}
+            </if>
+
+            <if test="j_endtime != null  ">
+                and j_endtime = #{j_endtime}
+            </if>
+        </where>
+    </sql>
+
+
+
     <select id="getContestInfoAll" parameterType="String" resultType="com.team5101.pojo.ContestInfo"  resultMap="ContestInfo" >
         SELECT
 	    *
