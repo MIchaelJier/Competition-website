@@ -1,6 +1,8 @@
 package com.team5101.controller;
 
 
+import com.team5101.mapper.UserMapper;
+import com.team5101.pojo.Competitor;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
@@ -19,6 +21,9 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+
 
     @Autowired
     private NoticeService noticeService;
@@ -64,7 +69,10 @@ public class UserController {
         if(user!=null){
             System.out.println(user);
             session.setAttribute("USER",user);
-
+            User u= (User) request.getSession().getAttribute("USER");
+            Competitor competitor =userService.findInfo(u.getU_sno());
+            session.setAttribute("userInfo",competitor);
+            System.out.println(competitor);
             return "index2" ;
         }
       // else
@@ -73,6 +81,34 @@ public class UserController {
 
 
     }
+    //个人信息
+    @RequestMapping(value = "/userInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public String  userInfo(HttpServletRequest request, HttpSession session, Model model) {
+
+        User u= (User) request.getSession().getAttribute("USER");
+        Competitor competitor =userService.findInfo(u.getU_sno());
+        model.addAttribute("userInfo",competitor);
+        return "userInfo";
+    }
+    //个人信息修改
+    @RequestMapping(value = "/updateInfo")
+    public String updateOne(Competitor competitor){
+
+        try{
+            System.out.println(competitor.toString());
+            userMapper.updateOne(competitor);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+        }
+        return "redirect:/userInfo";
+
+    }
+
+
 
     //注销
     @RequestMapping(value="/logout.action")
@@ -88,5 +124,7 @@ public class UserController {
     public String index(HttpServletRequest request, HttpSession session, Model model){
         return "index2";
     }
+
+
 
 }

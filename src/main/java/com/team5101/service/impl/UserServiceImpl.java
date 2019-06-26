@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUser(username,password);
     }
 
+    public Competitor findInfo(String u_sno){return userMapper.findInfo(u_sno);}
+
+
+
+
 }

@@ -55,9 +55,9 @@
                         <li><a href="#">优秀师生</a></li>
                         <li><a href="#">作品提交</a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span th:text="${session.USER.username}" class="qwer"></span><span class="caret "></span></a>
+                            <span th:text="${session.userInfo.c_name}" class="qwer"></span><span class="caret "></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">个人信息</a></li>
+                                <li><a href="/userInfo">个人信息</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>
                             </ul>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="alert alert-info">
                     <p>报名开始时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
-                    <p>报名截止时间:<b th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
+                    <p>报名截止时间:<b class="endtime" th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
                     <div class="container-fluid">
                         <div class="accordion" id="accordion2">
                             <div class="accordion-group">
@@ -155,30 +155,30 @@
                     </tr>
                     <tr>
                         <td>学号</td>
-                        <td> <input type="text" id="sno" class="form-control"><br></td>
+                        <td> <input type="text" id="sno" class="form-control" th:value="${userInfo.c_sno}"><br></td>
                     </tr>
                     <tr>
                         <td> 姓名</td>
-                        <td><input type="text" id="name" class="form-control"><br></td>
+                        <td><input type="text" id="name" class="form-control" th:value="${userInfo.c_name}"><br></td>
                     </tr>
                     <tr>
                         <td>性别</td>
                         <td>
-                            <input type="radio" id="women" value="女"  name="1" >女
-                            <input type="radio" id="man" value="男" checked="checked" name="1">男<br>
+                            <input type="radio" id="women" value="女"  name="1" th:checked="${userInfo.c_gender=='女'}">女
+                            <input type="radio" id="man" value="男" checked="checked" name="1" th:checked="${userInfo.c_gender=='男'}">男<br>
                         </td>
                     </tr>
                     <tr>
                         <td>专业班级</td>
-                        <td> <input type="text" id="major" class="form-control"><br></td>
+                        <td> <input type="text" id="major" class="form-control" th:value="${userInfo.c_major}"><br></td>
                     </tr>
                     <tr>
                         <td>手机号</td>
-                        <td><input type="text" id="phone" class="form-control"><br></td>
+                        <td><input type="text" id="phone" class="form-control" th:value="${userInfo.c_phone}"><br></td>
                     </tr>
                     <tr>
                         <td>QQ号</td>
-                        <td><input type="text" id="qq" class="form-control"><br></td>
+                        <td><input type="text" id="qq" class="form-control" th:value="${userInfo.c_QQ}"><br></td>
                     </tr>
                 </table>
             </div>
@@ -194,11 +194,31 @@
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
   $(function () {
-      $('.goapply').click(function () {
-          var testid = $(this).parent().prev().prev().children().text();
-          $('#selContest option').html(testid);
-          $('#myModal').modal({keyboard: true});
+      //判断时间是否过期
+      $('.endtime').each(function () {
+          var endDate = $(this).text();
+          console.log(endDate);
+          var nowDate = new Date;
+          var endDatesplit = endDate.split('-');
+          if(parseInt(endDatesplit[0])<parseInt(nowDate.getFullYear()) || (parseInt(endDatesplit[1])<parseInt(nowDate.getMonth())+1 ) || parseInt(endDatesplit[2])<parseInt(nowDate.getDate())) {
+              $(this).parent().parent().next().children().text('报名结束').attr('disabled', true);
+              $(this).parent().parent().prev().prev().attr("src","images/trophy_grey.png");
+          }
+          console.log(parseInt(endDatesplit[0])>parseInt(nowDate.getFullYear()));
+          console.log(parseInt(endDatesplit[1])>parseInt(nowDate.getMonth())+1);
+          console.log(parseInt(endDatesplit[2])>parseInt(nowDate.getDate()));
+
       });
+      //报名 按钮 弹出拟态框
+      $('.goapply').on('click',function (e) {
+          if($(this).attr('disabled') != 'disabled'){
+              var testid = $(this).parent().prev().prev().children().text();
+              $('#selContest option').html(testid);
+              $('#myModal').modal({keyboard: true});
+              e.stopPropagation();
+          }
+      });
+      //拟态框内 确认报名
       $('#send').click(function () {
           var contest=$('#selContest').val();
           var sno = $('#sno').val();
@@ -216,7 +236,6 @@
                     alert(ok);
               }
           });
-
       });
   });
 

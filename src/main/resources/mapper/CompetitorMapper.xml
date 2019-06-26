@@ -5,7 +5,7 @@
 
     <insert id="addCompetitor" parameterType="com.team5101.pojo.Competitor">
         INSERT INTO x_contestm (c_sno, c_name, c_gender, c_major, c_phone, c_QQ)
-        VALUES (#{c_sno},#{c_name},#{c_gender},#{c_major},#{c_phone},#{c_qq})
+        VALUES (#{c_sno},#{c_name},#{c_gender},#{c_major},#{c_phone},#{c_QQ})
     </insert>
 
 </mapper>
