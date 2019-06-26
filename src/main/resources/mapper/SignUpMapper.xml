@@ -36,5 +36,13 @@
     <select id="findInfo" parameterType="com.team5101.pojo.SignUp" resultType="int">
         select count(*) from x_signup where j_id=#{j_id} and c_id=#{c_id}
     </select>
+    <select id="findSigUPInfo" parameterType="INTEGER" resultType="String">
+        SELECT DISTINCT
+	    j_id
+        FROM
+	    x_signup
+        WHERE
+	    c_id=#{c_id}
+    </select>
 
 </mapper>
