@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>竞赛成绩</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.scss">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/cntl.css">
+	<style>
+		.score {
+			padding-top: 10%;
+		}
+		#menu a {
+			color: #989898;
+			font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
+			font-size: medium;
+			font-weight: bold;
+		}
+		#menu li {
+			padding: 5px 5px 5px 0;
+		}
+		#menu a:hover{
+			color: #5bc0de;
+		}
+	</style>
+
+
+</head>
+<body>
+<header class="cd-main-header">
+	<div class="cd-main-header__container container container--lg">
+		<nav class="nav navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+					<button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span href="#" ><img src="images/head_logo.png" alt=""></span>
+				</div>
+				<div id="menu" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">首页</a></li>
+						<li><a href="/contestInfo">报名</a></li>
+						<li><a href="/baoming">竞赛成绩</a></li>
+						<li><a href="#">优秀师生</a></li>
+						<li><a href="#">作品提交</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+							<ul class="dropdown-menu">
+
+								<li><a href="#">个人信息</a></li>
+								<li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
+								<li><a href="/logout.action">注销</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+</header>
+<div class="container score">
+	<div class="jq22-container">
+		<div class="cntl">
+			<span class="cntl-bar cntl-center">
+				<span class="cntl-bar-fill"></span>
+			</span>
+
+			<div class="cntl-states">
+
+				<div class="cntl-state">
+					<div class="cntl-content">
+						<h3>ACM-ICPC国际大学生程序设计竞赛2018年成绩</h3>
+					</div>
+					<div class="cntl-icon cntl-center"></div>
+				</div>
+
+
+				<div class="cntl-state">
+					<div class="cntl-content">
+						<h4>11月3-4日青岛站</h4>
+						<p>由俞文翰、赖彬鑫和徐杭超组成的“AC咖喱棒”队成功解出4题，在373支队伍中排名150获得铜牌。这是我校首次在ACM-ICPC国际大学生程序设计竞赛中获得奖牌。</p>
+					</div>
+
+					<div class="cntl-image"><img src="images/qingdao.jpg"></div>
+					<div class="cntl-icon cntl-center">11'03</div>
+				</div>
+
+				<div class="cntl-state">
+					<div class="cntl-content">
+						<h4>11月10-11日北京大学承办的北京站</h4>
+						<p>俞文翰、赖彬鑫和徐杭超组成的“Excalibur”队最终成功解出3题，在191支队伍中排名97继青岛站后再次获得铜牌。</p>
+					</div>
+
+					<div class="cntl-image"><img src="images/beijing.jpg"></div>
+					<div class="cntl-icon cntl-center">11'10</div>
+				</div>
+
+				<div class="cntl-state">
+					<div class="cntl-content">
+						<h4>11月24-25日焦作站</h4>
+						<p>由夏志浩、金升烨和陈思源组成的“三条xian鱼”队成功解出2题，排名245获得优胜奖</p>
+					</div>
+
+					<div class="cntl-image"><img src="images/jiaozuo.jpg"></div>
+					<div class="cntl-icon cntl-center">11'24</div>
+				</div>
+
+				<div class="cntl-state">
+					<div class="cntl-content">
+						<h4>10月27-28日徐州站</h4>
+						<p>由叶奕威、郭冈灵和王易楠组成的“超新星燃烧”队在288支参赛队中排名196获得优胜奖
+						</p>
+					</div>
+
+					<div class="cntl-image"><img src="images/xuzhou.jpg"></div>
+					<div class="cntl-icon cntl-center">11'27</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+	<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cntl.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(e){
+			$('.cntl').cntl({
+				revealbefore: 300,
+				anim_class: 'cntl-animate',
+				onreveal: function(e){
+					console.log(e);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
