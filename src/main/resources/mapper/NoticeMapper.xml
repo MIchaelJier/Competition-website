@@ -8,7 +8,6 @@
             <if test="gg_id !=null and gg_id !=''">
                 gg_id = #{gg_id}
             </if>
-
             <if test="gg_title !=null and gg_title !=''">
                 gg_title = #{gg_title}
             </if>
