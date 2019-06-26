@@ -208,15 +208,16 @@
       //报名 按钮 弹出拟态框
       $('.goapply').on('click',function (e) {
           if($(this).attr('disabled') != 'disabled'){
-              var testid = $(this).parent().prev().prev().children().text();
-              $('#selContest option').html(testid);
+              var testname = $(this).parent().prev().prev().children().text();
+              var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
+              $('#selContest option').html(testname).attr('value',testid);
               $('#myModal').modal({keyboard: true});
               e.stopPropagation();
           }
       });
       //拟态框内 确认报名
       $('#send').click(function () {
-          var contest=$('#selContest').val();
+          var contest=$('#selContest option').attr('value');
           var sno = $('#sno').val();
           var name = $('#name').val();
           var sex = $('input:radio:checked').val();
