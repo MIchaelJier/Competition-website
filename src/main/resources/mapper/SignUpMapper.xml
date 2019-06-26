@@ -33,7 +33,7 @@
         insert into x_signup (j_id, c_id, b_time,b_state)
         values (#{j_id},#{c_id},now(),'报名成功')
     </insert>
-    <select id="findInfo" parameterType="com.team5101.pojo.SignUp" resultType="com.team5101.pojo.SignUp">
+    <select id="findInfo" parameterType="com.team5101.pojo.SignUp" resultType="int">
         select count(*) from x_signup where j_id=#{j_id} and c_id=#{c_id}
     </select>
 

@@ -11,22 +11,6 @@ public class SignUp {
     private Competitor competitor;
     private ContestInfo contestInfo;
 
-    public Competitor getCompetitor() {
-        return  competitor;
-    }
-
-    public void setCompetitor(Competitor competitor) {
-        this.competitor =  competitor;
-    }
-
-    public ContestInfo getContestInfo() {
-        return contestInfo;
-    }
-
-    public void setContestInfo(ContestInfo contestInfo) {
-        this.contestInfo =  contestInfo;
-    }
-
     public Integer getB_id() {
         return b_id;
     }
@@ -43,12 +27,12 @@ public class SignUp {
         this.j_id = j_id;
     }
 
-    public Integer getU_id() {
+    public Integer getC_id() {
         return c_id;
     }
 
-    public void setU_id(Integer u_id) {
-        this.c_id = u_id;
+    public void setC_id(Integer c_id) {
+        this.c_id = c_id;
     }
 
     public String getB_time() {
@@ -67,13 +51,29 @@ public class SignUp {
         this.b_state = b_state;
     }
 
+    public Competitor getCompetitor() {
+        return competitor;
+    }
+
+    public void setCompetitor(Competitor competitor) {
+        this.competitor = competitor;
+    }
+
+    public ContestInfo getContestInfo() {
+        return contestInfo;
+    }
+
+    public void setContestInfo(ContestInfo contestInfo) {
+        this.contestInfo = contestInfo;
+    }
+
     @Override
     public String toString() {
         return "SignUp{" +
                 "b_id=" + b_id +
                 ", j_id=" + j_id +
                 ", c_id=" + c_id +
-                ", b_time=" + b_time +
+                ", b_time='" + b_time + '\'' +
                 ", b_state='" + b_state + '\'' +
                 ", competitor=" + competitor +
                 ", contestInfo=" + contestInfo +

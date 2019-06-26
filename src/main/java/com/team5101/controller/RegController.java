@@ -65,21 +65,23 @@ public class RegController {
     }
     //提交报名信息
     @RequestMapping("/regcontestInfo")
-    public String getReg(Model model, Competitor competitor, HttpServletRequest request) {
-        SignUp sign = new SignUp();
+    public String getReg(Model model, Competitor competitor, HttpServletRequest request,SignUp signUp) {
         User u = (User) request.getSession().getAttribute("USER");
         Integer c_id = u.getU_id();
         String contestid = request.getParameter("j_id");
-        sign.setU_id(c_id);
-        sign.setJ_id(Integer.parseInt(contestid));
-        if (signUpMapper.findInfo(sign) != null) {
+        signUp.setC_id(c_id);
+
+        signUp.setJ_id(Integer.parseInt(contestid));
+        if (signUpMapper.findInfo(signUp)>=1) {
+
+            return "已报名";
+        } else {
             System.out.println(contestid);
-            signUpMapper.addOne(sign);
+            signUpMapper.addOne(signUp);
             userMapper.updateOne(competitor);
             ModelAndView mv = new ModelAndView("ContestInfo");
             return "报名成功！";
-        } else {
-            return "已报名，请勿重新报名";
+
         }
     }
 }
