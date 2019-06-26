@@ -25,7 +25,7 @@
             <result property="c_name" column="c_name"/>
             <result property="c_gender" column="c_gender"/>
             <result property="c_major" column="c_major"/>
-            <result property="c_qq" column="c_QQ"/>
+            <result property="c_QQ" column="c_QQ"/>
         </collection>
     </resultMap>
 

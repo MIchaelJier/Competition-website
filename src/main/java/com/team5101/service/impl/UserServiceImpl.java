@@ -27,9 +27,6 @@ public class UserServiceImpl implements UserService {
     public Competitor findInfo(String u_sno){return userMapper.findInfo(u_sno);}
 
 
-    public Competitor updateOne(String c_sno,String c_name,String c_gender,String c_major,String c_phone,String c_QQ) {
-        return userMapper.updateOne(c_name,c_gender,c_major,c_phone,c_QQ,c_sno);
-    }
 
 
 }

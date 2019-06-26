@@ -1,6 +1,7 @@
 package com.team5101.controller;
 
 
+import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.Competitor;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+
 
     @Autowired
     private NoticeService noticeService;
@@ -88,21 +92,27 @@ public class UserController {
     }
     //个人信息修改
     @RequestMapping(value = "/updateInfo")
-    public String updateOne(@RequestParam("c_name")String c_name, @RequestParam("c_gender")String c_gender,
-                            @RequestParam("c_major")String c_major,
-                            @RequestParam("c_phone")String c_phone,@RequestParam("c_QQ")String c_QQ,
-                            HttpServletRequest request) throws Exception {
-        User u= (User) request.getSession().getAttribute("USER");
-        Competitor competitor =userService.findInfo(u.getU_sno());
+    public String updateOne(@RequestParam("c_name")String c_name) throws Exception {
 
-        String c_sno=competitor.setC_sno(u.getU_sno());
-        competitor.setC_name(c_name);
-        competitor.setC_gender(c_gender);
-        competitor.setC_major(c_major);
-        competitor.setC_phone(c_phone);
-        competitor.setC_QQ(c_QQ);
-        System.out.println(competitor);
-        userService.updateOne(c_name,c_gender,c_major,c_phone,c_QQ,c_sno);
+
+        // 获得sqlSession
+
+        try{
+            // 获取Mapper接口
+
+
+            Competitor competitor = new Competitor();
+            competitor.setC_name(c_name);
+            // 插入的条数
+            int count = userMapper.updateOne(competitor);
+            System.out.println("更新影响的条数：" + count);
+            // 提交事务，数据存入数据库
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+        }
 
         return "修改成功";
 
@@ -125,6 +135,7 @@ public class UserController {
     public String index(HttpServletRequest request, HttpSession session, Model model){
         return "index2";
     }
+
 
 
 }

@@ -59,12 +59,7 @@ public class RegController {
     }
     @RequestMapping("/regcontestInfo")
     public String getReg(Model model, Competitor competitor, HttpServletRequest request){
-        String sno = competitor.getC_sno();
-        String name = competitor.getC_name();
-        String sex = competitor.getC_gender();
-        String major=competitor.getC_major();
-        String phone =competitor.getC_phone();
-        String qq=competitor.getC_QQ();
+
         String contestid=request.getParameter("j_id");
         System.out.println(contestid);
         competitorMapper.addCompetitor(competitor);

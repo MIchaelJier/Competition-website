@@ -79,4 +79,7 @@ public class Competitor {
                 ", c_QQ='" + c_QQ + '\'' +
                 '}';
     }
+    public Competitor(){
+        super();
+    }
 }

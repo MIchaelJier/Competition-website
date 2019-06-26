@@ -12,9 +12,12 @@
     </resultMap>
 
     <select id="getContestInfoAll" parameterType="String" resultType="com.team5101.pojo.ContestInfo"  resultMap="ContestInfo" >
-        select
-        *
-        from x_contesttp
+        SELECT
+	    *
+        FROM
+	    x_contesttp
+        GROUP BY
+	    j_endtime ASC,j_id ASC
     </select>
 
 </mapper>
