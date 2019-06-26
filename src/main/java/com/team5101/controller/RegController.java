@@ -74,7 +74,7 @@ public class RegController {
         signUp.setJ_id(Integer.parseInt(contestid));
         if (signUpMapper.findInfo(signUp)>=1) {
 
-            return "已报名";
+            return "已报名，请勿重复报名";
         } else {
             System.out.println(contestid);
             signUpMapper.addOne(signUp);
