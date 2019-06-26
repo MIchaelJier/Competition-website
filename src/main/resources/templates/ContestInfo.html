@@ -58,7 +58,7 @@
                             <span th:text="${session.userInfo.c_name}" class="qwer"></span><span class="caret "></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/userInfo">个人信息</a></li>
-                                <li th:if="${session.USER.role}==1"><a href="#">通知管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>
                             </ul>
                         </li>
