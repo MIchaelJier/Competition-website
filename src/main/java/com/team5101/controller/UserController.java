@@ -92,30 +92,19 @@ public class UserController {
     }
     //个人信息修改
     @RequestMapping(value = "/updateInfo")
-    public String updateOne(@RequestParam("c_name")String c_name) throws Exception {
-
-
-        // 获得sqlSession
+    public String updateOne(Competitor competitor){
 
         try{
-            // 获取Mapper接口
+            System.out.println(competitor.toString());
+            userMapper.updateOne(competitor);
 
-
-            Competitor competitor = new Competitor();
-            competitor.setC_name(c_name);
-            // 插入的条数
-            int count = userMapper.updateOne(competitor);
-            System.out.println("更新影响的条数：" + count);
-            // 提交事务，数据存入数据库
 
         }catch (Exception e){
             e.printStackTrace();
         }finally {
 
         }
-
-        return "修改成功";
-
+        return "redirect:/userInfo";
 
     }
 

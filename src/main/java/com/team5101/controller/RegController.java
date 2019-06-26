@@ -57,6 +57,7 @@ public class RegController {
 
         return mv;
     }
+    //提交报名信息
     @RequestMapping("/regcontestInfo")
     public String getReg(Model model, Competitor competitor, HttpServletRequest request){
 

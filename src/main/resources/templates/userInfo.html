@@ -7,9 +7,10 @@
 <body>
 <form action="/updateInfo" method="post">
     <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
-    <input name="c_sno" type="text" disabled th:value="${userInfo?.c_sno}"><br>
+    <input name="c_sno" type="text" readonly th:value="${userInfo?.c_sno}"><br>
     <input name="c_name" type="text" th:value="${userInfo?.c_name}"><br>
-    <input name="c_gender" type="text" th:value="${userInfo?.c_gender}"><br>
+    <input type="radio" id="women" value="女"  name="c_gender" th:checked="*{userInfo.c_gender=='女'}">女
+    <input type="radio" id="man" value="男" checked="checked" name="c_gender" th:checked="${userInfo.c_gender=='男'}">男<br>
     <input name="c_major" type="text" th:value="${userInfo?.c_major}"><br>
     <input name="c_phone" type="text" th:value="${userInfo?.c_phone}"><br>
     <input name="c_QQ" type="text" th:value="${userInfo?.c_QQ}"><br>

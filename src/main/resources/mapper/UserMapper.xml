@@ -34,17 +34,15 @@
 
 <!--  动态修改-->
   <update id="updateOne"  parameterType="com.team5101.pojo.Competitor">
-        UPDATE x_contestm
-        <trim prefix="set" suffixOverrides=",">
-            <if test="c_name!=null">c_name=#{c_name},</if>
-            <if test="c_gender!=null">c_gender=#{c_gender},</if>
-            <if test="c_major!=null">c_major=#{c_major},</if>
-            <if test="c_phone!=null">c_phone=#{c_phone},</if>
-            <if test="c_QQ!=null">c_QQ=#{c_QQ}</if>
-        </trim>
-
-        WHERE c_sno=#{c_sno}
-
+        update x_contestm
+        <trim prefix="set" suffixOverrides=",">
+        <if test="c_name!=null">c_name=#{c_name},</if>
+        <if test="c_gender!=null">c_gender=#{c_gender},</if>
+        <if test="c_major!=null">c_major=#{c_major},</if>
+        <if test="c_phone!=null">c_phone=#{c_phone},</if>
+        <if test="c_QQ!=null">c_QQ=#{c_QQ},</if>
+        </trim>
+        WHERE c_sno=#{c_sno}
   </update>
 
 
