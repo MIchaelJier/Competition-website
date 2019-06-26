@@ -16,9 +16,9 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     private SignUpMapper signUpMapper;
 
-
-
     public List<SignUp> findAllSignUpInfo(){
        //List<SignUp> signUpList = signUpMapper.getAll();
         return signUpMapper.getAll();}
+
+
 }

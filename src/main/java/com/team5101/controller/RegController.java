@@ -2,6 +2,7 @@ package com.team5101.controller;
 
 
 import com.team5101.mapper.CompetitorMapper;
+import com.team5101.mapper.SignUpMapper;
 import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.Competitor;
 import com.team5101.pojo.ContestInfo;
@@ -35,6 +36,8 @@ public class RegController {
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SignUpMapper signUpMapper;
     @RequestMapping("/baoming")
     public ModelAndView RegInfo(Model model){
         List<SignUp> signUps=signUpService.findAllSignUpInfo();
@@ -62,13 +65,21 @@ public class RegController {
     }
     //提交报名信息
     @RequestMapping("/regcontestInfo")
-    public String getReg(Model model, Competitor competitor, HttpServletRequest request){
-
-        String contestid=request.getParameter("j_id");
-        System.out.println(contestid);
-        //competitorMapper.addCompetitor(competitor);
-        userMapper.updateOne(competitor);
-        ModelAndView mv=new ModelAndView("ContestInfo");
-        return "报名成功！";
+    public String getReg(Model model, Competitor competitor, HttpServletRequest request) {
+        SignUp sign = new SignUp();
+        User u = (User) request.getSession().getAttribute("USER");
+        Integer c_id = u.getU_id();
+        String contestid = request.getParameter("j_id");
+        sign.setU_id(c_id);
+        sign.setJ_id(Integer.parseInt(contestid));
+        if (signUpMapper.findInfo(sign) != null) {
+            System.out.println(contestid);
+            signUpMapper.addOne(sign);
+            userMapper.updateOne(competitor);
+            ModelAndView mv = new ModelAndView("ContestInfo");
+            return "报名成功！";
+        } else {
+            return "已报名，请勿重新报名";
+        }
     }
 }
