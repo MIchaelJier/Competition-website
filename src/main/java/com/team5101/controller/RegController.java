@@ -2,6 +2,7 @@ package com.team5101.controller;
 
 
 import com.team5101.mapper.CompetitorMapper;
+import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.Competitor;
 import com.team5101.pojo.ContestInfo;
 import com.team5101.pojo.SignUp;
@@ -32,6 +33,8 @@ public class RegController {
     private CompetitorMapper competitorMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
     @RequestMapping("/baoming")
     public ModelAndView RegInfo(Model model){
         List<SignUp> signUps=signUpService.findAllSignUpInfo();
@@ -63,7 +66,8 @@ public class RegController {
 
         String contestid=request.getParameter("j_id");
         System.out.println(contestid);
-        competitorMapper.addCompetitor(competitor);
+        //competitorMapper.addCompetitor(competitor);
+        userMapper.updateOne(competitor);
         ModelAndView mv=new ModelAndView("ContestInfo");
         return "报名成功！";
     }

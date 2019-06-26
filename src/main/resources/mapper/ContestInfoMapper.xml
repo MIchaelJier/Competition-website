@@ -17,7 +17,7 @@
         FROM
 	    x_contesttp
         GROUP BY
-	    j_endtime ASC,j_id ASC
+	    j_endtime desc ,j_id desc
     </select>
 
 </mapper>
