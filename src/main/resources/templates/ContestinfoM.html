@@ -76,7 +76,8 @@
                             <ul class="dropdown-menu">
 
                                 <li><a href="#">个人信息</a></li>
-                                <li th:if="${session.USER.role}==1"><a href="ggl.html">通知管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="/mclist.action">竞赛管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>
                             </ul>
                         </li>
@@ -111,17 +112,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="pageInfo:${pageInfo.list}">
-                                <td th:text="${pageInfo.gg_id}"></td>
-                                <td th:text="${pageInfo.gg_title}"></td>
-                                <td th:text="${#dates.format(pageInfo.gg_date,'yyyy-MM-dd')}"></td>
-                                <td th:text="${pageInfo.gg_fabuzhe}"></td>
-                                <td>
-                                    <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
-                                    <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
-                                    <span class="btn btn-danger btn-md delbtn">删除</span>
-                                </td>
-                            </tr>
+
+                        <tr th:each="pageInfo:${pageInfo.list}">
+                            <td th:text="${pageInfo.j_name}"></td>
+                            <td th:text="${pageInfo.j_type}"></td>
+                            <td th:text="${#dates.format(pageInfo.j_starttime,'yyyy-MM-dd')}"></td>
+                            <td th:text="${#dates.format(pageInfo.j_endtime,'yyyy-MM-dd')}"></td>
+                            <td>
+                                <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
+                                <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
+                                <span class="btn btn-danger btn-md delbtn"  >删除</span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <!-- /.panel-body -->
@@ -133,14 +135,14 @@
                             <br>
                         </p>
                         <div class="btn-group text-center">
-                            <a class="btn btn-default" th:href="@{/MNlist.action}" >首页</a>
-                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
-                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
-                            <a class="btn btn-default" th:href="@{/MNlist.action(pageNum=${pageInfo.pages})}" >尾页</a>
+                            <a class="btn btn-default" th:href="@{/mclist.action}" >首页</a>
+                            <a class="btn btn-default" th:href="@{/mclist.action(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" >上一页</a>
+                            <a class="btn btn-default" th:href="@{/mclist.action(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                            <a class="btn btn-default" th:href="@{/mclist.action(pageNum=${pageInfo.pages})}" >尾页</a>
                         </div>
                     </div>
-                <!-- /.panel -->
-            </div>
+                    <!-- /.panel -->
+                </div>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -157,7 +159,7 @@
                         <h4 class="modal-title" id="myModalLabel1">添加比赛</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" id="new_notice_form">
+                        <form class="form-horizontal" id="new_contest_form">
 
                             <div class="form-group">
                                 <label for="new_contestName" class="col-sm-2 control-label">
@@ -173,9 +175,12 @@
                                     比赛类型：
                                 </label>
                                 <div class="col-sm-10">
-                                    <select id="new_contestType" name="j_type"  class="form-control" name="j_type"/>
-                                        <option value="one">个人赛</option>
-                                        <option value="many">组队赛</option>
+                                    <select id="new_contestType" name="j_type"  class="form-control" placeholder="竞赛类型"/>
+                                    <option value="" >--请选择--</option>
+                                    <option value="校赛">校赛</option>
+                                    <option value="省赛">省赛</option>
+                                    <option value="国赛">国赛</option>
+                                    <option value="国际赛">国际赛</option>
                                     </select>
                                 </div>
                             </div>
@@ -189,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_contestStime" class="col-sm-2 control-label">
+                                <label for="new_contestStarttime" class="col-sm-2 control-label">
                                     发布日期：
                                 </label>
                                 <div class="col-sm-10">
@@ -227,8 +232,8 @@
                 </div>
             </div>
         </div>
-        <!-- 修改客户模态框 -->
-        <div class="modal fade" id="noticeEditDialog" tabindex="-1" role="dialog"
+        <!-- 修改客户模态框
+        <div class="modal fade" id="contestEditDialog" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -244,60 +249,60 @@
                             <input type="hidden" id="edit_noticeId" name="j_id"/>
 
                             <div class="form-group">
-                                <label for="new_contestName" class="col-sm-2 control-label">
+                                <label for="edit_contestName" class="col-sm-2 control-label">
                                     比赛名称：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="new_contestName" placeholder="比赛名称"
+                                    <input type="text" class="form-control" id="edit_contestName" placeholder="比赛名称"
                                            name="j_name"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_contestType" class="col-sm-2 control-label">
+                                <label for="edit_contestType" class="col-sm-2 control-label">
                                     比赛类型：
                                 </label>
                                 <div class="col-sm-10">
-                                    <select id="new_contestType" name="j_type"  class="form-control" name="j_type"/>
+                                    <select id="edit_contestType" name="j_type"  class="form-control" name="j_type"/>
                                     <option value="one">个人赛</option>
                                     <option value="many">组队赛</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_contestWeb" class="col-sm-2 control-label">
+                                <label for="edit_contestWeb" class="col-sm-2 control-label">
                                     官方网址：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="new_contestWeb" placeholder="官方网址"
+                                    <input type="text" class="form-control" id="edit_contestWeb" placeholder="官方网址"
                                            name="j_href"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_contestStime" class="col-sm-2 control-label">
+                                <label for="edit_contestStarttime" class="col-sm-2 control-label">
                                     发布日期：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="new_contestStarttime" placeholder="发布日期"
+                                    <input type="date" class="form-control" id="edit_contestStarttime" placeholder="发布日期"
                                            name="j_starttime"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="new_contestEndtime" class="col-sm-2 control-label">
+                                <label for="edit_contestEndtime" class="col-sm-2 control-label">
                                     截止日期：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="new_contestEndtime" placeholder="截止日期"
+                                    <input type="date" class="form-control" id="edit_contestEndtime" placeholder="截止日期"
                                            name="j_endtime"/>
                                 </div>
                             </div>
 
 
                             <div class="form-group">
-                                <label for="new_contestIntroduction" class="col-sm-2 control-label">
+                                <label for="edit_contestIntroduction" class="col-sm-2 control-label">
                                     详情介绍：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="new_contestIntroduction" placeholder="详情介绍"
+                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="edit_contestIntroduction" placeholder="详情介绍"
                                            name="j_introduction"/>
                                 </div>
                             </div>
@@ -311,8 +316,9 @@
                 </div>
             </div>
         </div>
-        <!-- 查询通知模态框 -->
-        <div class="modal fade" id="noticeLookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        -->
+        <!-- 查询通知模态框
+        <div class="modal fade" id="contestLookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -330,6 +336,7 @@
                 </div>
             </div>
         </div>
+         -->
     </div>
 
 </main>
@@ -339,29 +346,51 @@
 <script type="text/javascript">
     //清空新建客户窗口中的数据
     function clearMessage() {
-        $("#new_noticeTitle").val("");
-        $("#new_noticeText").val("");
+        $("#new_contestName").val("");//比赛名称
+        $("#new_contestType").val("");//比赛类型
+        $("#new_contestWeb").val("");//官方网址：
+        $("#new_contestStarttime").val("");//发布日期：
+        $("#new_contestEndtime").val("");// 截止日期
+        $("#new_contestIntroduction").val("");//详情介绍：
     }
     // 发布通知
     function createNotice() {
-        $.post("/Ncreate.action",
-            $("#new_notice_form").serialize(), function (data) {
+        $.post("/Ccreate.action",
+            $("#new_contest_form").serialize(), function (data) {
                 if (data == "OK") {
-                    alert("通知添加成功！" + data);
+                    alert("竞赛添加成功！" + data);
                     window.location.reload();
                 } else {
                     if (data == "EXIST") {
-                        alert("通知标题已经存在，请重新设置标题！");
-                        $("#new_noticeTitle").focus();
-                    } else if (data == "empty1") {
-                        alert("通知标题不能为空，请重新设置标题！");
-                        $("#new_noticeTitle").focus();
-                    } else if (data == "empty2") {
-                        alert("通知内容不能为空，请重新设置内容！");
-                        $("#new_noticeText").focus();
+                        alert("竞赛名称已经存在，请重新设置竞赛名称！");
+                        $("#new_contestName").focus();
+                    }
+                    else if (data == "empty1") {
+                        alert("竞赛名称不能为空，请重新设置竞赛名称！");
+                        $("#new_contestName").focus();
+                    }
+                    else if (data == "empty2") {
+                        alert("比赛类型不能为空，请重新设置比赛类型！");
+                        $("#new_contestType").focus();
+                    }
+                    else if (data == "empty3") {
+                        alert("官方网址不能为空，请重新设置官方网址！");
+                        $("#new_contestWeb").focus();
+                    }
+                    else if (data == "empty4") {
+                        alert("发布日期不能为空，请重新设置发布日期！");
+                        //  $("#new_contestStarttime").focus();
+                    }
+                    else if (data == "empty5") {
+                        alert(" 截止日期不能为空，请重新设置截止日期！");
+                        //  $("#new_contestEndtime") .focus();
+                    }
+                    else if (data == "empty6") {
+                        alert("详情介绍不能为空，请重新设置详情介绍！");
+                        $("#new_contestIntroduction").focus();//详情介绍
                     }
                     if (data == "FAIL") {
-                        alert("通知创建失败！" + data);
+                        alert("竞赛创建失败！" + data);
                         window.location.reload();
                     }
                 }
@@ -457,6 +486,7 @@
         });
     }
     //全选的功能
+    /*
     function selectAll(){
         var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
         var cak=document.getElementById("SelectAll");
@@ -474,7 +504,10 @@
             }
         }
     }
+
+     */
     //反选
+    /*
     function uselectAll(){//先得到所有的checkbox
         var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
         var cak=document.getElementById("SelectAll");
@@ -489,5 +522,7 @@
             }
         }
     }
+
+     */
 </script>
 </html>
