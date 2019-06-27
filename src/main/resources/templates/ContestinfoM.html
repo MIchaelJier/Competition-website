@@ -72,11 +72,12 @@
                         <li><a href="#">优秀师生</a></li>
                         <li><a href="#">作品提交</a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <div th:text="${session.userInfo.c_name}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
                             <ul class="dropdown-menu">
 
                                 <li><a href="#">个人信息</a></li>
-                                <li th:if="${session.USER.role}==1"><a href="ggl.html">通知管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="ContestInfoM.html">竞赛管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="noticeM.html">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>
                             </ul>
                         </li>
@@ -103,10 +104,14 @@
                     <table class="table table-hover table-bordered table-responsive">
                         <thead>
                         <tr>
-                            <th>比赛名称</th>
-                            <th>比赛类型</th>
-                            <th>发布日期</th>
-                            <th>截止日期</th>
+                            <th><input type="checkbox" id="SelectAll" onclick="selectAll()" />全选</th><!-- 反选 -->
+                            <th>编号</th>
+                            <th>竞赛名称</th>
+                            <th>竞赛类型</th>
+                            <th>竞赛说明</th>
+                            <th>竞赛链接</th>
+                            <th>开始时间</th>
+                            <th>截止时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
