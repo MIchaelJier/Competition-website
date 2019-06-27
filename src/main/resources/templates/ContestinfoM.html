@@ -113,17 +113,17 @@
                         </thead>
                         <tbody>
 
-                            <tr th:each="pageInfo:${pageInfo.list}">
-                                <td th:text="${pageInfo.j_name}"></td>
-                                <td th:text="${pageInfo.j_type}"></td>
-                                <td th:text="${#dates.format(pageInfo.j_starttime,'yyyy-MM-dd')}"></td>
-                                <td th:text="${#dates.format(pageInfo.j_endtime,'yyyy-MM-dd')}"></td>
-                                <td>
-                                    <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
-                                    <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
-                                    <span class="btn btn-danger btn-md delbtn"  >删除</span>
-                                </td>
-                            </tr>
+                        <tr th:each="pageInfo:${pageInfo.list}">
+                            <td th:text="${pageInfo.j_name}"></td>
+                            <td th:text="${pageInfo.j_type}"></td>
+                            <td th:text="${#dates.format(pageInfo.j_starttime,'yyyy-MM-dd')}"></td>
+                            <td th:text="${#dates.format(pageInfo.j_endtime,'yyyy-MM-dd')}"></td>
+                            <td>
+                                <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
+                                <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
+                                <span class="btn btn-danger btn-md delbtn"  >删除</span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <!-- /.panel-body -->
@@ -141,8 +141,8 @@
                             <a class="btn btn-default" th:href="@{/mclist.action(pageNum=${pageInfo.pages})}" >尾页</a>
                         </div>
                     </div>
-                <!-- /.panel -->
-            </div>
+                    <!-- /.panel -->
+                </div>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -176,11 +176,11 @@
                                 </label>
                                 <div class="col-sm-10">
                                     <select id="new_contestType" name="j_type"  class="form-control" placeholder="竞赛类型"/>
-                                         <option value="" >--请选择--</option>
-                                        <option value="校赛">校赛</option>
-                                        <option value="省赛">省赛</option>
-                                        <option value="国赛">国赛</option>
-                                        <option value="国际赛">国际赛</option>
+                                    <option value="" >--请选择--</option>
+                                    <option value="校赛">校赛</option>
+                                    <option value="省赛">省赛</option>
+                                    <option value="国赛">国赛</option>
+                                    <option value="国际赛">国际赛</option>
                                     </select>
                                 </div>
                             </div>
@@ -350,7 +350,7 @@
         $("#new_contestType").val("");//比赛类型
         $("#new_contestWeb").val("");//官方网址：
         $("#new_contestStarttime").val("null");//发布日期：
-        $("#new_contestEndtime").val("nul");// 截止日期
+        $("#new_contestEndtime").val("null");// 截止日期
         $("#new_contestIntroduction").val("");//详情介绍：
     }
     // 发布通知
@@ -379,11 +379,11 @@
                     }
                     else if (data == "empty4") {
                         alert("发布日期不能为空，请重新设置发布日期！");
-                      //  $("#new_contestStarttime").focus();
+                        //  $("#new_contestStarttime").focus();
                     }
                     else if (data == "empty5") {
                         alert(" 截止日期不能为空，请重新设置截止日期！");
-                      //  $("#new_contestEndtime") .focus();
+                        //  $("#new_contestEndtime") .focus();
                     }
                     else if (data == "empty6") {
                         alert("详情介绍不能为空，请重新设置详情介绍！");
