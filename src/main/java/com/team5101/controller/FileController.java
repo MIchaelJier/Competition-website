@@ -35,10 +35,11 @@ public class FileController {
 
     //单文件上传
     @RequestMapping(value = "/uploads")
-    public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+    public ModelAndView upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
         try {
             if (file.isEmpty()) {
-                return "文件为空";
+                //空文件
+                return new ModelAndView("upload");
             }
             // 获取文件名
             String fileName = file.getOriginalFilename();
@@ -62,13 +63,15 @@ public class FileController {
                 dest.getParentFile().mkdirs();// 新建文件夹
             }
             file.transferTo(dest);// 文件写入
-            return "上传成功";
+            //成功
+            return new ModelAndView("upload");
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "上传失败";
+        //失败
+        return new ModelAndView("upload");
     }
 
     //多文件上传
