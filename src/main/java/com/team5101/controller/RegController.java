@@ -2,15 +2,14 @@ package com.team5101.controller;
 
 
 import com.team5101.mapper.CompetitorMapper;
+import com.team5101.mapper.GroupMapper;
 import com.team5101.mapper.SignUpMapper;
 import com.team5101.mapper.UserMapper;
-import com.team5101.pojo.Competitor;
-import com.team5101.pojo.ContestInfo;
-import com.team5101.pojo.SignUp;
-import com.team5101.pojo.User;
+import com.team5101.pojo.*;
 import com.team5101.service.ContestInfoService;
 import com.team5101.service.SignUpService;
 import com.team5101.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +37,8 @@ public class RegController {
     private UserMapper userMapper;
     @Autowired
     private SignUpMapper signUpMapper;
+    @Autowired
+    private GroupMapper groupMapper;
     @RequestMapping("/baoming")
     public ModelAndView RegInfo(Model model){
         List<SignUp> signUps=signUpService.findAllSignUpInfo();
@@ -83,9 +84,27 @@ public class RegController {
             return "报名成功！";
         }
     }
+    //创建小组
     @RequestMapping("/CreatGroup")
-    public ModelAndView creatGroup(Model model){
+    public ModelAndView creatGroup(Model model, HttpServletRequest request,Group group){
+        User u = (User) request.getSession().getAttribute("USER");
 
+        model.addAttribute("group",groupMapper.addGroup(group));
+        return new ModelAndView("CreatGroup");
+    }
+    //成员信息
+    @RequestMapping("/GroupInfo")
+    public ModelAndView allMember(@Param("g_name")String g_name, Model model, HttpServletRequest request){
+        User u = (User) request.getSession().getAttribute("USER");
+        Group group=groupMapper.findMember(g_name);
+        model.addAttribute("group",group);
+        return new ModelAndView("CreatGroup");
+    }
+    //所有小组信息
+    @RequestMapping("/Group.getAll")
+    public ModelAndView allGroup(Model model){
+
+        model.addAttribute("groups",groupMapper.allGroups());
         return new ModelAndView("CreatGroup");
     }
 }
