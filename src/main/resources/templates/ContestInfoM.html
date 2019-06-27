@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/baguettebox.min.css">
-    <link rel="stylesheet" href="css/style2.css">
 
     <script src="js/baguettebox.min.js"></script>
     <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -119,9 +118,10 @@
                             <td th:text="${pageInfo.j_type}"></td>
                             <td th:text="${#dates.format(pageInfo.j_starttime,'yyyy-MM-dd')}"></td>
                             <td th:text="${#dates.format(pageInfo.j_endtime,'yyyy-MM-dd')}"></td>
+                            <td th:text="${pageInfo.j_id}" style="display: none"></td>
                             <td>
-                                <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#noticeEditDialog" >修改</span>
-                                <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#noticeLookDialog">详情</span>
+                                <span class="btn btn-primary btn-md editbtn" data-toggle="modal" data-target="#contestEditDialog" >修改</span>
+                                <span class="btn btn-warning btn-md lookbtn" data-toggle="modal" data-target="#contestLookDialog">详情</span>
                                 <span class="btn btn-danger btn-md delbtn"  >删除</span>
                             </td>
                         </tr>
@@ -178,10 +178,8 @@
                                 <div class="col-sm-10">
                                     <select id="new_contestType" name="j_type"  class="form-control" placeholder="竞赛类型"/>
                                     <option value="" >--请选择--</option>
-                                    <option value="校赛">校赛</option>
-                                    <option value="省赛">省赛</option>
-                                    <option value="国赛">国赛</option>
-                                    <option value="国际赛">国际赛</option>
+                                    <option value="个人赛">个人赛</option>
+                                    <option value="组队赛">组队赛</option>
                                     </select>
                                 </div>
                             </div>
@@ -222,21 +220,21 @@
                                     详情介绍：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="new_contestIntroduction" placeholder="详情介绍"
-                                           name="j_introduction"/>
+                                    <textarea  class="form-control"  style="width: 470px; height: 100px" id="new_contestIntroduction" placeholder="详情介绍"
+                                               name="j_introduction"></textarea>
                                 </div>
                             </div>
 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" id="fabu_btn">发布竞赛</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearMessage()">关闭</button>
+                        <button type="button" class="btn btn-primary" id="fabu_btn" onclick="createContest()">发布竞赛</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 修改客户模态框
+        <!-- 修改客户模态框-->
         <div class="modal fade" id="contestEditDialog" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -250,7 +248,7 @@
                     <div class="modal-body">
                         <form class="form-horizontal" id="edit_notice_form">
 
-                            <input type="hidden" id="edit_noticeId" name="j_id"/>
+                            <input type="hidden" id="edit_contestId" name="j_id"/>
 
                             <div class="form-group">
                                 <label for="edit_contestName" class="col-sm-2 control-label">
@@ -266,9 +264,9 @@
                                     比赛类型：
                                 </label>
                                 <div class="col-sm-10">
-                                    <select id="edit_contestType" name="j_type"  class="form-control" name="j_type"/>
-                                    <option value="one">个人赛</option>
-                                    <option value="many">组队赛</option>
+                                    <select id="edit_contestType"   class="form-control" name="j_type"/>
+                                    <option value="个人赛">个人赛</option>
+                                    <option value="组队赛">组队赛</option>
                                     </select>
                                 </div>
                             </div>
@@ -306,8 +304,8 @@
                                     详情介绍：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"  style="width: 470px; height: 100px" id="edit_contestIntroduction" placeholder="详情介绍"
-                                           name="j_introduction"/>
+                                    <textarea  class="form-control"  style="width: 470px; height: 100px" id="edit_contestIntroduction"
+                                           name="j_introduction"></textarea>
                                 </div>
                             </div>
 
@@ -315,13 +313,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="updateNotice()">保存修改</button>
+                        <button type="button" class="btn btn-primary" onclick="updateContest()">保存修改</button>
                     </div>
                 </div>
             </div>
         </div>
-        -->
-        <!-- 查询通知模态框
+
+        <!-- 查询竞赛模态框 -->
         <div class="modal fade" id="contestLookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -340,7 +338,7 @@
                 </div>
             </div>
         </div>
-         -->
+
     </div>
 
 </main>
@@ -358,7 +356,7 @@
         $("#new_contestIntroduction").val("");//详情介绍：
     }
     // 发布通知
-    function createNotice() {
+    function createContest() {
         $.post("/Ccreate.action",
             $("#new_contest_form").serialize(), function (data) {
                 if (data == "OK") {
@@ -382,14 +380,6 @@
                         $("#new_contestWeb").focus();
                     }
                     else if (data == "empty4") {
-                        alert("发布日期不能为空，请重新设置发布日期！");
-                        //  $("#new_contestStarttime").focus();
-                    }
-                    else if (data == "empty5") {
-                        alert(" 截止日期不能为空，请重新设置截止日期！");
-                        //  $("#new_contestEndtime") .focus();
-                    }
-                    else if (data == "empty6") {
                         alert("详情介绍不能为空，请重新设置详情介绍！");
                         $("#new_contestIntroduction").focus();//详情介绍
                     }
@@ -421,32 +411,41 @@
         $('#new_contestEndtime').focus(function () {
             $('#time2').tooltip('destroy');
         });
-        // 通过标题获取修改的通知信息
+        // 通过id获取修改的通知信息
         $('.editbtn').click(function () {
-            var edit = $(this).parent().prev().prev().prev().text();
+            var edit = parseInt($(this).parent().prev().text());
             console.log(edit);
+
             $.ajax({
                 type: "get",
-                url: "/NgetNoticeByT.action",
-                data: {"gg_title": edit},
+                url: "/CgetContestById.action",
+                data: {"j_id": edit},
                 success: function (data) {
-                    $("#edit_noticeId").val(data.gg_id);
-                    $("#edit_noticeTitle").val(data.gg_title);
-                    $("#edit_noticeText").val(data.gg_content);
+                    console.log(data);
+                    $("#edit_contestId").val(data.j_id);
+                    $("#edit_contestName").val(data.j_name);//比赛名称
+                    $("#edit_contestType").val(data.j_type);//比赛类型
+                    $("#edit_contestWeb").val(data.j_href);//官方网址
+                    var st = data.j_starttime.toString().substring(0,10);
+                    $("#edit_contestStarttime").val(st);//发布日期
+                    var eds=data.j_endtime.toString().substring(0,10);
+                    $("#edit_contestEndtime").val(eds);// 截止日期
+                    $("#edit_contestIntroduction").val(data.j_int);//详情介绍
                 }
             });
         });
         // 删除客户
         $('.delbtn').click(function () {
             if (confirm('确实要删除该通知吗?')) {
-                var editid = $(this).parent().prev().prev().prev().prev().text();
-                $.post("/Ndelete.action", {"gg_id": editid},
+                var editid = parseInt($(this).parent().prev().text());
+                console.log(editid);
+                $.post("/Cdelete.action", {"j_id": editid},
                     function (data) {
                         if (data == "OK") {
-                            alert("通知删除成功！" + data);
+                            alert("竞赛删除成功！" + data);
                             window.location.reload();
                         } else {
-                            alert("删除通知失败！" + data);
+                            alert("删除竞赛失败！" + data);
                             window.location.reload();
                         }
                     });
@@ -454,98 +453,33 @@
         });
         //详情
         $('.lookbtn').click(function () {
-            var edit = $(this).parent().prev().prev().prev().text();
+            var edit = parseInt($(this).parent().prev().text());
             console.log(edit);
             $.ajax({
                 type: "get",
-                url: "/NgetNoticeByT.action",
-                data: {"gg_title": edit},
+                url: "/CgetContestById.action",
+                data: {"j_id": edit},
                 success: function (data) {
-                    $('#noticeLookDialog .modal-body').html(data.gg_content);
-                    $('#noticeLookDialog h4').html(data.gg_title);
+                    $('#contestLookDialog .modal-body').html("大赛详情："+data.j_int+"<br>"+"访问官网："+data.j_href);
+                    $('#contestLookDialog h4').html(data.j_name);
                 }
             });
         });
-        //批删
-        $('#alldel').click(function () {
-            var checkedList = [];
-            $("input:checked").each(function(){
-                checkedList.push($(this).parent().next().text());
-            });
-            if(checkedList.length==0){
-                alert("请至少选择一项!");
-                return false;
-            }
-            if(confirm("确定删除所选项目?")){
-                $.ajax({
-                    type:"POST",
-                    url:"/Ndelete_all.action",
-                    data:{"delitems":checkedList.toString()},
-                    datatype:"html",
-                    success:function(data){
-                        alert("删除成功！");
-                        window.location.reload();
-                    },
-                    error:function(data){
-                        //art.dialog.tips('删除失败!');
-                        alert("删除失败！");
-                        window.location.reload();
-                    }
-                });
-            }
-        })
+
     });
-    // 执行修改通知内容操作
-    function updateNotice() {
-        alert("updateNotice");
-        $.post("/Nupdate.action",$("#edit_notice_form").serialize(), function (data) {
+    // 执行修改竞赛内容操作
+    function updateContest() {
+        $.post("/Cupdate.action",$("#edit_notice_form").serialize(), function (data) {
             if (data == "OK") {
-                alert("通知信息更新成功！" + data);
+                alert("竞赛信息更新成功！" + data);
                 window.location.reload();
             } else {
-                alert("通知信息更新失败！" + data);
+                alert("竞赛信息更新失败！" + data);
                 window.location.reload();
             }
         });
     }
-    //全选的功能
-    /*
-    function selectAll(){
-        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
-        var cak=document.getElementById("SelectAll");
-        if(cak.checked==true){
-            //循环这一组checkbox让每一个checkbox选中
-            for(var i=0;i<ck.length;i++){
-                var c=ck[i];//得到一个checkbox
-                c.checked=true;//false代表不选
-            }
-        }
-        else{
-            for(var i=0;i<ck.length;i++){
-                var c=ck[i];//得到一个checkbox
-                c.checked=false;//false代表不选
-            }
-        }
-    }
 
-     */
-    //反选
-    /*
-    function uselectAll(){//先得到所有的checkbox
-        var ck=document.getElementsByName("ck");//得到一组checkbox  相当于数组
-        var cak=document.getElementById("SelectAll");
-        if(cak.checked==true)
-            cak.checked=false;
-        for(var i=0;i<ck.length;i++){
-            var c=ck[i];//得到一个checkbox
-            if(c.checked==true){//如果当前的checkbox是选中的则不让其选中
-                ck[i].checked=false;
-            }else{
-                ck[i].checked=true;
-            }
-        }
-    }
 
-     */
 </script>
 </html>

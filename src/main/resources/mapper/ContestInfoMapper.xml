@@ -75,14 +75,14 @@
    </insert>
 
     <!--根据id查信息-->
-    <select id="getContestById" parameterType="Integer" resultType="ContestInfo">
+    <select id="getContestById" parameterType="Integer" resultMap="ContestInfo">
        select * from x_contesttp where  j_id = #{j_id}
    </select>
 
 
 
     <!--更新客户-->
-    <update id="updateContest" parameterType="contestInfo">
+    <update id="updateContest" parameterType="ContestInfo">
         update x_contesttp
         <set>
             <if test="j_id !=null and j_id !=''">
@@ -92,19 +92,19 @@
                 j_name = #{j_name},
             </if>
             <if test="j_type != null and j_type !='' ">
-                and j_type = #{j_type},
+                 j_type = #{j_type},
             </if>
             <if test="j_int != null and j_int !='' ">
-                and j_int = #{j_int},
+                 j_introduction = #{j_int},
             </if>
             <if test="j_href != null and j_href !='' ">
-                and j_href = #{j_href},
+                 j_href = #{j_href},
             </if>
-            <if test="j_starttime != null ' ">
-                and j_starttime = #{j_starttime},
+            <if test="j_starttime != null  ">
+                 j_starttime = #{j_starttime},
             </if>
             <if test="j_endtime != null  ">
-                and j_endtime = #{j_endtime}
+                 j_endtime = #{j_endtime}
             </if>
         </set>
         where  j_id = #{j_id}

@@ -70,9 +70,9 @@ public class ContestController {
         contestInfo.setJ_type(j_type);
         contestInfo.setJ_href(j_href);
         contestInfo.setJ_int(j_introduction);
-        System.out.println(contestInfo);
+       // System.out.println(contestInfo);
         int num=contestInfoService.getContestByName(contestInfo.getJ_name());
-       System.out.println(num);
+       //System.out.println(num);
        int check = 0;
 
         if (contestInfo.getJ_name() == "" || contestInfo.getJ_name() == null){
@@ -84,14 +84,9 @@ public class ContestController {
         else if ( contestInfo.getJ_href()== "" || contestInfo.getJ_href() == null){
             check = 3;//官方网址：
         }
-        else if (j_starttime == "" || j_starttime == null){
-            check = 4;//发布日期：
-        }
-        else if (j_endtime == "" || j_endtime == null){
-            check = 5;// 截止日期：
-        }
+
         else if (j_introduction == "" || j_introduction == null){
-            check = 6;//详情介绍：
+            check =4;//详情介绍：
         }
 
 
@@ -126,6 +121,7 @@ public class ContestController {
     public  ContestInfo CgetContestById(Integer  j_id) {
 
         ContestInfo contestInfo=contestInfoService.getContestById(j_id);
+        //System.out.println(contestInfo);
         return contestInfo;
     }
 /*
@@ -154,16 +150,32 @@ public class ContestController {
     /**
      * 更新通知信息
      *
-     * @param contestInfo
+     * @param
      * @return
      */
 
     @RequestMapping("/Cupdate.action")
     @ResponseBody
-    public String Cupdate(ContestInfo contestInfo) {
-       // Date now =new Date();
-        //notice.setGg_date(now);
-        // System.out.println(now);
+    public String Cupdate(Integer j_id,String j_name,String j_type,String j_href,String j_starttime, String j_endtime ,String j_introduction,HttpSession session) throws ParseException {
+
+        ContestInfo contestInfo=new ContestInfo();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        if ( j_starttime != null||j_starttime !=""){
+            Date begin = sdf.parse(j_starttime);
+            contestInfo.setJ_starttime(begin);
+        }
+        if ( j_endtime != null||j_starttime !=""){
+            Date endt  = sdf.parse(j_endtime);
+            contestInfo.setJ_endtime(endt);
+        }
+      //  int t=Integer.parseInt(j_id);
+        contestInfo.setJ_id(j_id);
+        contestInfo.setJ_name(j_name);
+        contestInfo.setJ_type(j_type);
+        contestInfo.setJ_href(j_href);
+        contestInfo.setJ_int(j_introduction);
+        System.out.println("====="+contestInfo+"=====");
         int rows = contestInfoService.updateContest(contestInfo);
         System.out.println(rows);
         if (rows > 0) {
