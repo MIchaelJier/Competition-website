@@ -75,7 +75,8 @@
             <div class="breadcrumb" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">
                 <h6>竞赛报名</h6>
             </div>
-            <form action="/baoming.getall" method="post">
+            <div class="container">
+                <form action="/baoming.getall" method="post">
                     <div class="col-xs-6 col-md-3 text-center enterroom" th:each="b : ${contestInfos}">
                     <img src="images/trophy_yellow.png" alt="#">
                     <div class="breadcrumb">
@@ -132,6 +133,7 @@
                     <p><span class="btn btn-success goapply">报名</span></p><br>
             </div>
             </form>
+            </div>
         </div>
     </div>
 </div>
@@ -197,9 +199,8 @@
 <script type="text/javascript">
   $(function () {
       //行包裹div
-      $(".enterroom").each(function(i){ //遍历每一个day
+      $(".enterroom").each(function(i){
           $('.enterroom').slice(i*4,i*4+4).wrapAll("<div class='row'></div>");
-        //每一个day下面开始寻找各个div，然后每六个为一组，然后在外面包一层div，class是post
       });
       //判断时间是否过期
       $('.endtime').each(function () {
