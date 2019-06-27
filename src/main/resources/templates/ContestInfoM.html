@@ -198,8 +198,10 @@
                                     发布日期：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="new_contestStarttime" placeholder="发布日期"
-                                           name="j_starttime"/>
+                                    <div class="tooltip-show" id="time1" data-toggle="tooltip"  data-placement="bottom" data-html="true" title="<h5 style='color:red'><strong>请输入发布日期</strong></h5>">
+                                        <input type="date" class="form-control"  id="new_contestStarttime" placeholder="发布日期" name="j_starttime"/>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -207,8 +209,9 @@
                                     截止日期：
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="new_contestEndtime" placeholder="截止日期"
-                                           name="j_endtime"/>
+                                    <div class="tooltip-show" id="time2" data-toggle="tooltip"  data-placement="bottom" data-html="true" title="<h5 style='color:red'><strong>请输入截止日期</strong></h5>">
+                                        <input type="date" class="form-control" id="new_contestEndtime"  placeholder="截止日期" name="j_endtime"/>
+                                    </div>
                                 </div>
                             </div>
 
@@ -227,7 +230,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" onclick="createNotice()">发布竞赛</button>
+                        <button type="button" class="btn btn-primary" id="fabu_btn">发布竞赛</button>
                     </div>
                 </div>
             </div>
@@ -398,6 +401,25 @@
     }
     //操作：查看 删除 批删
     $(function () {
+        $("#fabu_btn").click(function(){
+            var  starttime = $('#new_contestStarttime').val();
+            var  endtime = $('#new_contestEndtime').val();
+            if(!starttime){
+                $('#time1').tooltip('show');
+                return false;
+            }
+            if(!endtime){
+                $('#time2').tooltip('show');
+                return false;
+            }
+
+        });
+        $('#new_contestStarttime').focus(function () {
+            $('#time1').tooltip('destroy');
+        });
+        $('#new_contestEndtime').focus(function () {
+            $('#time2').tooltip('destroy');
+        });
         // 通过标题获取修改的通知信息
         $('.editbtn').click(function () {
             var edit = $(this).parent().prev().prev().prev().text();
