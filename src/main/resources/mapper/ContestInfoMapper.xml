@@ -71,7 +71,7 @@
     <!--添加竞赛-->
     <insert id="createContest" parameterType="contestInfo">
        insert into x_contesttp(j_id, j_name, j_type, j_introduction, j_href, j_starttime, j_endtime)
-                            values(#{j_id},#{j_name},#{j_type},#{j_introduction},#{j_href},#{j_starttime},#{j_endtime})
+                            values(#{j_id},#{j_name},#{j_type},#{j_int},#{j_href},#{j_starttime},#{j_endtime})
    </insert>
 
     <!--根据id查信息-->
