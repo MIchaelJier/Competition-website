@@ -70,7 +70,7 @@ public class ContestController {
         contestInfo.setJ_type(j_type);
         contestInfo.setJ_href(j_href);
         contestInfo.setJ_int(j_introduction);
-        //System.out.println(contestInfo);
+        System.out.println(contestInfo);
         int num=contestInfoService.getContestByName(contestInfo.getJ_name());
        System.out.println(num);
        int check = 0;
@@ -90,7 +90,7 @@ public class ContestController {
         else if (j_endtime == "" || j_endtime == null){
             check = 5;// 截止日期：
         }
-        else if ( contestInfo.getJ_int()== "" || contestInfo.getJ_int() == null){
+        else if (j_introduction == "" || j_introduction == null){
             check = 6;//详情介绍：
         }
 
@@ -118,20 +118,17 @@ public class ContestController {
 
 
     /**
-     * 根据Title获取通知内容
+     * 根据id获取通知内容
      */
-    /*
-    @RequestMapping("/NgetNoticeByT.action")
-    @ResponseBody
-    public Notice NgetNoticeByT(String gg_title) {
-        //System.out.println(gg_title);
-        Notice notice = noticeService.getNoticeByT(gg_title);
-        Date now=new Date();
-        notice.setGg_date(now);
-        //System.out.println(notice);
-        return notice;
-    }
 
+    @RequestMapping("/CgetContestById.action")
+    @ResponseBody
+    public  ContestInfo CgetContestById(Integer  j_id) {
+
+        ContestInfo contestInfo=contestInfoService.getContestById(j_id);
+        return contestInfo;
+    }
+/*
     /**
      * 显示详细内容
      */
@@ -157,17 +154,17 @@ public class ContestController {
     /**
      * 更新通知信息
      *
-     * @param notice
+     * @param contestInfo
      * @return
      */
-/*
-    @RequestMapping("/Nupdate.action")
+
+    @RequestMapping("/Cupdate.action")
     @ResponseBody
-    public String Nupdate(Notice notice) {
-        Date now =new Date();
-        notice.setGg_date(now);
+    public String Cupdate(ContestInfo contestInfo) {
+       // Date now =new Date();
+        //notice.setGg_date(now);
         // System.out.println(now);
-        int rows = noticeService.updateNotice(notice);
+        int rows = contestInfoService.updateContest(contestInfo);
         System.out.println(rows);
         if (rows > 0) {
             return "OK";
@@ -176,7 +173,7 @@ public class ContestController {
         }
 
     }
-*/
+
 
     /**
      * 删除通知信息
@@ -184,19 +181,19 @@ public class ContestController {
      * @param
      * @return
      */
-    /*
-    @RequestMapping("/Ndelete.action")
-    @ResponseBody
-    public String noticeDelete(Integer gg_id) {
 
-        int rows = noticeService.deleteNotice(gg_id);
+    @RequestMapping("/Cdelete.action")
+    @ResponseBody
+    public String contestDelete(Integer j_id) {
+
+        int rows = contestInfoService.deleteContest(j_id);
         if (rows > 0) {
             return "OK";
         } else {
             return "FAIL";
         }
     }
-
+/*
     @RequestMapping("/Ndelete_all.action")
     @ResponseBody
     public void delectAll(HttpServletRequest request, HttpServletResponse response) {
