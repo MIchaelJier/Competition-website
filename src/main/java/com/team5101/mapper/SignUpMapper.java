@@ -25,5 +25,4 @@ public interface SignUpMapper {
     //插入报名信息
     Integer addOne(SignUp signUp);
     int findInfo(SignUp signUp);
-    List<SignUp> findSigUPInfo(Integer c_id);
 }

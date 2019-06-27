@@ -17,35 +17,33 @@
             <if test="j_id !=null and j_id !=''">
                 j_id = #{j_id}
             </if>
-
             <if test="j_name !=null and j_name !=''">
                 j_name = #{j_name}
             </if>
-
             <if test="j_type != null and j_type !='' ">
                 and j_type = #{j_type}
             </if>
-
             <if test="j_int != null and j_int !='' ">
                 and j_int = #{j_int}
             </if>
-
-            <if test="j_href != null andj_href !='' ">
+            <if test="j_href != null and j_href !='' ">
                 and j_href = #{j_href}
             </if>
-
-            <if test="j_starttime != null ' ">
+            <if test="j_starttime != null  ">
                 and j_starttime = #{j_starttime}
             </if>
-
             <if test="j_endtime != null  ">
                 and j_endtime = #{j_endtime}
             </if>
         </where>
     </sql>
 
+    <!--数据库列-->
+    <sql id="Base_Column_List" >
+        j_id,j_name,j_type,j_introduction,j_href,j_starttime,j_endtime
+    </sql>
 
-
+    <!-- 查询竞赛列表列表 -->
     <select id="getContestInfoAll" parameterType="String" resultType="com.team5101.pojo.ContestInfo"  resultMap="ContestInfo" >
         SELECT
 	    *
@@ -54,5 +52,80 @@
         GROUP BY
 	    j_endtime desc ,j_id desc
     </select>
+
+    <select id="selectContestList" parameterType="contestInfo" resultType="contestInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from x_contesttp
+        <include refid="selectContestListWhere"/>
+    </select>
+
+
+
+    <!--竞赛名查重-->
+    <select id="getContestByName" parameterType="String" resultType="Integer">
+      select count(*) from x_contesttp where j_name = #{j_name}
+    </select>
+
+
+    <!--添加竞赛-->
+    <insert id="createContest" parameterType="contestInfo">
+       insert into x_contesttp(j_id, j_name, j_type, j_introduction, j_href, j_starttime, j_endtime)
+                            values(#{j_id},#{j_name},#{j_type},#{j_introduction},#{j_href},#{j_starttime},#{j_endtime})
+   </insert>
+
+    <!--根据id查信息-->
+    <select id="getContestById" parameterType="Integer" resultType="ContestInfo">
+       select * from x_contesttp where  j_id = #{j_id}
+   </select>
+
+
+
+    <!--更新客户-->
+    <update id="updateContest" parameterType="contestInfo">
+        update x_contesttp
+        <set>
+            <if test="j_id !=null and j_id !=''">
+                j_id = #{j_id},
+            </if>
+            <if test="j_name !=null and j_name !=''">
+                j_name = #{j_name},
+            </if>
+            <if test="j_type != null and j_type !='' ">
+                and j_type = #{j_type},
+            </if>
+            <if test="j_int != null and j_int !='' ">
+                and j_int = #{j_int},
+            </if>
+            <if test="j_href != null and j_href !='' ">
+                and j_href = #{j_href},
+            </if>
+            <if test="j_starttime != null ' ">
+                and j_starttime = #{j_starttime},
+            </if>
+            <if test="j_endtime != null  ">
+                and j_endtime = #{j_endtime}
+            </if>
+        </set>
+        where  j_id = #{j_id}
+    </update>
+
+
+
+    <!--删除客户      -->
+    <delete id="deleteContest" parameterType="Integer">
+          delete from x_contesttp where j_id = #{j_id}
+     </delete>
+
+
+    <!--
+    批量删除
+    <delete id="batchDeletes" parameterType="java.util.List">
+        DELETE FROM x_contesttp where j_id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+     -->
 
 </mapper>
