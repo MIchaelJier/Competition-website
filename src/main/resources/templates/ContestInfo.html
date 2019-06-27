@@ -49,7 +49,7 @@
                 </div>
                 <div id="menu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">首页</a></li>
+                        <li><a href="/index">首页</a></li>
                         <li><a href="/contestInfo">报名</a></li>
                         <li><a href="/CL.action">竞赛成绩</a></li>
                         <li><a href="#">优秀师生</a></li>
@@ -59,7 +59,7 @@
                             <ul class="dropdown-menu">
 
                                 <li><a href="/userInfo">个人信息</a></li>
-                                <li><a href="/CreatGroup">小组信息</a></li>
+                                <li><a href="/CreatGroupInfo">小组信息</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="/mclist.action">竞赛管理</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>

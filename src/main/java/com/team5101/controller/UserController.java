@@ -98,7 +98,6 @@ public class UserController {
             System.out.println(competitor.toString());
             userMapper.updateOne(competitor);
 
-
         }catch (Exception e){
             e.printStackTrace();
         }finally {

@@ -8,7 +8,7 @@
 </head>
 <!--小组信息展示-->
 <body>
-<form action="/Group.getAll" method="post">
+<form name="form0" action="/Group.getAll" method="post">
     <table border="1">
         <tr>
             <th>小组ID</th>
@@ -30,7 +30,11 @@
 
         </tr>
     </table>
-    <input type="submit" value="查询">
+    <input type="submit" value="查询所有小组信息"><br>
+
+</form>
+<form name="creatGroup" action="/CreatGroupInfo" method="post">
+    <input type="submit" value="创建小组">
 </form>
 
 </body>
