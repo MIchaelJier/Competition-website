@@ -6,31 +6,28 @@
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
 </head>
-<!--报名信息展示-->
+<!--小组信息展示-->
 <body>
-<form action="/baoming.getall" method="post">
+<form action="/Group.getAll" method="post">
     <table border="1">
         <tr>
-            <th>报名ID</th>
-            <th>竞赛名称</th>
-            <th>竞赛类型</th>
-            <th>竞赛简介</th>
-            <th>竞赛官网</th>
-            <th>参赛人</th>
-            <th>报名时间</th>
-            <th>报名状态</th>
+            <th>小组ID</th>
+            <th>小组名称</th>
+            <th>成员1</th>
+            <th>成员2</th>
+            <th>成员3</th>
+            <th>成员4</th>
 
         </tr>
         <!--        遍历输出-->
-        <tr th:each="b : ${signups}">
-            <td th:text="${b?.b_id}"></td>
-            <td th:text="${b?.contestInfo?.j_name}"></td>
-            <td th:text="${b?.contestInfo?.j_type}"></td>
-            <td th:text="${b?.contestInfo?.j_int}"></td>
-            <td ><a th:href="@{${b.contestInfo?.j_href}}" th:text="${b.contestInfo?.j_href}"></a></td>
-            <td th:text="${b?.competitor?.c_name}"></td>
-            <td th:text="${b?.b_time}"></td>
-            <td th:text="${b?.b_state}"></td>
+        <tr th:each=" g: ${groups}">
+            <td th:text="${g.getG_id()}"></td>
+            <td th:text="${g.getG_name()}"></td>
+            <td th:text="${g.getG_sn1()}"></td>
+            <td th:text="${g.getG_sn2()}"></td>
+            <td th:text="${g.getG_sn3()}"></td>
+            <td th:text="${g.getG_sn4()}"></td>
+
         </tr>
     </table>
     <input type="submit" v
