@@ -31,9 +31,9 @@
         }
     </style>
 </head>
-<!--报名信息展示-->
+<!-- 报名信息展示 -->
 <body>
-<!--导航栏开始-->
+<!-- 导航栏开始 -->
 <header class="cd-main-header">
     <div class="cd-main-header__container container container--lg">
         <nav class="nav navbar-default navbar-fixed-top">
@@ -68,72 +68,74 @@
         </nav>
     </div>
 </header>
-<!--导航栏结束-->
+<!-- 导航栏结束 -->
+<!-- main begin -->
 <div class="container" style="background:#fff;margin-top: 100px;">
     <div class="row">
             <div class="breadcrumb" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">
                 <h6>竞赛报名</h6>
             </div>
             <form action="/baoming.getall" method="post">
-            <div class="col-xs-6 col-md-3 text-center" th:each="b : ${contestInfos}">
-                <img src="images/trophy_yellow.png" alt="#">
-                <div class="breadcrumb">
-                    <p  th:text="${b.j_name}"></p>
-                </div>
-                <div class="alert alert-info">
-                    <p>报名开始时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
-                    <p>报名截止时间:<b class="endtime" th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
-                    <div class="container-fluid">
-                        <div class="accordion" id="accordion2">
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-                                    <p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" th:href="@{'#'+${b.j_id}}" style="cursor: pointer">
-                                        更多信息<span class="caret"></span>
-                                    </p>
-                                </div>
-                                <div th:id="${b.j_id}" class="accordion-body collapse" style="height: 0px; ">
-                                    <div class="accordion-inner">
-                                        <form action="/baoming.getall" method="post">
-                                            <table>
-                                                <tr>
-                                                    <td>ID</td>
-                                                    <td th:text="${b.j_id}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>名称</td>
-                                                    <td th:text="${b.j_name}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>类型</td>
-                                                    <td th:text="${b.j_type}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>简介</td>
-                                                    <td th:text="${b.j_int}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>官网</td>
-                                                    <td><a th:href="@{${b.j_href}}" th:text="${b.j_href}"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>时间</td>
-                                                    <td>2019.5.6</td>
-                                                </tr>
-                                            </table>
-                                            <input type="submit" value="查询"  class="btn btn-primary uploadbtn">
-                                        </form><br>
+                    <div class="col-xs-6 col-md-3 text-center enterroom" th:each="b : ${contestInfos}">
+                    <img src="images/trophy_yellow.png" alt="#">
+                    <div class="breadcrumb">
+                        <p  th:text="${b.j_name}"></p>
+                    </div>
+                    <div class="alert alert-info">
+                        <p>报名开始时间:<b th:text="${#dates.format(b.j_starttime, 'yyyy-MM-dd')}"></b></p>
+                        <p>报名截止时间:<b class="endtime" th:text="${#dates.format(b.j_endtime, 'yyyy-MM-dd')}"></b></p>
+                        <div class="container-fluid">
+                            <div class="accordion" id="accordion2">
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
+                                        <p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" th:href="@{'#'+${b.j_id}}" style="cursor: pointer">
+                                            更多信息<span class="caret"></span>
+                                        </p>
+                                    </div>
+                                    <div th:id="${b.j_id}" class="accordion-body collapse" style="height: 0px; ">
+                                        <div class="accordion-inner">
+                                            <form action="/baoming.getall" method="post">
+                                                <table>
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td th:text="${b.j_id}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>名称</td>
+                                                        <td th:text="${b.j_name}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>类型</td>
+                                                        <td th:text="${b.j_type}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>简介</td>
+                                                        <td th:text="${b.j_int}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>官网</td>
+                                                        <td><a th:href="@{${b.j_href}}" th:text="${b.j_href}"></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>时间</td>
+                                                        <td>2019.5.6</td>
+                                                    </tr>
+                                                </table>
+                                                <input type="submit" value="查询"  class="btn btn-primary uploadbtn">
+                                            </form><br>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <p><span class="btn btn-success goapply">报名</span></p><br>
+                    <p><span class="btn btn-success goapply">报名</span></p><br>
             </div>
             </form>
         </div>
     </div>
 </div>
+<!-- main over -->
 <!-- 模态框（Modal）开始 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -194,6 +196,11 @@
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
   $(function () {
+      //行包裹div
+      $(".enterroom").each(function(i){ //遍历每一个day
+          $('.enterroom').slice(i*4,i*4+4).wrapAll("<div class='row'></div>");
+        //每一个day下面开始寻找各个div，然后每六个为一组，然后在外面包一层div，class是post
+      });
       //判断时间是否过期
       $('.endtime').each(function () {
           var endDateString = $(this).text().replace(/-/g, '/');
@@ -210,9 +217,24 @@
           if($(this).attr('disabled') != 'disabled'){
               var testname = $(this).parent().prev().prev().children().text();
               var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
-              $('#selContest option').html(testname).attr('value',testid);
+              $('#selContest option').html(testname).attr('value',testid).css('pointer-events',' none');
               $('#myModal').modal({keyboard: true});
               e.stopPropagation();
+          }
+      });
+      //获取报名的记录
+      $.ajax({
+          type: "POST",
+          url: "/findSigUPInfo",
+          success: function (record) {
+              $('.goapply').each(function () {
+                  var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
+                  for(var i=0;i<record.length;i++){
+                      if(record[i] == testid){
+                          $(this).text('已报名').attr('disabled', true);
+                      }
+                  }
+              })
           }
       });
       //拟态框内 确认报名
@@ -224,13 +246,13 @@
           var major = $('#major').val();
           var phone = $('#phone').val();
           var qq = $("#qq").val();
-          console.log(sno);
           $.ajax({
               type: "POST",
               url: "/regcontestInfo",
               data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_id':contest},
               success: function (ok) {
                     alert(ok);
+                     window.location.reload();
               }
           });
       });
