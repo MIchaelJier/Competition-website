@@ -72,12 +72,12 @@
 <!-- main begin -->
 <div class="container" style="background:#fff;margin-top: 100px;">
     <div class="row">
-            <div class="breadcrumb" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">
-                <h6>竞赛报名</h6>
-            </div>
-            <div class="container">
-                <form action="/baoming.getall" method="post">
-                    <div class="col-xs-6 col-md-3 text-center enterroom" th:each="b : ${contestInfos}">
+        <div class="breadcrumb" style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">
+            <h6>竞赛报名</h6>
+        </div>
+        <div class="container">
+            <form action="/baoming.getall" method="post">
+                <div class="col-xs-6 col-md-3 text-center enterroom" th:each="b : ${contestInfos}">
                     <img src="images/trophy_yellow.png" alt="#">
                     <div class="breadcrumb">
                         <p  th:text="${b.j_name}"></p>
@@ -131,11 +131,11 @@
                         </div>
                     </div>
                     <p><span class="btn btn-success goapply">报名</span></p><br>
-            </div>
+                </div>
             </form>
-            </div>
         </div>
     </div>
+</div>
 </div>
 <!-- main over -->
 <!-- 模态框（Modal）开始 -->
@@ -197,67 +197,67 @@
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-  $(function () {
-      //行包裹div
-      $(".enterroom").each(function(i){
-          $('.enterroom').slice(i*4,i*4+4).wrapAll("<div class='row'></div>");
-      });
-      //判断时间是否过期
-      $('.endtime').each(function () {
-          var endDateString = $(this).text().replace(/-/g, '/');
-          var endDate = new Date(endDateString);
-          endDate.setDate(endDate.getDate() + 1);
-          var nowDate = new Date;
-          if(endDate.getTime() < nowDate.getTime()) {
-              $(this).parent().parent().next().children().text('报名结束').attr('disabled', true);
-              $(this).parent().parent().prev().prev().attr("src","images/trophy_grey.png");
-          }
-      });
-      //报名 按钮 弹出拟态框
-      $('.goapply').on('click',function (e) {
-          if($(this).attr('disabled') != 'disabled'){
-              var testname = $(this).parent().prev().prev().children().text();
-              var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
-              $('#selContest option').html(testname).attr('value',testid).css('pointer-events',' none');
-              $('#myModal').modal({keyboard: true});
-              e.stopPropagation();
-          }
-      });
-      //获取报名的记录
-      $.ajax({
-          type: "POST",
-          url: "/findSigUPInfo",
-          success: function (record) {
-              $('.goapply').each(function () {
-                  var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
-                  for(var i=0;i<record.length;i++){
-                      if(record[i] == testid){
-                          $(this).text('已报名').attr('disabled', true);
-                      }
-                  }
-              })
-          }
-      });
-      //拟态框内 确认报名
-      $('#send').click(function () {
-          var contest=$('#selContest option').attr('value');
-          var sno = $('#sno').val();
-          var name = $('#name').val();
-          var sex = $('input:radio:checked').val();
-          var major = $('#major').val();
-          var phone = $('#phone').val();
-          var qq = $("#qq").val();
-          $.ajax({
-              type: "POST",
-              url: "/regcontestInfo",
-              data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_id':contest},
-              success: function (ok) {
+    $(function () {
+        //行包裹div
+        $(".enterroom").each(function(i){
+            $('.enterroom').slice(i*4,i*4+4).wrapAll("<div class='row'></div>");
+        });
+        //判断时间是否过期
+        $('.endtime').each(function () {
+            var endDateString = $(this).text().replace(/-/g, '/');
+            var endDate = new Date(endDateString);
+            endDate.setDate(endDate.getDate() + 1);
+            var nowDate = new Date;
+            if(endDate.getTime() < nowDate.getTime()) {
+                $(this).parent().parent().next().children().text('报名结束').attr('disabled', true);
+                $(this).parent().parent().prev().prev().attr("src","images/trophy_grey.png");
+            }
+        });
+        //报名 按钮 弹出拟态框
+        $('.goapply').on('click',function (e) {
+            if($(this).attr('disabled') != 'disabled'){
+                var testname = $(this).parent().prev().prev().children().text();
+                var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
+                $('#selContest option').html(testname).attr('value',testid).css('pointer-events',' none');
+                $('#myModal').modal({keyboard: true});
+                e.stopPropagation();
+            }
+        });
+        //获取报名的记录
+        $.ajax({
+            type: "POST",
+            url: "/findSigUPInfo",
+            success: function (record) {
+                $('.goapply').each(function () {
+                    var testid = $(this).parent().prev().children().eq(2).children().children().children().eq(1).attr('id');
+                    for(var i=0;i<record.length;i++){
+                        if(record[i] == testid){
+                            $(this).text('已报名').attr('disabled', true);
+                        }
+                    }
+                })
+            }
+        });
+        //拟态框内 确认报名
+        $('#send').click(function () {
+            var contest=$('#selContest option').attr('value');
+            var sno = $('#sno').val();
+            var name = $('#name').val();
+            var sex = $('input:radio:checked').val();
+            var major = $('#major').val();
+            var phone = $('#phone').val();
+            var qq = $("#qq").val();
+            $.ajax({
+                type: "POST",
+                url: "/regcontestInfo",
+                data: {'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_qq':qq,'j_id':contest},
+                success: function (ok) {
                     alert(ok);
-                     window.location.reload();
-              }
-          });
-      });
-  });
+                    window.location.reload();
+                }
+            });
+        });
+    });
 
 </script>
 </html>

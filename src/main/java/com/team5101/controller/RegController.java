@@ -58,23 +58,10 @@ public class RegController {
         model.addAttribute("contestInfos",contestInfos);
         ModelAndView mv=new ModelAndView("ContestInfo");
         User u= (User) request.getSession().getAttribute("USER");
-        List<SignUp> signUps=signUpMapper.findSigUPInfo(u.getU_id());
         Competitor c =userService.findInfo(u.getU_sno());
         model.addAttribute("userInfo",c);
-        System.out.println(signUps);
 
         return mv;
-    }
-    @RequestMapping("/findSigUPInfo")
-    public List<SignUp> findSigUPInfo(Model model, HttpServletRequest request){
-
-        User u= (User) request.getSession().getAttribute("USER");
-        List<SignUp> signUps=signUpMapper.findSigUPInfo(u.getU_id());
-        Competitor c =userService.findInfo(u.getU_sno());
-
-        System.out.println(signUps);
-
-        return signUps;
     }
     //提交报名信息
     @RequestMapping("/regcontestInfo")
@@ -85,7 +72,6 @@ public class RegController {
         signUp.setC_id(c_id);
 
         signUp.setJ_id(Integer.parseInt(contestid));
-
         if (signUpMapper.findInfo(signUp)>=1) {
 
             return "已报名，请勿重复报名";

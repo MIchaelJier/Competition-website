@@ -68,4 +68,17 @@ public class ContestInfo {
     public void setJ_href(String j_href) {
         this.j_href = j_href;
     }
+
+    @Override
+    public String toString() {
+        return "ContestInfo{" +
+                "j_id=" + j_id +
+                ", j_name='" + j_name + '\'' +
+                ", j_type='" + j_type + '\'' +
+                ", j_int='" + j_int + '\'' +
+                ", j_href='" + j_href + '\'' +
+                ", j_starttime=" + j_starttime +
+                ", j_endtime=" + j_endtime +
+                '}';
+    }
 }
