@@ -81,7 +81,11 @@ public class RegController {
             userMapper.updateOne(competitor);
             ModelAndView mv = new ModelAndView("ContestInfo");
             return "报名成功！";
-
         }
+    }
+    @RequestMapping("/CreatGroup")
+    public ModelAndView creatGroup(Model model){
+
+        return new ModelAndView("CreatGroup");
     }
 }
