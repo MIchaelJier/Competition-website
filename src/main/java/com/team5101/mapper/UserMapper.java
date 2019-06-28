@@ -19,5 +19,5 @@ public interface UserMapper {
     public User findUser(@Param("username") String username,
                          @Param("password") String password);
     public Competitor findInfo(String u_sno);
-    Integer  updateOne(Competitor competitor);
+    public Integer  updateOne(Competitor competitor);
 }

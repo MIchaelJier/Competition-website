@@ -37,15 +37,14 @@ public class FileController {
     @RequestMapping(value = "/uploads")
     public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
         try {
-            if (file.isEmpty()) {
-                return "文件为空";
-            }
+
             // 获取文件名
             String fileName = file.getOriginalFilename();
             log.info("上传的文件名为：" + fileName);
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             log.info("文件的后缀名为：" + suffixName);
+           // if(suffixName!=".zip"&&suffixName!=".rar") return "上传文件类型不符合";
             // 设置文件存储路径
             // String path1 = ClassUtils.getDefaultClassLoader().getResource("").getPath();
             // String path1 = ResourceUtils.getURL("classpath:").getPath();
@@ -60,6 +59,9 @@ public class FileController {
             // 检测是否存在目录
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();// 新建文件夹
+            }
+            if (file.isEmpty()) {
+                return "文件为空";
             }
             file.transferTo(dest);// 文件写入
             return "上传成功";
@@ -104,6 +106,7 @@ public class FileController {
      */
 
     //下载
+    /*
     @GetMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
         String fileName = "dalaoyang.jpeg";// 文件名
@@ -149,4 +152,6 @@ public class FileController {
         }
         return "下载失败";
     }
+
+     */
 }

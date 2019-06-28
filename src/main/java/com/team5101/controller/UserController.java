@@ -28,29 +28,6 @@ public class UserController {
     @Autowired
     private NoticeService noticeService;
 
-//    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-//    public ModelAndView login() {
-//        return new ModelAndView("login");
-//    }
-//
-//
-//
-//    @RequestMapping(value="/login.action",method = {RequestMethod.POST, RequestMethod.GET})
-//    public ModelAndView login(@RequestParam("username")String username,@RequestParam("password")String password,
-//                              HttpServletRequest request, HttpSession session, Model model) {
-//        User user=userService.login(username,password);
-//        session.setAttribute("username",username);
-//
-//        //request.getSession().setAttribute("username",username);
-//        System.out.println(user);
-//
-//        return new ModelAndView("success") ;
-//
-//    }
-//
-//
-//
-//
    //初始页
     @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
     public String  login() {
@@ -97,8 +74,6 @@ public class UserController {
         try{
             System.out.println(competitor.toString());
             userMapper.updateOne(competitor);
-
-
         }catch (Exception e){
             e.printStackTrace();
         }finally {

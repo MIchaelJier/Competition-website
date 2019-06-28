@@ -59,6 +59,7 @@
     </div>
 </header>
 <div class="container" style="padding-top: 200px">
+    <font style="color: red">上传文件类型必须为压缩包（.zip/.rar）</font>
     <form action="uploads" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2" >
@@ -73,9 +74,9 @@
 <script>
     $("#file-1").fileinput({
         uploadUrl: '#',
-       /* allowedFileExtensions : ['rar', 'zip'],*/
+        allowedFileExtensions : ['rar', 'zip'],
         overwriteInitial: false,
-        maxFileSize: 1000,
+        maxFileSize: 51200,
         maxFilesNum: 10,
         //allowedFileTypes: ['image', 'video', 'flash'],
     });

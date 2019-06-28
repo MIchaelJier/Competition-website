@@ -6,8 +6,10 @@ spring:
       cache: false
       mode: HTML
       encoding: UTF-8
+      max-file-size: 500MB
       servlet:
         content-type: text/html
+
   #      prefix: classpath:/templates
 
     datasource:
