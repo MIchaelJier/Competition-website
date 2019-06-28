@@ -95,81 +95,27 @@ public class RegController {
             return "报名成功！";
         }
     }
-    //创建小组信息填写
-    @RequestMapping("/CreatGroupInfo")
-    public ModelAndView CreatGroupInfo(Model model, HttpServletRequest request){
-        User u = (User) request.getSession().getAttribute("USER");
-        Competitor competitor =userService.findInfo(u.getU_sno());
-        model.addAttribute("userInfo",competitor);
-
-        return new ModelAndView("CreatGroupInfo");
-    }
     //创建小组
     @RequestMapping("/CreatGroup")
-    public String creatGroup(Group group){
-        try {
-            if(group.getG_name()==null||group.getG_name().equals("")){
-                return "请输入小组名";
-            }
-            if(groupMapper.findMember(group.getG_name())!=null){
-                return "小组名已存在";
-            }
-            if (group.getG_sn2() != null && !group.getG_sn2().equals("")) {
-                if(groupMapper.GroupInfoBySno(group.getG_sn1())!=null){
-                    return "学号1已存在小组";
-                }
-                if (groupMapper.GroupInfoBySno(group.getG_sn2()) != null) {
-                    return "学号2已存在小组";
-                }
-                groupMapper.addGroup(group);
-                System.out.println(group.toString());
-                return "创建成功！";
-            }
-            else if(group.getG_sn3()!=null&&group.getG_sn3().equals("")){
-                if (groupMapper.GroupInfoBySno(group.getG_sn1()) != null &&
-                        groupMapper.GroupInfoBySno(group.getG_sn3()) != null &&
-                        groupMapper.findMember(group.getG_name()) != null) {
-                    groupMapper.addGroup(group);
-                    System.out.println(group.toString());
-                    return "创建成功！";
-                }else {
-                    return "学号3已存在小组";
-                }
-            }
-            else if(group.getG_sn4()!=null&&group.getG_sn4().equals("")){
-                if (groupMapper.GroupInfoBySno(group.getG_sn1()) != null &&
-                        groupMapper.GroupInfoBySno(group.getG_sn4()) != null &&
-                        groupMapper.findMember(group.getG_name()) != null) {
-                    groupMapper.addGroup(group);
-                    System.out.println(group.toString());
-                    return "创建成功！";
-                }else {
-                    return "学号4已存在小组";
-                }
-            }
+    public ModelAndView creatGroup(Model model, HttpServletRequest request,Group group){
+        User u = (User) request.getSession().getAttribute("USER");
 
-            else{
-                groupMapper.addGroup(group);
-                System.out.println(group.toString());
-                return "创建成功！";
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "数据异常";
+        model.addAttribute("group",groupMapper.addGroup(group));
+        return new ModelAndView("CreatGroup");
     }
     //成员信息
     @RequestMapping("/GroupInfo")
     public ModelAndView allMember(@Param("g_name")String g_name, Model model, HttpServletRequest request){
         User u = (User) request.getSession().getAttribute("USER");
         Group group=groupMapper.findMember(g_name);
-        model.addAttribute("groups",group);
-        return new ModelAndView("GroupInfo");
+        model.addAttribute("group",group);
+        return new ModelAndView("CreatGroup");
     }
     //所有小组信息
     @RequestMapping("/Group.getAll")
     public ModelAndView allGroup(Model model){
+
         model.addAttribute("groups",groupMapper.allGroups());
-        return new ModelAndView("GroupInfo");
+        return new ModelAndView("CreatGroup");
     }
 }

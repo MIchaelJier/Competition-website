@@ -9,7 +9,9 @@
         <result property="g_sn3" column="g_sn3"/>
         <result property="g_sn4" column="g_sn4"/>
     </resultMap>
+
     <sql id="key">
+
         <trim suffixOverrides=",">
             <if test="g_name!=null">
                 g_name,
@@ -23,48 +25,45 @@
             <if test="g_sn3!=null">
                 g_sn3,
             </if>
-            <if test="g_sn4!=null">
+            <if test="g_sn!=null">
                 g_sn4,
             </if>
         </trim>
     </sql>
+
+
     <sql id="value">
+
         <trim suffixOverrides=",">
             <if test="g_name!=null">
-                #{g_name},
+                g_name,
             </if>
             <if test="g_sn1!=null">
-                #{g_sn1},
+                g_sn1,
             </if>
             <if test="g_sn2!=null">
-                #{g_sn2},
+                g_sn2,
             </if>
             <if test="g_sn3!=null">
-                #{g_sn3},
+                g_sn3,
             </if>
-            <if test="g_sn4!=null">
-                #{g_sn4},
+            <if test="g_sn!=null">
+                g_sn4,
             </if>
         </trim>
     </sql>
 
     <insert id="addGroup" parameterType="com.team5101.pojo.Group">
-        INSERT INTO x_group(<include refid="key"/>) VALUES(<include refid="value"/>)
+        INSERT INTO student(<include refid="key"/>) VALUES(<include refid="value"/>)
     </insert>
 
-    <select id="findMember" resultType="INTEGER" >
+    <select id="findMember" resultType="com.team5101.pojo.Group" >
         select * from x_group where g_name=#{g_name}
     </select>
 
     <select id="allGroups" resultType="com.team5101.pojo.Group" >
         select * from x_group
     </select>
-
-    <select id="GroupInfoBySno" resultType="com.team5101.pojo.Group" >
-        select * from x_group where #{g_sno}
-    </select>
-
-
 
 
 
