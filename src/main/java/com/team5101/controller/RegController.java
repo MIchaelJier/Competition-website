@@ -44,20 +44,18 @@ public class RegController {
     //查询报名信息界面
     @RequestMapping("/baoming")
     public ModelAndView RegInfo(Model model){
-        List<SignUp> signUps=signUpService.findAllSignUpInfo();
-        model.addAttribute("signups",signUps);
         return new ModelAndView("baoming");
     }
 
-    //查询所有报名信息
+    //查询单个竞赛所有报名信息
     @RequestMapping("/baoming.getall")
-    public ModelAndView getAllSignInfo(Model model){
-        List<SignUp> signUps=signUpService.findAllSignUpInfo();
-        model.addAttribute("signups",signUps);
-        ModelAndView mv=new ModelAndView("baoming");
-        System.out.println(signUps.toString());
-        return mv;
+    public List<SignUp> getAllSignInfo(@Param("j_id")Integer j_id){
+        List<SignUp> signUps=signUpMapper.getAll(j_id);
+        return signUps;
     }
+
+
+    //报名界面
     @RequestMapping("/contestInfo")
     public ModelAndView getAlltestInfo(Model model, Competitor competitor,HttpServletRequest request){
         List<ContestInfo> contestInfos=contestInfoService.findAllContestInfo();
@@ -71,6 +69,11 @@ public class RegController {
 
         return mv;
     }
+
+
+
+
+
     //返回已报名竞赛ID列表
     @RequestMapping("/findSigUPInfo")
     public List<SignUp> findSigUPInfo(Model model, HttpServletRequest request){

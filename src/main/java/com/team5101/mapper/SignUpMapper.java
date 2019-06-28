@@ -21,7 +21,7 @@ public interface SignUpMapper {
 //
 //        //column代表将该属性作为参数传入,property代表将查询出来的数据交给该属性
 //})
-    List<SignUp> getAll();
+    List<SignUp> getAll(Integer j_id);
     //插入报名信息
     Integer addOne(SignUp signUp);
     int findInfo(SignUp signUp);

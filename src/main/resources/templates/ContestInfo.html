@@ -49,7 +49,7 @@
                 </div>
                 <div id="menu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">首页</a></li>
+                        <li><a href="/index">首页</a></li>
                         <li><a href="/contestInfo">报名</a></li>
                         <li><a href="/CL.action">竞赛成绩</a></li>
                         <li><a href="#">优秀师生</a></li>
@@ -59,7 +59,7 @@
                             <ul class="dropdown-menu">
 
                                 <li><a href="/userInfo">个人信息</a></li>
-                                <li><a href="/CreatGroup">小组信息</a></li>
+                                <li><a href="/CreatGroupInfo">小组信息</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="/mclist.action">竞赛管理</a></li>
                                 <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
                                 <li><a href="/logout.action">注销</a></li>
@@ -125,7 +125,7 @@
                                                         <td>2019.5.6</td>
                                                     </tr>
                                                 </table>
-                                                <span class="btn btn-primary uploadbtn">查询</span>
+                                                <input type="submit" value="查询"  class="btn btn-primary uploadbtn">
                                             </form><br>
                                         </div>
                                     </div>
@@ -201,7 +201,7 @@
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     $(function () {
-        //4行包裹div(手机端两行)
+        //4行包裹div
         $(".enterroom").each(function(i){
             $('.enterroom').slice(i*4,i*4+4).wrapAll("<div class='row'></div>");
         });
@@ -260,19 +260,6 @@
                 }
             });
         });
-        //查询按钮 url？跳转
-        $('.uploadbtn').click(function () {
-            var jid = $(this).prev().children().eq(0).children().eq(0).children().eq(1).text();
-            /*console.log(jid);*/
-            $.ajax({
-                type: "POST",
-                url: "/getall",
-                data:{j_id:jid},
-                success: function () {
-                    window.location.href= '/#?jid=' + jid;
-                }
-            });
-        })
     });
 
 </script>

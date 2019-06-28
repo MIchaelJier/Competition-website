@@ -3,15 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/reset.css">
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js">
+        function AutomateExcel(table1) {
+            var elTable = document.getElementById(table1);  //要导出的table id。
+
+            var oRangeRef = document.body.createTextRange();
+            oRangeRef.moveToElementText(elTable);
+            oRangeRef.execCommand("Copy");
+            try {
+                var appExcel = new ActiveXObject("Excel.Application");
+                var oWB = appExcel.Workbooks.Add();
+                //获取workbook对象
+                var oSheet = oWB.ActiveSheet;
+                oSheet.Columns("1:5").ColumnWidth = 40
+                oWB.Worksheets.Item(1).Paste();
+                appExcel.Visible = true;
+                //appExcel.ActiveSheet.Columns("1:5").ColumnWidth = 40
+            }
+            catch (e) {
+                alert("请查看浏览器ActiveX控件和插件是否启用！");
+            }
+            finally {
+                appExcel = null;
+            }
+        }
+    </script>
+    <meta charset="utf-8" />
+    <style>
+        /* 此样式仅用于浏览器页面效果，Excel不会分离表格边框，不需要此样式 */
+        table {
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <!--报名信息展示-->
 <body>
 <form action="/baoming.getall" method="post">
-    <table border="1" id="matchmessage">
+    <table border="1" id="dataTable">
         <tr>
             <th>报名ID</th>
             <th>竞赛名称</th>
@@ -21,45 +49,112 @@
             <th>参赛人</th>
             <th>报名时间</th>
             <th>报名状态</th>
+
         </tr>
 <!--        遍历输出-->
+        <tr th:each="b : ${signups}">
+            <td th:text="${b?.b_id}"></td>
+            <td th:text="${b?.contestInfo?.j_name}"></td>
+            <td th:text="${b?.contestInfo?.j_type}"></td>
+            <td th:text="${b?.contestInfo?.j_int}"></td>
+            <td ><a th:href="@{${b.contestInfo?.j_href}}" th:text="${b.contestInfo?.j_href}"></a></td>
+            <td th:text="${b?.competitor?.c_name}"></td>
+            <td th:text="${b?.b_time}"></td>
+            <td th:text="${b?.b_state}"></td>
+        </tr>
     </table>
     <input type="submit" value="查询">
 </form>
+<a >导出表格</a>
+<button type="button" class="btn green" id="excell" onclick="method5('dataTable')">导出Excel表格</button>
+
+<script>
+    //打印表格
+    var idTmr;
+
+    function getExplorer() {
+        var explorer = window.navigator.userAgent;
+        //ie
+        if(explorer.indexOf("MSIE") >= 0) {
+            return 'ie';
+        }
+        //firefox
+        else if(explorer.indexOf("Firefox") >= 0) {
+            return 'Firefox';
+        }
+        //Chrome
+        else if(explorer.indexOf("Chrome") >= 0) {
+            return 'Chrome';
+        }
+        //Opera
+        else if(explorer.indexOf("Opera") >= 0) {
+            return 'Opera';
+        }
+        //Safari
+        else if(explorer.indexOf("Safari") >= 0) {
+            return 'Safari';
+        }
+    }
+
+    function method5(tableid) {
+        if(getExplorer() == 'ie') {
+            var curTbl = document.getElementById(tableid);
+            var oXL = new ActiveXObject("Excel.Application");
+            var oWB = oXL.Workbooks.Add();
+            var xlsheet = oWB.Worksheets(1);
+            var sel = document.body.createTextRange();
+            sel.moveToElementText(curTbl);
+            sel.select();
+            sel.execCommand("Copy");
+            xlsheet.Paste();
+            oXL.Visible = true;
+
+            try {
+                var fname = oXL.Application.GetSaveAsFilename("竞赛信息报名表.xls",
+                    "Excel Spreadsheets (*.xls), *.xls");
+            } catch(e) {
+                print("Nested catch caught " + e);
+            } finally {
+                oWB.SaveAs(fname);
+                oWB.Close(savechanges = false);
+                oXL.Quit();
+                oXL = null;
+                idTmr = window.setInterval("Cleanup();", 1);
+            }
+
+        } else {
+            tableToExcel(tableid)
+        }
+    }
+
+    function Cleanup() {
+        window.clearInterval(idTmr);
+        CollectGarbage();
+    }
+    var tableToExcel = (function() {
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html><head><meta charset="UTF-8"></head><body><table  border="1">{table}</table></body></html>',
+            base64 = function(
+                s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            },
+            format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            }
+        return function(table, name) {
+            if(!table.nodeType)
+                table = document.getElementById(table)
+            var ctx = {
+                worksheet: name || 'Worksheet',
+                table: table.innerHTML
+            }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+</script>
+
 
 </body>
-<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    $(function () {
-        $.getUrlParam = function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        };
-        var g_id = $.getUrlParam('gid');
-        $.ajax({
-            type: "POST",
-            url: "/#",
-            data:{g_id:g_id},
-            success: function (record) {
-               /* record.each(function (i) {*/
-               /*     $('#matchmessage').append(*/
-               /*         ' <tr>' +*/
-               /*         '            <td>record[i].</td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '            <td></td>' +*/
-               /*         '        </tr>'*/
-               /*     );*/
-               <!-- })-->
-            }
-        });
-    })
-</script>
 </html>
