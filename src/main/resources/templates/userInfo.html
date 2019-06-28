@@ -2,20 +2,202 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            background: #555555;
+            width: 100%;
+            height: 100%;
+        }
+        .Content-Main{
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-shadow: 1px 1px 1px #444;
+            color: #D3D3D3;
+            background: #555;
+        }
+        .Content-Main h1{
+            padding: 5% 0px 40px 10px;
+            display: block;
+            border-bottom: 1px solid #444;
+        }
+        .text1{
+
+        }
+        .Content-Main label{
+            margin: 0px 0px 5px;
+            display: block;
+        }
+        .Content-Main label>span{
+            width: 20%;
+            float: left;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .Main-sex{
+            padding-right: 13px;
+            padding-bottom: 13px;
+            font-weight: bold;
+            line-height: 4px;
+        }
+        .Main-sex input[type=checkbox]{
+            margin-top:6px;
+            padding-top: 10px;
+            vertical-align:middle;
+        }
+        .Content-Main input[type="text"],.Content-Main input[type="email"],.Content-Main textarea{
+            height: 25px;
+            width: 70%;
+            line-height: 15px;
+            padding: 5px 0px 5px 5px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            border: none;
+            border-radius:2px;
+            -webkit-border-radius:2px;
+            -moz-border-radius:2px;
+            outline: 0 none;
+            background:  #DFDFDF;
+            color: #525252;
+        }
+
+        .Content-Main .button{
+            padding: 8px 24px 8px 24px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px #FFE477;
+            box-shadow: 1px 1px 1px  #3D3D3D;
+            -moz-box-shadow: 1px 1px 1px  #3D3D3D;
+            -webkit-box-shadow: 1px 1px 1px  #3D3D3D;
+            color: #585858;
+            background: #f6ff0a;
+        }
+        .Content-Main .button:hover{
+            color:  #333;
+            background-color:  #EBEBEB ;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.js"></script>
 </head>
 <body>
-<form action="/updateInfo" method="post">
-    <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
-    <input name="c_sno" type="text" readonly th:value="${userInfo?.c_sno}"><br>
-    <input name="c_name" type="text" th:value="${userInfo?.c_name}"><br>
-    <input type="radio" id="women" value="女"  name="c_gender" th:checked="*{userInfo.c_gender=='女'}">女
-    <input type="radio" id="man" value="男" checked="checked" name="c_gender" th:checked="${userInfo.c_gender=='男'}">男<br>
-    <input name="c_major" type="text" th:value="${userInfo?.c_major}"><br>
-    <input name="c_phone" type="text" th:value="${userInfo?.c_phone}"><br>
-    <input name="c_QQ" type="text" th:value="${userInfo?.c_QQ}"><br>
-    <input type="submit" value="提交修改">
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8 text-center">
 
-</form>
+            <div class="Content-Main">
+                <form  action="/updateInfo" method="post" class="form-userInfo">
+                    <h1>个人信息</h1>
+                    <span class="text1">请在文本框中完善您的个人信息：</span>
+                    <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
+                    <p>
+                    <table class="table" border="0">
+                        <tr>
+                            <td width="25%">
+                                <label>
+                                    <span>学  号:</span>
+                                </label>
+                            </td>
+                            <td width="75%">
+                                <div>
+                                    <input id="c_sno" name="c_sno" type="text" readonly th:value="${userInfo?.c_sno}">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>姓  名:</span>
+
+                                </label>
+                            </td>
+                            <td>
+                                <div>
+                                    <input id="c_name" name="c_name" type="text" th:value="${userInfo?.c_name}">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>性  别:</span>
+
+                                </label>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="radio" class="women" id="women" value="女"  name="c_gender" th:checked="*{userInfo.c_gender=='女'}"/>女
+                                    <input type="radio" class="man" id="man" value="男" checked="checked" name="c_gender" th:checked="${userInfo.c_gender=='男'}"/>男
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <span>班  级:</span>
+
+                            </td>
+                            <td>
+                                <div>
+                                    <input name="c_major" id="usermajor" type="text" th:value="${userInfo?.c_major}">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>电  话:</span>
+
+
+                                </label>
+                            </td>
+                            <td>
+                                <div>
+                                    <input name="c_phone" id="userphone" type="text" th:value="${userInfo?.c_phone}">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <span>Q   Q:</span>
+
+
+                                </label>
+                            </td>
+                            <td>
+                                <div>
+                                    <input name="c_QQ" id="userqq" type="text" th:value="${userInfo?.c_QQ}">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <label>
+                        <input type="submit" class="button" value="提交修改">
+                    </label>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
 </body>
 </html>
