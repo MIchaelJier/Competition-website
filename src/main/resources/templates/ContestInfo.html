@@ -266,10 +266,10 @@
             /*console.log(jid);*/
             $.ajax({
                 type: "POST",
-                url: "/#",
+                url: "/baoming",
                 data:{j_id:jid},
                 success: function () {
-                    window.location.href= '/#?jid=' + jid;
+                    window.location.href= '/baoming?j_id=' + jid;
                 }
             });
         })

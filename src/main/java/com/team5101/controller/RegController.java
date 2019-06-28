@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,15 +43,19 @@ public class RegController {
     private GroupMapper groupMapper;
 
     //查询报名信息界面
+
     @RequestMapping("/baoming")
-    public ModelAndView RegInfo(Model model){
+    public ModelAndView RegInfo(){
         return new ModelAndView("baoming");
     }
 
     //查询单个竞赛所有报名信息
-    @RequestMapping("/baoming.getall")
-    public List<SignUp> getAllSignInfo(@Param("j_id")Integer j_id){
-        List<SignUp> signUps=signUpMapper.getAll(j_id);
+    @RequestMapping("/baomingAllInfo")
+    public List<SignUp> getAllSignInfo(HttpServletRequest request){
+        String j_id=request.getParameter("j_id");
+        System.out.println(j_id);
+        List<SignUp> signUps=signUpMapper.getAllContestByJno(Integer.valueOf(j_id));
+        System.out.println(signUps);
         return signUps;
     }
 

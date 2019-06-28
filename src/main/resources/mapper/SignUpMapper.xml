@@ -41,4 +41,10 @@
         select distinct j_id from x_signup where c_id=#{c_id}
     </select>
 
+    <select id="getAllContestByJno" parameterType="com.team5101.pojo.SignUp" resultMap="SignUpInfo">
+        select p.j_id,p.j_type,m.c_name,s.b_time,s.b_state from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id and s.j_id=#{j_id}
+    </select>
+
+
+
 </mapper>
