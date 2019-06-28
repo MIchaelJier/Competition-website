@@ -44,7 +44,6 @@ public class FileController {
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             log.info("文件的后缀名为：" + suffixName);
-           // if(suffixName!=".zip"&&suffixName!=".rar") return "上传文件类型不符合";
             // 设置文件存储路径
             // String path1 = ClassUtils.getDefaultClassLoader().getResource("").getPath();
             // String path1 = ResourceUtils.getURL("classpath:").getPath();
