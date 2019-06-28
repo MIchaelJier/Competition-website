@@ -6,7 +6,6 @@ spring:
       cache: false
       mode: HTML
       encoding: UTF-8
-      max-file-size: 500MB
       servlet:
         content-type: text/html
 
@@ -17,6 +16,13 @@ spring:
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
+    servlet:
+      multipart:
+        enabled: true
+        max-file-size: 500MB
+        max-request-size: 500MB
+
+
 
 
 #分页插件
