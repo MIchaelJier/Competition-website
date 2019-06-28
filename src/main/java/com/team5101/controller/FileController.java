@@ -35,9 +35,12 @@ public class FileController {
 
     //单文件上传
     @RequestMapping(value = "/uploads")
-    public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+    public ModelAndView upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
         try {
-
+            if (file.isEmpty()) {
+                //空文件
+                return new ModelAndView("upload");
+            }
             // 获取文件名
             String fileName = file.getOriginalFilename();
             log.info("上传的文件名为：" + fileName);
@@ -59,17 +62,16 @@ public class FileController {
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();// 新建文件夹
             }
-            if (file.isEmpty()) {
-                return "文件为空";
-            }
             file.transferTo(dest);// 文件写入
-            return "上传成功";
+            //成功
+            return new ModelAndView("upload");
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "上传失败";
+        //失败
+        return new ModelAndView("upload");
     }
 
     //多文件上传
@@ -105,7 +107,6 @@ public class FileController {
      */
 
     //下载
-    /*
     @GetMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
         String fileName = "dalaoyang.jpeg";// 文件名
@@ -151,6 +152,4 @@ public class FileController {
         }
         return "下载失败";
     }
-
-     */
 }

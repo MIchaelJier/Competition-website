@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+<!--小组信息展示-->
+<body>
+<form action="/Group.getAll" method="post">
+    输入小组名称<input type="text" id="g_name"><br>
+    组员1学号<input type="text" id="g_sn1" readonly th:value="${session.userInfo.c_sno}"><br>
+    组员2学号<input type="text" id="g_sn2"><br>
+    组员3学号<input type="text" id="g_sn3"><br>
+    组员4学号<input type="text" id="g_sn4"><br>
+    <input  type="submit" value="查询所有小组">
+    <input id="creat" type="button" value="创建小组"><br>
+
+</form>
+
+</body>
+<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+        $('#creat').click(function () {
+            var g_name=$('#g_name').val();
+            var g_sn1 = $('#g_sn1').val();
+            var g_sn2 = $('#g_sn2').val();
+            var g_sn3 = $('#g_sn3').val();
+            var g_sn4 = $('#g_sn4').val();
+            console.log(g_name);
+            $.ajax({
+                type: "POST",
+                url: "/CreatGroup",
+                data: {'g_name':g_name,'g_sn1':g_sn1,'g_sn2':g_sn2,'g_sn3':g_sn3,'g_sn4':g_sn4},
+                success: function (ok) {
+                    alert(ok);
+                },
+                complete:function(){
+                    // 请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                    alert("创建失败");
+                }
+            });
+        });
+
+</script>
+</html>

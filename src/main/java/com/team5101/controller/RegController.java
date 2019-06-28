@@ -1,6 +1,7 @@
 package com.team5101.controller;
 
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.team5101.mapper.CompetitorMapper;
 import com.team5101.mapper.GroupMapper;
 import com.team5101.mapper.SignUpMapper;
@@ -40,41 +41,50 @@ public class RegController {
     @Autowired
     private GroupMapper groupMapper;
 
-    //获取单个竞赛已报名信息
-    @RequestMapping("/getall")
-    public ModelAndView RegInfo(Model model,@Param("j_id")Integer j_id){
-        List<SignUp> signUps=signUpService.findAllSignUpInfo(j_id);
+    //查询报名信息界面
+    @RequestMapping("/baoming")
+    public ModelAndView RegInfo(Model model){
+        List<SignUp> signUps=signUpService.findAllSignUpInfo();
         model.addAttribute("signups",signUps);
-        System.out.println(j_id);
         return new ModelAndView("baoming");
     }
 
-    //返回已报名竞赛ID
+    //查询所有报名信息
+    @RequestMapping("/baoming.getall")
+    public ModelAndView getAllSignInfo(Model model){
+        List<SignUp> signUps=signUpService.findAllSignUpInfo();
+        model.addAttribute("signups",signUps);
+        ModelAndView mv=new ModelAndView("baoming");
+        System.out.println(signUps.toString());
+        return mv;
+    }
     @RequestMapping("/contestInfo")
-    public ModelAndView contestInfo(Model model, HttpServletRequest request){
-
+    public ModelAndView getAlltestInfo(Model model, Competitor competitor,HttpServletRequest request){
+        List<ContestInfo> contestInfos=contestInfoService.findAllContestInfo();
+        model.addAttribute("contestInfos",contestInfos);
+        ModelAndView mv=new ModelAndView("ContestInfo");
         User u= (User) request.getSession().getAttribute("USER");
         List<SignUp> signUps=signUpMapper.findSigUPInfo(u.getU_id());
         Competitor c =userService.findInfo(u.getU_sno());
+        model.addAttribute("userInfo",c);
         System.out.println(signUps);
-        model.addAttribute("sign",signUps);
-        ModelAndView mv=new ModelAndView("ContestInfo");
+
         return mv;
     }
-    //返回已报名竞赛ID
-    @RequestMapping("/contestInfo")
+    //返回已报名竞赛ID列表
+    @RequestMapping("/findSigUPInfo")
     public List<SignUp> findSigUPInfo(Model model, HttpServletRequest request){
 
         User u= (User) request.getSession().getAttribute("USER");
         List<SignUp> signUps=signUpMapper.findSigUPInfo(u.getU_id());
         Competitor c =userService.findInfo(u.getU_sno());
+
         System.out.println(signUps);
-        model.addAttribute("sign",signUps);
-        ModelAndView mv=new ModelAndView("ContestInfo");
+
         return signUps;
     }
 
-    //提交报名信息,插入数据库
+    //提交报名信息
     @RequestMapping("/regcontestInfo")
     public String getReg(Model model, Competitor competitor, HttpServletRequest request,SignUp signUp) {
         User u = (User) request.getSession().getAttribute("USER");
@@ -83,7 +93,6 @@ public class RegController {
         signUp.setC_id(c_id);
 
         signUp.setJ_id(Integer.parseInt(contestid));
-        System.out.println(signUp);
         if (signUpMapper.findInfo(signUp)>=1) {
 
             return "已报名，请勿重复报名";
@@ -95,27 +104,81 @@ public class RegController {
             return "报名成功！";
         }
     }
+    //创建小组信息填写
+    @RequestMapping("/CreatGroupInfo")
+    public ModelAndView CreatGroupInfo(Model model, HttpServletRequest request){
+        User u = (User) request.getSession().getAttribute("USER");
+        Competitor competitor =userService.findInfo(u.getU_sno());
+        model.addAttribute("userInfo",competitor);
+
+        return new ModelAndView("CreatGroupInfo");
+    }
     //创建小组
     @RequestMapping("/CreatGroup")
-    public ModelAndView creatGroup(Model model, HttpServletRequest request,Group group){
-        User u = (User) request.getSession().getAttribute("USER");
+    public String creatGroup(Group group){
+        try {
+            if(group.getG_name()==null||group.getG_name().equals("")){
+                return "请输入小组名";
+            }
+            if(groupMapper.findMember(group.getG_name())!=null){
+                return "小组名已存在";
+            }
+            if (group.getG_sn2() != null && !group.getG_sn2().equals("")) {
+                if(groupMapper.GroupInfoBySno(group.getG_sn1())!=null){
+                    return "学号1已存在小组";
+                }
+                if (groupMapper.GroupInfoBySno(group.getG_sn2()) != null) {
+                    return "学号2已存在小组";
+                }
+                groupMapper.addGroup(group);
+                System.out.println(group.toString());
+                return "创建成功！";
+            }
+            else if(group.getG_sn3()!=null&&group.getG_sn3().equals("")){
+                if (groupMapper.GroupInfoBySno(group.getG_sn1()) != null &&
+                        groupMapper.GroupInfoBySno(group.getG_sn3()) != null &&
+                        groupMapper.findMember(group.getG_name()) != null) {
+                    groupMapper.addGroup(group);
+                    System.out.println(group.toString());
+                    return "创建成功！";
+                }else {
+                    return "学号3已存在小组";
+                }
+            }
+            else if(group.getG_sn4()!=null&&group.getG_sn4().equals("")){
+                if (groupMapper.GroupInfoBySno(group.getG_sn1()) != null &&
+                        groupMapper.GroupInfoBySno(group.getG_sn4()) != null &&
+                        groupMapper.findMember(group.getG_name()) != null) {
+                    groupMapper.addGroup(group);
+                    System.out.println(group.toString());
+                    return "创建成功！";
+                }else {
+                    return "学号4已存在小组";
+                }
+            }
 
-        model.addAttribute("group",groupMapper.addGroup(group));
-        return new ModelAndView("CreatGroup");
+            else{
+                groupMapper.addGroup(group);
+                System.out.println(group.toString());
+                return "创建成功！";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "数据异常";
     }
     //成员信息
     @RequestMapping("/GroupInfo")
     public ModelAndView allMember(@Param("g_name")String g_name, Model model, HttpServletRequest request){
         User u = (User) request.getSession().getAttribute("USER");
         Group group=groupMapper.findMember(g_name);
-        model.addAttribute("group",group);
-        return new ModelAndView("CreatGroup");
+        model.addAttribute("groups",group);
+        return new ModelAndView("GroupInfo");
     }
     //所有小组信息
     @RequestMapping("/Group.getAll")
     public ModelAndView allGroup(Model model){
-
         model.addAttribute("groups",groupMapper.allGroups());
-        return new ModelAndView("CreatGroup");
+        return new ModelAndView("GroupInfo");
     }
 }

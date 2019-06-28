@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.team5101.mapper.SignUpMapper" >
     <select id="getAll" parameterType="String" resultMap="SignUpInfo">
-        select * from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id and s.j_id=#{j_id}
+        select * from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id
     </select>
     <resultMap type="com.team5101.pojo.SignUp" id="SignUpInfo">
         <id property="b_id" column="b_id"/>
@@ -33,13 +33,12 @@
         insert into x_signup (j_id, c_id, b_time,b_state)
         values (#{j_id},#{c_id},now(),'报名成功')
     </insert>
-<!--    获取登录用户已报名信息-->
-    <select id="findInfo" parameterType="com.team5101.pojo.SignUp" resultType="INTEGER">
+    <select id="findInfo" parameterType="com.team5101.pojo.SignUp" resultType="int">
         select count(*) from x_signup where j_id=#{j_id} and c_id=#{c_id}
     </select>
-    <!--    获取登录用户已报名竞赛ID-->
-    <select id="findSigUPInfo" parameterType="com.team5101.pojo.SignUp" resultType="INTEGER">
-        select * from x_signup where c_id=#{c_id}
+
+    <select id="findSigUPInfo" parameterType="com.team5101.pojo.SignUp" resultType="int">
+        select distinct j_id from x_signup where c_id=#{c_id}
     </select>
 
 </mapper>

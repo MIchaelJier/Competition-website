@@ -11,9 +11,11 @@ import java.util.List;
 @Repository
 public interface GroupMapper {
     //创建小组
-    Group addGroup(Group group);
+    Integer addGroup(Group group);
     //查询成员
     Group findMember(String g_name);
     //查询所有小组信息
     List<Group> allGroups();
+    //查询成员是否有小组
+    Integer GroupInfoBySno(String g_sno);
 }
