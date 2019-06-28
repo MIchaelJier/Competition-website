@@ -260,6 +260,19 @@
                 }
             });
         });
+        //查询按钮 url？跳转
+        $('.uploadbtn').click(function () {
+            var jid = $(this).prev().children().eq(0).children().eq(0).children().eq(1).text();
+            /*console.log(jid);*/
+            $.ajax({
+                type: "POST",
+                url: "/#",
+                data:{j_id:jid},
+                success: function () {
+                    window.location.href= '/#?jid=' + jid;
+                }
+            });
+        })
     });
 
 </script>

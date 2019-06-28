@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script>
         function AutomateExcel(table1) {
             var elTable = document.getElementById(table1);  //要导出的table id。
 
@@ -15,7 +19,7 @@
                 var oWB = appExcel.Workbooks.Add();
                 //获取workbook对象
                 var oSheet = oWB.ActiveSheet;
-                oSheet.Columns("1:5").ColumnWidth = 40
+                oSheet.Columns("1:5").ColumnWidth = 40;
                 oWB.Worksheets.Item(1).Paste();
                 appExcel.Visible = true;
                 //appExcel.ActiveSheet.Columns("1:5").ColumnWidth = 40
@@ -49,10 +53,9 @@
             <th>参赛人</th>
             <th>报名时间</th>
             <th>报名状态</th>
-
         </tr>
 <!--        遍历输出-->
-        <tr th:each="b : ${signups}">
+        <!--<tr th:each="b : ${signups}">
             <td th:text="${b?.b_id}"></td>
             <td th:text="${b?.contestInfo?.j_name}"></td>
             <td th:text="${b?.contestInfo?.j_type}"></td>
@@ -61,39 +64,58 @@
             <td th:text="${b?.competitor?.c_name}"></td>
             <td th:text="${b?.b_time}"></td>
             <td th:text="${b?.b_state}"></td>
-        </tr>
+        </tr>-->
     </table>
     <input type="submit" value="查询">
 </form>
 <a >导出表格</a>
 <button type="button" class="btn green" id="excell" onclick="method5('dataTable')">导出Excel表格</button>
-
 <script>
+    $(function () {
+        //获取url中的jid
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        };
+        var g_id = $.getUrlParam('gid');
+        $.ajax({
+            type: "POST",
+            url: "/#",
+            data:{g_id:g_id},
+            success: function (record) {
+                record.each(function (i) {
+                    $('#dataTable').append(
+                        ' <tr>' +
+                        '            <td>record[i].</td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '            <td></td>' +
+                        '        </tr>'
+                    );
+                })
+            }
+        });
+    });
     //打印表格
     var idTmr;
-
     function getExplorer() {
         var explorer = window.navigator.userAgent;
         //ie
-        if(explorer.indexOf("MSIE") >= 0) {
-            return 'ie';
-        }
+        if(explorer.indexOf("MSIE") >= 0) { return 'ie'; }
         //firefox
-        else if(explorer.indexOf("Firefox") >= 0) {
-            return 'Firefox';
-        }
+        else if(explorer.indexOf("Firefox") >= 0) { return 'Firefox'; }
         //Chrome
-        else if(explorer.indexOf("Chrome") >= 0) {
-            return 'Chrome';
-        }
+        else if(explorer.indexOf("Chrome") >= 0) { return 'Chrome' ;}
         //Opera
-        else if(explorer.indexOf("Opera") >= 0) {
-            return 'Opera';
-        }
+        else if(explorer.indexOf("Opera") >= 0) {return 'Opera';}
         //Safari
-        else if(explorer.indexOf("Safari") >= 0) {
-            return 'Safari';
-        }
+        else if(explorer.indexOf("Safari") >= 0) {return 'Safari';}
     }
 
     function method5(tableid) {
@@ -121,7 +143,6 @@
                 oXL = null;
                 idTmr = window.setInterval("Cleanup();", 1);
             }
-
         } else {
             tableToExcel(tableid)
         }
@@ -142,14 +163,14 @@
                 return s.replace(/{(\w+)}/g, function(m, p) {
                     return c[p];
                 })
-            }
+            };
         return function(table, name) {
             if(!table.nodeType)
-                table = document.getElementById(table)
+                table = document.getElementById(table);
             var ctx = {
                 worksheet: name || 'Worksheet',
                 table: table.innerHTML
-            }
+            };
             window.location.href = uri + base64(format(template, ctx))
         }
     })()
