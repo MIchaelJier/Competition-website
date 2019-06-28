@@ -5,5 +5,8 @@ import com.team5101.pojo.SignUp;
 import java.util.List;
 
 public interface SignUpService {
-    List<SignUp> findAllSignUpInfo();
+
+
+    //获取所有竞赛报名信息
+    List<SignUp> findAllSignUpInfo(Integer j_id);
 }
