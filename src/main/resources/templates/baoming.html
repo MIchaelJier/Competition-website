@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
 </head>
 <!--报名信息展示-->
 <body>
 <form action="/baoming.getall" method="post">
-    <table border="1">
+    <table border="1" id="matchmessage">
         <tr>
             <th>报名ID</th>
             <th>竞赛名称</th>
@@ -19,22 +21,45 @@
             <th>参赛人</th>
             <th>报名时间</th>
             <th>报名状态</th>
-
         </tr>
 <!--        遍历输出-->
-        <tr th:each="b : ${signups}">
-            <td th:text="${b?.b_id}"></td>
-            <td th:text="${b?.contestInfo?.j_name}"></td>
-            <td th:text="${b?.contestInfo?.j_type}"></td>
-            <td th:text="${b?.contestInfo?.j_int}"></td>
-            <td ><a th:href="@{${b.contestInfo?.j_href}}" th:text="${b.contestInfo?.j_href}"></a></td>
-            <td th:text="${b?.competitor?.c_name}"></td>
-            <td th:text="${b?.b_time}"></td>
-            <td th:text="${b?.b_state}"></td>
-        </tr>
     </table>
     <input type="submit" value="查询">
 </form>
 
 </body>
+<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        };
+        var g_id = $.getUrlParam('gid');
+        $.ajax({
+            type: "POST",
+            url: "/#",
+            data:{g_id:g_id},
+            success: function (record) {
+               /* record.each(function (i) {*/
+               /*     $('#matchmessage').append(*/
+               /*         ' <tr>' +*/
+               /*         '            <td>record[i].</td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '            <td></td>' +*/
+               /*         '        </tr>'*/
+               /*     );*/
+               <!-- })-->
+            }
+        });
+    })
+</script>
 </html>
