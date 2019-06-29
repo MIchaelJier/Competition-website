@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style type="text/css">
         body {
-            background: #555555;
+            background: #ffffff;
             width: 100%;
             height: 100%;
         }
@@ -20,8 +20,8 @@
             -webkit-border-radius: 5px;
             font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-shadow: 1px 1px 1px #444;
-            color: #D3D3D3;
-            background: #555;
+            color: #295461;
+            background: rgba(255, 209, 94, 0.24);
         }
         .Content-Main h1{
             padding: 5% 0px 40px 10px;
@@ -40,8 +40,6 @@
             float: left;
             text-align: right;
             padding-right: 10px;
-            margin-top: 10px;
-            font-weight: bold;
         }
         .Main-sex{
             padding-right: 13px;
@@ -95,6 +93,43 @@
     <script src="js/bootstrap.js"></script>
 </head>
 <body>
+<header class="cd-main-header">
+    <div class="cd-main-header__container container container--lg">
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!--在移动端的时候导航条折叠起来，三横的样式出现，点击该样式可以显示或隐藏导航条上的内容-->
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span href="#" ><img src="images/head_logo.png" alt=""></span>
+                </div>
+                <div id="menu" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="/contestInfo">报名</a></li>
+                        <li><a href="/CL.action">竞赛成绩</a></li>
+                        <li><a href="#">优秀师生</a></li>
+                        <li><a href="/uploadworks">作品提交</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div th:text="${session.USER.username}" class="qwer" style="display: inline-block"> </div><span class="caret "></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="/userInfo">个人信息</a></li>
+                                <li><a href="/CreatGroupInfo">小组信息</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="/mclist.action">竞赛管理</a></li>
+                                <li th:if="${session.USER.role}==1"><a href="/MNlist.action">通知管理</a></li>
+                                <li><a href="/logout.action">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 <div class="container">
     <div class="row">
         <div class="col-md-2 col-xs-2"></div>
@@ -109,9 +144,7 @@
                     <table class="table" border="0">
                         <tr>
                             <td width="25%">
-                                <label>
                                     <span>学  号:</span>
-                                </label>
                             </td>
                             <td width="75%">
                                 <div>
@@ -121,10 +154,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>
                                     <span>姓  名:</span>
 
-                                </label>
                             </td>
                             <td>
                                 <div>
@@ -134,10 +165,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>
                                     <span>性  别:</span>
 
-                                </label>
                             </td>
                             <td>
                                 <div>
@@ -160,11 +189,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>
                                     <span>电  话:</span>
-
-
-                                </label>
                             </td>
                             <td>
                                 <div>
@@ -174,11 +199,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>
                                     <span>Q   Q:</span>
 
-
-                                </label>
                             </td>
                             <td>
                                 <div>
