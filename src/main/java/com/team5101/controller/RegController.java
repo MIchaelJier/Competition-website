@@ -1,7 +1,6 @@
 package com.team5101.controller;
 
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.team5101.mapper.CompetitorMapper;
 import com.team5101.mapper.GroupMapper;
 import com.team5101.mapper.SignUpMapper;
@@ -14,7 +13,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 

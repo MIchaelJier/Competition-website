@@ -89,12 +89,12 @@
                 for(let i = 0 ; i < record.length ; i++){
                     $('#dataTable').append(
                         ' <tr>' +
-                        '            <td>' + record[i].j_id + '  </td>' +
-                        '            <td>' + record[i].competitor.j_id+'</td>' +
-                        '            <td>' + record[i].j_type + '</td>' +
-                        '            <td>' + record[i].j_introduction + '</td>' +
-                        '            <td>' + record[i].j_href + '</td>' +
-                        '            <td>' + record[i].c_name + '</td>' +
+                        '            <td>' + record[i].b_id + '  </td>' +
+                        '            <td>' + record[i].contestInfo.j_id+'</td>' +
+                        '            <td>' + record[i].contestInfo.j_type+ '</td>' +
+                        '            <td>' + record[i].contestInfo.j_int + '</td>' +
+                        '            <td>' + record[i].contestInfo.j_href + '</td>' +
+                        '            <td>' + record[i].competitor.c_name + '</td>' +
                         '            <td>' + record[i].b_time +'</td>' +
                         '            <td>' + record[i].b_state + '</td>' +
                         '        </tr>'
