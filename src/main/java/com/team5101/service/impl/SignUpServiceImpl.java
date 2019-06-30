@@ -18,7 +18,7 @@ public class SignUpServiceImpl implements SignUpService {
 
     public List<SignUp> findAllSignUpInfo(){
        //List<SignUp> signUpList = signUpMapper.getAll();
-        return null;//signUpMapper.getAll();
+        return null;// signUpMapper.addOne();
       }
 
 
