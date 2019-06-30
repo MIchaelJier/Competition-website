@@ -7,7 +7,6 @@ import com.team5101.mapper.SignUpMapper;
 import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.*;
 import com.team5101.service.ContestInfoService;
-import com.team5101.service.SignUpService;
 import com.team5101.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,7 @@ import java.util.List;
 //报名控制器
 @RestController
 public class RegController {
-    @Autowired
-    private SignUpService signUpService;
+
     @Autowired
     private ContestInfoService contestInfoService;
     @Autowired
