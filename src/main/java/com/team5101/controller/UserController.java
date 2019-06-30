@@ -3,23 +3,20 @@ package com.team5101.controller;
 
 import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.Competitor;
-import com.team5101.pojo.SignUp;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
-import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
+
 
 
 @Controller
@@ -29,38 +26,25 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-
-    @Autowired
-    private NoticeService noticeService;
-
-//    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-//    public ModelAndView login() {
-//        return new ModelAndView("login");
-//    }
-//
-//
-//
-//    @RequestMapping(value="/login.action",method = {RequestMethod.POST, RequestMethod.GET})
-//    public ModelAndView login(@RequestParam("username")String username,@RequestParam("password")String password,
-//                              HttpServletRequest request, HttpSession session, Model model) {
-//        User user=userService.login(username,password);
-//        session.setAttribute("username",username);
-//
-//        //request.getSession().setAttribute("username",username);
-//        System.out.println(user);
-//
-//        return new ModelAndView("success") ;
-//
-//    }
-//
-//
-//
-//
    //初始页
-    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/", method = { RequestMethod.GET})
     public String  login() {
         return "login";
     }
+
+    //检验
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String login(String username,String password) {
+            Integer num=userService.CheckUser(username, password);
+           /* System.out.println(num);*/
+            if(num==0)
+                return "error";
+            else
+                return "ok";
+    }
+
+
 
 
     //跳转到主页
@@ -80,8 +64,7 @@ public class UserController {
             System.out.println(competitor);
             return "index2" ;
         }
-      // else
-       // return
+
          return "ERROR";
 
 

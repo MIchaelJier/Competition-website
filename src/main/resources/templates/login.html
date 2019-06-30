@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
@@ -118,8 +118,34 @@
                 , "images/1.jpg"
             ], {duration: 3000, fade: 750});
         });
-
     </script>
+    <script type="text/javascript">
+        function ck() {
+                var name, pass;
+                name = document.getElementById("username").value;
+                pass = document.getElementById("password").value;
+                $.ajax({
+                    //	async: false,
+                    type: "POST",
+                    url: "/login", //注意路径  (后台登陆验证的方法)
+                    data: {
+                        "username": name,
+                        "password": pass
+                    },
+                    success: function(data) {
+                       /* alert(data);*/
+                        if (data == "ok") {
+                            alert("登录成功！")
+                            return true;
+                        } else if(data=="error") {
+                            alert("用户名或密码错误，登录失败");
+                            window.location.href = "/";
+                        }
+                    }
+                });
+        }
+    </script>
+
 </head>
 <body style="background-color:rgba(0,0,0,0);">
 <nav class="nav navbar-inverse navbar-fixed-top">
@@ -132,8 +158,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <form action="/login.action"  method="post" class="form-horizontal">
+
+                    <form  id="loginform" action="/login.action"  method="post" class="form-horizontal" onsubmit="ck()">
                         <span class="heading" >用户登录</span>
+
                         <div class="form-group">
                             <div class="tooltip-show" data-toggle="tooltip"  data-placement="bottom" data-html="true" title="<h5 style='color:red'><strong>请输入用户名</strong></h5>">
                                 <input type="text" id="username" name="username" class="form-control"  placeholder="用户名">

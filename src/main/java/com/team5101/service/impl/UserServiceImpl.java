@@ -26,7 +26,8 @@ public class UserServiceImpl implements UserService {
 
     public Competitor findInfo(String u_sno){return userMapper.findInfo(u_sno);}
 
-
-
-
+    @Override
+    public Integer CheckUser(String username, String password) {
+        return userMapper.CheckUser(username,password);
+    }
 }
