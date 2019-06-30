@@ -42,7 +42,7 @@
     </select>
 
     <select id="getAllContestByJno" parameterType="com.team5101.pojo.SignUp" resultMap="SignUpInfo">
-        select s.b_id,p.j_id,p.j_type,p.j_href,p.j_introduction,m.c_name,s.b_time,s.b_state from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id and s.j_id=#{j_id}
+        select s.b_id,p.j_name,p.j_type,p.j_href,p.j_introduction,m.c_name,s.b_time,s.b_state from x_contesttp p, x_contestm m,x_signup s where s.c_id=m.c_id and s.j_id=p.j_id and s.j_id=#{j_id}
     </select>
 
 
