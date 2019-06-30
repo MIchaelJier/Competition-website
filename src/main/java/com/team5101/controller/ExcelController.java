@@ -62,7 +62,7 @@ public class ExcelController {
             row1.createCell(4).setCellValue(signUp.getContestInfo().getJ_href());
             row1.createCell(5).setCellValue(signUp.getContestInfo().getJ_int());
             row1.createCell(6).setCellValue(signUp.getCompetitor().getC_name());
-            row1.createCell(7).setCellValue(sdf.parse(signUp.getB_time()));
+            row1.createCell(7).setCellValue(sdf.format(signUp.getB_time()));
             row1.createCell(8).setCellValue(signUp.getB_state());
             rowNum++;
             a++;
