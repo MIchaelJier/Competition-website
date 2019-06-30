@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" >
     <title>作品提交</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <style>
@@ -70,10 +71,10 @@
             <div class="container">
                 <form action="uploads" method="POST" enctype="multipart/form-data">
                     <div class="form-group text-center">
-                        <input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2" ><br>
+                        <input id="file-1" type="file" name="file" ><br>
                         <input type="submit" class="btn btn-primary btn-block" />
                     </div>
-                </form>
+                </form><i class="fas fa-file-archive text-muted"></i>
             </div>
         </div>
     </div>
@@ -81,16 +82,24 @@
 </div>
 </body>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/fileinput.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/fileinput.min.js" type="text/javascript"></script>
+
 <script>
     $("#file-1").fileinput({
         uploadUrl: '#',
-       /* allowedFileExtensions : ['rar', 'zip'],*/
+        allowedFileExtensions : ['rar', 'zip'],
         overwriteInitial: false,
-        maxFileSize: 1000,
+        maxFileSize: 10000,
         maxFilesNum: 10,
         //allowedFileTypes: ['image', 'video', 'flash'],
+      /*  layoutTemplates :{
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+            actionUpload:'',//去除上传预览缩略图中的上传图片；
+            actionZoom:''   //去除上传预览缩略图中的查看详情预览的缩略图标。
+        },*/
+        /*previewFileType :['image'],
+        showPreview:true,*/
     });
 </script>
 </html>

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style type="text/css">
+        body {
+            background: #edeeef;
+        }
         #menu a {
             color: #989898;
             font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
@@ -19,19 +22,27 @@
         #menu a:hover{
             color: #5bc0de;
         }
-        .button{
-            color:#fff;
-            background:#007eff;border: solid 1px #007eff;
+        #selfmessge {
+            border-collapse:separate;
+            border-spacing:0 2rem;
         }
-        .button:hover{
-            background:#f00;
-            color:#fff;
+        #selfmessge td,#selfmessge tr{
+            padding: 5px;
         }
-        body{ background-color: #E8E8E8; }
-        input{outline: none; }
+        #selfmessge tr, #selfmessge{
+            width: 100% !important
+        }
+        #selfmessge tr td:nth-child(2){
+            width: 60%;
+        }
+        #selfmessge tr td:nth-child(3){
+            width: 25%;
+        }
+        #selfmessge td b {
+            color: green;
+        }
     </style>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+
 </head>
 <body>
 <header class="cd-main-header">
@@ -71,50 +82,141 @@
         </nav>
     </div>
 </header>
-<div class="container">
-    <div style="width:350px;margin:100px auto;">
-        <form action="" class='form'>
-            <div style="font-size: 30px;font-weight: bold;text-align: center;">个人信息</div>
-            <label>学  号:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-                <span class="glyphicon glyphicon-record" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
-                <input type="text" id="c_sno" name="c_sno" readonly style="height:45px;border:0;width:297px;"  placeholder="姓名（必填中文）" maxlength="10" th:value="${userInfo?.c_sno}">
-                <span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+<main>
+    <div class="container" style="background:#fff;margin-top: 100px;">
+        <div class="row">
+            <div class="breadcrumb" >
+                <h6 style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">个人信息</h6>
             </div>
-            <label>姓  名:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-
-                <span class="glyphicon glyphicon-user" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
-                <input type="text" id="c_name" name="name" style="height:45px;border:0;width:297px;"  placeholder="姓名（必填中文）" maxlength="5" th:value="${userInfo?.c_name}">
-                <span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
+            <div class="container">
+                <div class="col-md-6"><img width="100%" height="100%" src="images/ava.jpg" alt="" style="padding-bottom: 20px"></div>
+                <div class="col-md-6 text-center">
+                    <form action="/updateInfo" method="post">
+                        <table id="selfmessge">
+                            <!--<input name="c_id"  class="form-control" type="hidden" th:value="${userInfo?.c_id}" />-->
+                            <tr>
+                                <td>学号</td>
+                                <td>
+                                    <input id="sno"  class="form-control" type="text" disabled th:value="${userInfo?.c_sno}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>姓名</td>
+                                <td>
+                                    <input id="name"  class="form-control" type="text" th:value="${userInfo?.c_name}" style="display: inline"/>
+                                </td>
+                                <td>
+                                    <b>✔</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>
+                                    <span class="col-md-6"><input type="radio" id="women" value="女"  name="1" th:checked="${userInfo.c_gender=='女'}" >&nbsp;&nbsp;女</span>
+                                    <span class="col-md-6"><input type="radio" id="man" value="男" checked="checked" name="1" th:checked="${userInfo.c_gender=='男'}">&nbsp;&nbsp;男</span>
+                                </td>
+                                <td>
+                                    <b>✔</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>专业班级</td>
+                                <td>
+                                    <input id="major"  class="form-control" type="text" th:value="${userInfo?.c_major}" />
+                                </td>
+                                <td>
+                                    <b>✔</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>手机号</td>
+                                <td>
+                                    <input id="phone"  class="form-control" type="text" th:value="${userInfo?.c_phone}" />
+                                </td>
+                                <td>
+                                    <b>✔</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>QQ号</td>
+                                <td>
+                                    <input id="qq"  class="form-control" type="text" th:value="${userInfo?.c_QQ}" />
+                                </td>
+                                <td>
+                                    <b>✔</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改"></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </form>
+                </div>
             </div>
-            <label>性  别:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-                <input type="radio" class="women" id="women" value="女"  name="c_gender" th:checked="*{userInfo.c_gender=='女'}"/>女
-                <input type="radio" class="man" id="man" value="男" checked="checked" name="c_gender" th:checked="${userInfo.c_gender=='男'}"/>男
-            </div>
-            <label>手  机:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-                <span class="glyphicon glyphicon-phone-alt" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
-                <input type="text" name="phone" id="userphone" style="height:45px;border:0;width:297px;" placeholder="手机（必填）" maxlength="11" th:value="${userInfo?.c_phone}">
-                <span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
-            </div>
-            <label>班  级:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-                <span class="glyphicon glyphicon-home" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
-                <input type="text" id="usermajor" name="班级" style="height:45px;border:0;width:297px;" placeholder="班级（必填）" th:value="${userInfo?.c_major}">
-                <span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
-            </div>
-            <label>Q   Q:</label>
-            <div style="height:45px;line-height:45px;background: #fff;width:350px;padding-left:15px;margin-top: 5px;margin-bottom: 10px;position: relative;">
-                <span class="glyphicon glyphicon-envelope" style="font-size:18px;vertical-align:middle;top:-3px;color: #999;"></span>&nbsp;&nbsp;&nbsp;
-                <input type="text" name="email" id="userqq" style="height:45px;border:0;width:297px;" placeholder="QQ" th:value="${userInfo?.c_QQ}">
-                <span style='position:absolute;right: 0;bottom:-37px;font-size:13px;color: #f00;'></span>
-            </div>
-            <input type="button" class="button" value="提交修改" style="padding: 10px 20px;border-radius: 5px;margin:30px auto 70px;">
-        </form>
+        </div>
     </div>
-</div>
-
+</main>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(function () {
+        var sno = $('#sno').val();
+        var name = $('#name').val();
+        var sex = $('input:radio:checked').val();
+        var major = $('#major').val();
+        var phone = $('#phone').val();
+        var qq = $('#qq').val();
+        //拟态框内 数据判断
+        $('#name').bind('input propertychange',function(){
+            var rename = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
+            if($(this).val() == ""){
+                $(this).parent().next().children().text('姓名不能为空').css('color','red');
+                $('#send').attr('disabled',true);
+            }else if(rename.test($(this).val()) == false){
+                $(this).parent().next().children().text('姓名格式错误').css('color','red');
+                $('#send').attr('disabled',true);
+            }else{
+                $(this).parent().next().children().text('✔').css('color','green');
+            }
+        });
+        $('#major').bind('input propertychange',function(){
+            var remajor = /^[\u4E00-\u9FA5]{1,}\d{3}$/;
+            if($(this).val() == ""){
+                $(this).parent().next().children().text('专业班级不能为空').css('color','red');
+                $('#send').attr('disabled',true);
+            }else if(remajor.test($(this).val()) == false){
+                $(this).parent().next().children().text('专业班级格式错误').css('color','red');
+                $('#send').attr('disabled',true);
+            }else{
+                $(this).parent().next().children().text('✔').css('color','green');
+            }
+        });
+        $('#phone').bind('input propertychange',function(){
+            var reMobile = /^1\d{10}$/;
+            if($(this).val() == ""){
+                $(this).parent().next().children().text('手机号不能为空').css('color','red');
+                $('#send').attr('disabled',true);
+            }else if(reMobile.test($(this).val()) == false){
+                $(this).parent().next().children().text('手机号格式错误').css('color','red');
+                $('#send').attr('disabled',true);
+            }else{
+                $(this).parent().next().children().text('✔').css('color','green');
+            }
+        });
+        $('#qq').bind('input propertychange',function(){
+            var reqq = /^[1-9]\d{3,9}$/;
+            if($(this).val() == ""){
+                $(this).parent().next().children().text('QQ号不能为空').css('color','red');
+                $('#send').attr('disabled',true);
+            }else if(reqq.test($(this).val()) == false){
+                $(this).parent().next().children().text('QQ号格式错误').css('color','red');
+                $('#send').attr('disabled',true);
+            }else{
+                $(this).parent().next().children().text('✔').css('color','green');
+            }
+        });
+    });
+</script>
 </body>
 </html>
