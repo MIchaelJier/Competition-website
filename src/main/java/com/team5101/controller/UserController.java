@@ -119,9 +119,15 @@ public class UserController {
         //System.out.println("2:"+username);
             return "redirect:/";
     }
+    //主页
     @RequestMapping(value="/index")
     public String index(HttpServletRequest request, HttpSession session, Model model){
         return "index2";
+    }
+    //竞赛成绩
+    @RequestMapping(value="/ContestResult")
+    public String ContestResult(HttpServletRequest request, HttpSession session, Model model){
+        return "ContestResult";
     }
 
 
