@@ -6,6 +6,7 @@ public class SignUp {
     private Integer b_id;
     private Integer j_id;
     private Integer c_id;
+    private String j_name;
     private String b_time;
     private String b_state;
     private Competitor competitor;
@@ -25,6 +26,14 @@ public class SignUp {
 
     public void setJ_id(Integer j_id) {
         this.j_id = j_id;
+    }
+
+    public String getJ_name() {
+        return j_name;
+    }
+
+    public void setJ_name(String j_name) {
+        this.j_name = j_name;
     }
 
     public Integer getC_id() {

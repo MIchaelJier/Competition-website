@@ -3,9 +3,11 @@ package com.team5101.controller;
 
 import com.team5101.mapper.UserMapper;
 import com.team5101.pojo.Competitor;
+import com.team5101.pojo.SignUp;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
+import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -129,6 +134,8 @@ public class UserController {
     public String ContestResult(HttpServletRequest request, HttpSession session, Model model){
         return "ContestResult";
     }
+
+
 
 
 

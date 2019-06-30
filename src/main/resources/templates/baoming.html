@@ -31,6 +31,13 @@
                 appExcel = null;
             }
         }
+
+    </script>
+    <script>
+        var j_id = $.getUrlParam('j_id');
+        function downloadfile(){
+            window.location.href="/UserExcelDownloads"+j_id;
+        }
     </script>
     <meta charset="utf-8" />
     <style>
@@ -42,7 +49,7 @@
 </head>
 <!--报名信息展示-->
 <body>
-<form action="/baoming.getall" method="post">
+<form action="/baoming" method="post">
     <table border="1" id="dataTable">
         <tr>
             <th>报名ID</th>
@@ -69,6 +76,13 @@
     <input type="submit" value="查询">
 </form>
 <a >导出表格</a>
+<table border="0" style="margin-top:4px; margin-left: 18px">
+    <tr>
+        <td><a href="#" class="easyui-linkbutton" onclick="downloadfile();">数据导出</a></td>
+
+    </tr>
+
+</table>
 <button type="button" class="btn green" id="excell" onclick="method5('dataTable')">导出Excel表格</button>
 <script>
     $(function () {
@@ -90,7 +104,7 @@
                     $('#dataTable').append(
                         ' <tr>' +
                         '            <td>' + record[i].b_id + '  </td>' +
-                        '            <td>' + record[i].contestInfo.j_id+'</td>' +
+                        '            <td>' + record[i].contestInfo.j_name+'</td>' +
                         '            <td>' + record[i].contestInfo.j_type+ '</td>' +
                         '            <td>' + record[i].contestInfo.j_int + '</td>' +
                         '            <td>' + record[i].contestInfo.j_href + '</td>' +
@@ -133,7 +147,7 @@
             oXL.Visible = true;
 
             try {
-                var fname = oXL.Application.GetSaveAsFilename("竞赛信息报名表.xls",
+                var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
                     "Excel Spreadsheets (*.xls), *.xls");
             } catch(e) {
                 print("Nested catch caught " + e);
