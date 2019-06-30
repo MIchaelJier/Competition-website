@@ -1,6 +1,8 @@
 package com.team5101.pojo;
 
 
+import java.util.Date;
+
 //报名实体类
 public class SignUp {
     private Integer b_id;
