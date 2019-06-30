@@ -39,7 +39,7 @@ public class ExcelController {
 
         int rowNum = 1;
 
-        String[] headers = { "序号","报名ID", "竞赛名称", "竞赛类型", "竞赛官网", "竞赛竞赛简介", "参赛人", "报名时间", "报名状态"};
+        String[] headers = { "序号", "竞赛名称", "竞赛类型", "竞赛官网", "竞赛竞赛简介", "参赛人", "报名时间", "报名状态"};
         //headers表示excel表中第一行的表头
 
         HSSFRow row = sheet.createRow(0);
@@ -56,14 +56,13 @@ public class ExcelController {
         for (SignUp signUp : signUps) {
             HSSFRow row1 = sheet.createRow(rowNum);
             row1.createCell(0).setCellValue(a);
-            row1.createCell(1).setCellValue(signUp.getB_id());
-            row1.createCell(2).setCellValue(signUp.getContestInfo().getJ_name());
-            row1.createCell(3).setCellValue(signUp.getContestInfo().getJ_type());
-            row1.createCell(4).setCellValue(signUp.getContestInfo().getJ_href());
-            row1.createCell(5).setCellValue(signUp.getContestInfo().getJ_int());
-            row1.createCell(6).setCellValue(signUp.getCompetitor().getC_name());
-            row1.createCell(7).setCellValue(sdf.format(signUp.getB_time()));
-            row1.createCell(8).setCellValue(signUp.getB_state());
+            row1.createCell(1).setCellValue(signUp.getContestInfo().getJ_name());
+            row1.createCell(2).setCellValue(signUp.getContestInfo().getJ_type());
+            row1.createCell(3).setCellValue(signUp.getContestInfo().getJ_href());
+            row1.createCell(4).setCellValue(signUp.getContestInfo().getJ_int());
+            row1.createCell(5).setCellValue(signUp.getCompetitor().getC_name());
+            row1.createCell(6).setCellValue(sdf.format(signUp.getB_time()));
+            row1.createCell(7).setCellValue(signUp.getB_state());
             rowNum++;
             a++;
         }
