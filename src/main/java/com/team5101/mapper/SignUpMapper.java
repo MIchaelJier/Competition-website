@@ -27,4 +27,6 @@ public interface SignUpMapper {
     int findInfo(SignUp signUp);
 
     List<SignUp> findSigUPInfo(Integer u_id);
+
+    SignUp findContestInfo(String j_id);
 }

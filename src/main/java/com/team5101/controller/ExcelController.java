@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -19,22 +20,22 @@ public class ExcelController {
     @Autowired
     private SignUpMapper signUpMapper;
     //导出Excel
-    @RequestMapping(value = "UserExcelDownloads", method = RequestMethod.GET)
+    @RequestMapping(value = "/ExcelDownloads", method = RequestMethod.GET)
     public void downloadAllClassmate(HttpServletResponse response, HttpServletRequest request) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("信息表");
         String j_id=request.getParameter("j_id");
-        System.out.println(j_id);
+//        String j_id="4";
         List<SignUp> signUps=signUpMapper.getAllContestByJno(Integer.valueOf(j_id));
-        System.out.println(signUps);
+        System.out.println(j_id);
 
 
-        String fileName = "userinf"  + ".xls";//设置要导出的文件的名字
+        String fileName = signUpMapper.findContestInfo(j_id).getContestInfo().getJ_name()  + "报名信息表.xls";//设置要导出的文件的名字
         //新增数据行，并且设置单元格数据
 
         int rowNum = 1;
 
-        String[] headers = { "学号", "姓名", "身份类型", "登录密码"};
+        String[] headers = { "报名ID", "竞赛名称", "竞赛类型", "竞赛官网", "竞赛竞赛简介", "参赛人", "报名时间", "报名状态"};
         //headers表示excel表中第一行的表头
 
         HSSFRow row = sheet.createRow(0);
@@ -53,11 +54,15 @@ public class ExcelController {
             row1.createCell(1).setCellValue(signUp.getContestInfo().getJ_name());
             row1.createCell(2).setCellValue(signUp.getContestInfo().getJ_type());
             row1.createCell(3).setCellValue(signUp.getContestInfo().getJ_href());
+            row1.createCell(4).setCellValue(signUp.getContestInfo().getJ_int());
+            row1.createCell(5).setCellValue(signUp.getCompetitor().getC_name());
+            row1.createCell(6).setCellValue(signUp.getB_time());
+            row1.createCell(7).setCellValue(signUp.getB_state());
             rowNum++;
         }
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.setHeader("Content-Disposition","attachment;filename="+ URLEncoder.encode(fileName,"utf-8"));
         response.flushBuffer();
         workbook.write(response.getOutputStream());
     }
