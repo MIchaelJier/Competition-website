@@ -6,6 +6,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <style>
+        body {
+            background: #edeeef;
+        }
         #menu a {
             color: #989898;
             font-family: "Helvetica Neue", Helvetica, Arial,'Microsoft YaHei','PingFang SC Regular',sans-serif !important;
@@ -58,13 +61,23 @@
         </nav>
     </div>
 </header>
-<div class="container" style="padding-top: 200px">
-    <form action="uploads" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2" >
-            <input type="submit" class="btn btn-primary"/>
+<main>
+    <div class="container" style="background:#fff;margin-top: 100px;">
+        <div class="row">
+            <div class="breadcrumb">
+                <h6  style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">作品提交</h6>
+            </div>
+            <div class="container">
+                <form action="uploads" method="POST" enctype="multipart/form-data">
+                    <div class="form-group text-center">
+                        <input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2" ><br>
+                        <input type="submit" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
+</main>
 </div>
 </body>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>

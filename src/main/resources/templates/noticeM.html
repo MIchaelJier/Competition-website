@@ -4,17 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style.scss">
-    <link rel="stylesheet" href="css/jSlider.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/baguettebox.min.css">
     <link rel="stylesheet" href="css/style2.css">
 
-    <script src="js/baguettebox.min.js"></script>
     <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.jSlider.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.lazyload.min.js?v=1.9.1"></script>
     <script src="js/bootstrap.js"></script>
     <style>
         /*导航栏开始*/
@@ -105,14 +98,14 @@
                     </div>
                     <table class="table table-hover table-bordered table-responsive">
                         <thead>
-                        <tr>
-                            <th><input type="checkbox" id="SelectAll" onclick="selectAll()" />全选</th><!-- 反选 -->
-                            <th>编号</th>
-                            <th>标题</th>
-                            <th>时间</th>
-                            <th>发布者</th>
-                            <th>操作</th>
-                        </tr>
+                            <tr>
+                                <th><input type="checkbox" id="SelectAll" onclick="selectAll()" />全选</th><!-- 反选 -->
+                                <th>编号</th>
+                                <th>标题</th>
+                                <th>时间</th>
+                                <th>发布者</th>
+                                <th>操作</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr th:each="pageInfo:${pageInfo.list}">
