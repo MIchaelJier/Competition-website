@@ -9,7 +9,7 @@ public class SignUp {
     private Integer j_id;
     private Integer c_id;
     private String j_name;
-    private String b_time;
+    private Date b_time;
     private String b_state;
     private Competitor competitor;
     private ContestInfo contestInfo;
@@ -46,11 +46,11 @@ public class SignUp {
         this.c_id = c_id;
     }
 
-    public String getB_time() {
+    public Date getB_time() {
         return b_time;
     }
 
-    public void setB_time(String b_time) {
+    public void setB_time(Date b_time) {
         this.b_time = b_time;
     }
 
