@@ -124,7 +124,6 @@ public class UserController {
         else{
             userMapper.updatePassword(u.getUsername(),password);
             System.out.println("修改成功");
-            System.out.println(u);
             return "修改成功";
         }
 
