@@ -64,10 +64,7 @@ public class UserController {
             System.out.println(competitor);
             return "index2" ;
         }
-
-         return "ERROR";
-
-
+        return "login";
     }
     //个人信息
     @RequestMapping(value = "/userInfo", method = {RequestMethod.POST, RequestMethod.GET})
@@ -81,11 +78,9 @@ public class UserController {
     //个人信息修改
     @RequestMapping(value = "/updateInfo")
     public String updateOne(Competitor competitor){
-
         try{
             System.out.println(competitor.toString());
             userMapper.updateOne(competitor);
-
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -94,8 +89,6 @@ public class UserController {
         return "redirect:/userInfo";
 
     }
-
-
 
     //注销
     @RequestMapping(value="/logout.action")

@@ -89,15 +89,16 @@
                 <h6 style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">个人信息</h6>
             </div>
             <div class="container">
-                <div class="col-md-6"><img width="100%" height="100%" src="images/ava.jpg" alt="" style="padding-bottom: 20px"></div>
+                <div class="col-md-6"><img width="100%" height="100%" src="images/ava.jpg" alt="" style="padding-bottom: 20px;cursor: pointer"></div>
                 <div class="col-md-6 text-center">
-                    <form action="/updateInfo" method="post">
+                   <!-- <form action="/updateInfo" method="post">-->
+                        <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
                         <table id="selfmessge">
-                            <!--<input name="c_id"  class="form-control" type="hidden" th:value="${userInfo?.c_id}" />-->
+                            <input name="c_id" id="c_id" class="form-control" type="hidden" th:value="${userInfo?.c_id}" />
                             <tr>
                                 <td>学号</td>
                                 <td>
-                                    <input id="sno"  class="form-control" type="text" disabled th:value="${userInfo?.c_sno}" />
+                                    <input id="sno" class="form-control" type="text" disabled th:value="${userInfo?.c_sno}" />
                                 </td>
                             </tr>
                             <tr>
@@ -151,7 +152,7 @@
                             </tr>
                         </table>
                         <br>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
@@ -168,54 +169,87 @@
         var phone = $('#phone').val();
         var qq = $('#qq').val();
         //拟态框内 数据判断
+        //名字 2-3位汉字
         $('#name').bind('input propertychange',function(){
             var rename = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('姓名不能为空').css('color','red');
-                $('#send').attr('disabled',true);
             }else if(rename.test($(this).val()) == false){
                 $(this).parent().next().children().text('姓名格式错误').css('color','red');
-                $('#send').attr('disabled',true);
             }else{
                 $(this).parent().next().children().text('✔').css('color','green');
             }
+            submitok();
         });
+        //专业班级 2-3位汉字+3位数字
         $('#major').bind('input propertychange',function(){
             var remajor = /^[\u4E00-\u9FA5]{1,}\d{3}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('专业班级不能为空').css('color','red');
-                $('#send').attr('disabled',true);
             }else if(remajor.test($(this).val()) == false){
                 $(this).parent().next().children().text('专业班级格式错误').css('color','red');
-                $('#send').attr('disabled',true);
             }else{
                 $(this).parent().next().children().text('✔').css('color','green');
             }
+            submitok();
         });
+        //手机号 1开头11位数字
         $('#phone').bind('input propertychange',function(){
             var reMobile = /^1\d{10}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('手机号不能为空').css('color','red');
-                $('#send').attr('disabled',true);
             }else if(reMobile.test($(this).val()) == false){
                 $(this).parent().next().children().text('手机号格式错误').css('color','red');
-                $('#send').attr('disabled',true);
             }else{
                 $(this).parent().next().children().text('✔').css('color','green');
             }
+            submitok();
         });
+        //qq号 3-9位数字
         $('#qq').bind('input propertychange',function(){
             var reqq = /^[1-9]\d{3,9}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('QQ号不能为空').css('color','red');
-                $('#send').attr('disabled',true);
             }else if(reqq.test($(this).val()) == false){
                 $(this).parent().next().children().text('QQ号格式错误').css('color','red');
-                $('#send').attr('disabled',true);
             }else{
                 $(this).parent().next().children().text('✔').css('color','green');
             }
+            submitok();
         });
+        //按钮确认修改
+        $('#send').click(function () {
+            var sno = $('#sno').val();
+            var name = $('#name').val();
+            var sex = $('input:radio:checked').val();
+            var major = $('#major').val();
+            var phone = $('#phone').val();
+            var qq = $('#qq').val();
+            $.ajax({
+                type: "POST",
+                url: "/updateInfo",
+                data: {'c_id':$('#c_id').val(),'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_QQ':qq},
+                success: function (ok) {
+                    if(ok){alert('修改成功')}
+                }
+            });
+        });
+        //监控 √ 是否变化
+        function submitok(){
+            var j = 0;
+            $('#selfmessge b').each(function () {
+                /*console.log($(this).text().length);*/
+                if($(this).text().length == 1){
+                    j++;
+                }
+            });
+            console.log(j);
+            if(j == 5){
+                $('#send').attr('disabled',false);
+            }else{
+                $('#send').attr('disabled',true);
+            }
+        }
     });
 </script>
 </body>

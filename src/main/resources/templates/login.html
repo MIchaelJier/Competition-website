@@ -74,78 +74,6 @@
         }
 
     </style>
-    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.backstretch.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-         $(function(){
-             //登录验证
-             $("#login_btn").click(function(){
-                 var user = $('#username').val();
-                 var password = $('#password').val();
-                 if(!user){
-                     $('.tooltip-show:eq(0)').tooltip('show');
-                     return false;
-                 }
-                 if(!password){
-                     $('.tooltip-show:eq(1)').tooltip('show');
-                     return false;
-                 }
-             });
-            $('#username').focus(function () {
-                $('.tooltip-show:eq(0)').tooltip('destroy');
-            });
-            $('#password').focus(function () {
-                $('.tooltip-show:eq(1)').tooltip('destroy');
-            });
-            $('#goto_register').click(function () {
-                window.location.href = "register.html";
-                return false;
-            });
-            $('#eye').click(function () {
-                if($(this).hasClass('glyphicon-eye-close')){
-                    $(this).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-                    $('#password').attr('type','text')
-                }else {
-                    $(this).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-                    $('#password').attr('type', 'password')
-                }
-            });
-            $.backstretch([
-                "images/2.jpg"
-                , "images/3.jpg"
-                , "images/1.jpg"
-            ], {duration: 3000, fade: 750});
-        });
-    </script>
-    <script type="text/javascript">
-        function ck() {
-                var name, pass;
-                name = document.getElementById("username").value;
-                pass = document.getElementById("password").value;
-                $.ajax({
-                    //	async: false,
-                    type: "POST",
-                    url: "/login", //注意路径  (后台登陆验证的方法)
-                    data: {
-                        "username": name,
-                        "password": pass
-                    },
-                    success: function(data) {
-                       /* alert(data);*/
-                        if (data == "ok") {
-                            alert("登录成功！")
-                            return true;
-                        } else if(data=="error") {
-                            alert("用户名或密码错误，登录失败");
-                            window.location.href = "/";
-                        }
-                    }
-                });
-        }
-    </script>
-
 </head>
 <body style="background-color:rgba(0,0,0,0);">
 <nav class="nav navbar-inverse navbar-fixed-top">
@@ -159,7 +87,7 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
 
-                    <form  id="loginform" action="/login.action"  method="post" class="form-horizontal" onsubmit="ck()">
+                    <form  id="loginform" action="/login.action"  method="post" class="form-horizontal">
                         <span class="heading" >用户登录</span>
 
                         <div class="form-group">
@@ -175,8 +103,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default" id="login_btn">登录</button>
-                            <button type="submit" class="btn btn-primary" id="goto_register">注册</button>
+                            <button type="submit" class="btn btn-default" id="login_btn" >登录</button>
+                            <button  class="btn btn-primary" id="goto_reread">重置</button>
                         </div>
                     </form>
                 </div>
@@ -185,4 +113,76 @@
     </div>
 </div>
 </body>
+<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.backstretch.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+        //登录验证
+        $("#login_btn").click(function(){
+            var user = $('#username').val();
+            var password = $('#password').val();
+            if(!user){
+                $('.tooltip-show:eq(0)').tooltip('show');
+                return false;
+            }
+            if(!password){
+                $('.tooltip-show:eq(1)').tooltip('show');
+                return false;
+            }
+        });
+        $('#username').focus(function () {
+            $('.tooltip-show:eq(0)').tooltip('destroy');
+        });
+        $('#password').focus(function () {
+            $('.tooltip-show:eq(1)').tooltip('destroy');
+        });
+        $('#goto_register').click(function () {
+            window.location.href = "register.html";
+            return false;
+        });
+        $('#eye').click(function () {
+            if($(this).hasClass('glyphicon-eye-close')){
+                $(this).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+                $('#password').attr('type','text')
+            }else {
+                $(this).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+                $('#password').attr('type', 'password')
+            }
+        });
+        $.backstretch([
+            "images/2.jpg"
+            , "images/3.jpg"
+            , "images/1.jpg"
+        ], {duration: 3000, fade: 750});
+        $('#goto_reread').click(function () {
+           $('#username').val('');$('#password').val('');
+           return false;
+        });
+        $("form").submit(function(){
+            var user = $('#username').val();
+            var password = $('#password').val();
+            $.ajax({
+                //	async: false,
+                type: "POST",
+                url: "/login", //注意路径  (后台登陆验证的方法)
+                data: {
+                    "username": user,
+                    "password":  password
+                },
+                success: function (data) {
+                    /* alert(data);*/
+                    if (data == "ok") {
+                        alert("登录成功！");
+                        return true;
+                    } else if (data == "error") {
+                        alert("用户名或密码错误，登录失败");
+                    }
+                }
+            });
+        });
+    });
+
+</script>
 </html>

@@ -257,6 +257,7 @@
             }
         });
         //信息表格的验证与提交
+        //////////////////////////////////////////
         var sno = $('#sno').val();
         var name = $('#name').val();
         var sex = $('input:radio:checked').val();
@@ -270,43 +271,62 @@
         $('#name').bind('input propertychange',function(){
             var rename = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
             if($(this).val() == ""){
-                $(this).next().text('姓名不能为空'); $('#send').attr('disabled',true);
+                $(this).next().text('姓名不能为空');
             }else if(rename.test($(this).val()) == false){
-                $(this).next().text('姓名格式错误'); $('#send').attr('disabled',true);
+                $(this).next().text('姓名格式错误');
             }else{
                 $(this).next().text('')
             }
+            submitok()
         });
         $('#major').bind('input propertychange',function(){
             var remajor = /^[\u4E00-\u9FA5]{1,}\d{3}$/;
             if($(this).val() == ""){
-                $(this).next().text('专业班级不能为空'); $('#send').attr('disabled',true);
+                $(this).next().text('专业班级不能为空');
             }else if(remajor.test($(this).val()) == false){
-                $(this).next().text('专业班级格式错误'); $('#send').attr('disabled',true);
+                $(this).next().text('专业班级格式错误');
             }else{
                 $(this).next().text('')
             }
+            submitok()
         });
         $('#phone').bind('input propertychange',function(){
             var reMobile = /^1\d{10}$/;
             if($(this).val() == ""){
-                $(this).next().text('手机号不能为空'); $('#send').attr('disabled',true);
+                $(this).next().text('手机号不能为空');
             }else if(reMobile.test($(this).val()) == false){
-                $(this).next().text('手机号格式错误'); $('#send').attr('disabled',true);
+                $(this).next().text('手机号格式错误');
             }else{
                 $(this).next().text('');
             }
+            submitok()
         });
         $('#qq').bind('input propertychange',function(){
             var reqq = /^[1-9]\d{3,9}$/;
             if($(this).val() == ""){
-                $(this).next().text('QQ号不能为空'); $('#send').attr('disabled',true);
+                $(this).next().text('QQ号不能为空');
             }else if(reqq.test($(this).val()) == false){
-            $(this).next().text('QQ号格式错误'); $('#send').attr('disabled',true);
+            $(this).next().text('QQ号格式错误');
             }else{
                 $(this).next().text('')
             }
+            submitok()
         });
+        function submitok(){
+            var j = 0;
+            $('.modal-body b').each(function () {
+                if($(this).text().length == 0){
+                    j++;
+                }
+            });
+            console.log(j);
+            if(j == 4){
+                $('#send').attr('disabled',false);
+            }else{
+                $('#send').attr('disabled',true);
+            }
+        }
+        ///////////////////////////////////////////////////
         //拟态框内 确认报名
         $('#send').click(function () {
             var contest=$('#selContest option').attr('value');
