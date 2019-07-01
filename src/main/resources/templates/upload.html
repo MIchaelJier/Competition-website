@@ -108,7 +108,7 @@
         language: 'zh', //设置语言
         textEncoding : "UTF-8",//文本编码
         uploadUrl: "/uploads", //上传的地址
-        allowedFileExtensions:  ['rar', 'zip'], //接收的文件后缀
+        allowedFileExtensions:  [ 'zip','rar'], //接收的文件后缀
         uploadAsync: true, //默认异步上传
         showUpload: true, //是否显示上传按钮
         showRemove : true, //显示移除按钮
@@ -118,10 +118,10 @@
         dropZoneEnabled: true,//是否显示拖拽区域
         maxFileCount: 1, //表示允许同时上传的最大文件个数
         enctype: 'multipart/form-data',
-
-
         preferIconicPreview: true,
+        validateInitialCount:false,
         previewFileIconSettings: {
+            'zip': '<i class="glyphicon glyphicon-open-file"></i>',
             'rar': '<i class="glyphicon glyphicon-open-file"></i>',
         },
         previewFileExtSettings: {
@@ -129,15 +129,11 @@
                 return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
             }
         }
-
     }).on("fileuploaded", function (event, data, previewId, index) {
     });
 /**/
-
-
-/*
 // 发布通知
-    function uploadzip() {
+  /*  function uploadzip() {
         $.post("/uploads",
             $("#uploadform").serialize(), function (data) {
           console.log(data);
