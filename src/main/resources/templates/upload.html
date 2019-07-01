@@ -68,13 +68,15 @@
             <div class="breadcrumb">
                 <h6  style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">作品提交</h6>
             </div>
-            <div class="container">
-                <form action="uploads" method="POST" enctype="multipart/form-data">
+            <div class="container"><!--action="uploads"-->
+              <!--  <form  id="uploadform"  method="POST" enctype="multipart/form-data">-->
                     <div class="form-group text-center">
                         <input id="file-1" type="file" name="file" ><br>
-                        <input type="submit" class="btn btn-primary btn-block" />
+                       <!-- <input type="submit" class="btn btn-primary btn-block" />-->
+                      <!--  <button class="btn btn-primary btn-block" id="upload_btn" onclick="uploadzip()">上传</button>-->
                     </div>
-                </form><i class="fas fa-file-archive text-muted"></i>
+               <!-- </form>-->
+                <i class="fas fa-file-archive text-muted"></i>
             </div>
         </div>
     </div>
@@ -86,20 +88,71 @@
 <script src="js/fileinput.min.js" type="text/javascript"></script>
 
 <script>
-    $("#file-1").fileinput({
+ /* $("#file-1").fileinput({
         uploadUrl: '#',
         allowedFileExtensions : ['rar', 'zip'],
         overwriteInitial: false,
-        /*maxFileSize: 10000,*/
+        /!*maxFileSize: 10000,*!/
         maxFilesNum: 10,
         //allowedFileTypes: ['image', 'video', 'flash'],
-      /*  layoutTemplates :{
+      /!*  layoutTemplates :{
             actionDelete:'', //去除上传预览的缩略图中的删除图标
             actionUpload:'',//去除上传预览缩略图中的上传图片；
             actionZoom:''   //去除上传预览缩略图中的查看详情预览的缩略图标。
-        },*/
-        /*previewFileType :['image'],
-        showPreview:true,*/
+        },*!/
+        /!*previewFileType :['image'],
+        showPreview:true,*!/
+    });*/
+/*    <script>*/
+    $("#file-1").fileinput({
+        language: 'zh', //设置语言
+        textEncoding : "UTF-8",//文本编码
+        uploadUrl: "/uploads", //上传的地址
+        allowedFileExtensions:  ['rar', 'zip'], //接收的文件后缀
+        uploadAsync: true, //默认异步上传
+        showUpload: true, //是否显示上传按钮
+        showRemove : true, //显示移除按钮
+        showPreview :true, //是否显示预览
+        showCaption: true,//是否显示标题
+        overwriteInitial: false,
+        dropZoneEnabled: true,//是否显示拖拽区域
+        maxFileCount: 1, //表示允许同时上传的最大文件个数
+        enctype: 'multipart/form-data',
+        preferIconicPreview: true,
+        validateInitialCount:false,
+        previewFileIconSettings: {
+            'zip': '<i class="glyphicon glyphicon-open-file"></i>',
+        },
+        previewFileExtSettings: {
+            'zip': function(ext) {
+                return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+            }
+        }
+
+    }).on("fileuploaded", function (event, data, previewId, index) {
     });
+/**/
+
+
+
+// 发布通知
+    function uploadzip() {
+        $.post("/uploads",
+            $("#uploadform").serialize(), function (data) {
+          console.log(data);
+                if (data == "OK") {
+                    alert("文件上传成功！" );
+                    window.location.reload();
+                }
+                else if (data == "Empty") {
+                    alert("文件上传为空！" );
+                    window.location.reload();
+                }
+                else if (data == "FAIL") {
+                        alert("文件上传失败！" );
+                        window.location.reload();
+                }
+            });
+    }
 </script>
 </html>
