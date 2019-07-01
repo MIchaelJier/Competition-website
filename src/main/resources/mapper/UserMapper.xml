@@ -52,5 +52,14 @@
         WHERE c_sno=#{c_sno}
   </update>
 
+    <update id="updatePassword"  parameterType="com.team5101.pojo.Competitor">
+        update x_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="password!=null">password=#{password},</if>
+
+        </trim>
+        WHERE username=#{username}
+    </update>
+
 
 </mapper>

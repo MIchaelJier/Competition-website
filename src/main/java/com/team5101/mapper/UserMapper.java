@@ -22,4 +22,7 @@ public interface UserMapper {
     public Integer CheckUser(@Param("username") String username, @Param("password") String password);
     public Competitor findInfo(String u_sno);
     Integer  updateOne(Competitor competitor);
+    //修改密码
+    User updatePassword(@Param("username") String username,
+                        @Param("password") String password);
 }

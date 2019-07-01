@@ -6,6 +6,7 @@ import com.team5101.pojo.Competitor;
 import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,6 +110,13 @@ public class UserController {
     @RequestMapping(value="/ContestResult")
     public String ContestResult(HttpServletRequest request, HttpSession session, Model model){
         return "ContestResult";
+    }
+
+    @RequestMapping(value="/updatePassword")
+    public String updatePassword(HttpServletRequest request, @Param("password")String password){
+        User u= (User) request.getSession().getAttribute("USER");
+        userMapper.updatePassword(u.getUsername(),password);
+        return "修改成功";
     }
 
 
