@@ -163,11 +163,10 @@ public class RegController {
     }
     //我的小组
     @RequestMapping("/GroupInfo")
-    public ModelAndView allMember(@Param("g_name")String g_name, Model model, HttpServletRequest request){
+    public List<Group> allMember(@Param("g_name")String g_name, Model model, HttpServletRequest request){
         User u = (User) request.getSession().getAttribute("USER");
         List<Group> groups =groupMapper.findAllMember(u.getU_sno());
-        model.addAttribute("groups",groups);
-        return new ModelAndView("GroupInfo");
+        return groups;
     }
     //所有小组信息
     @RequestMapping("/Group.getAll")
