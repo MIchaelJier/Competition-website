@@ -118,10 +118,11 @@
         dropZoneEnabled: true,//是否显示拖拽区域
         maxFileCount: 1, //表示允许同时上传的最大文件个数
         enctype: 'multipart/form-data',
+
+
         preferIconicPreview: true,
-        validateInitialCount:false,
         previewFileIconSettings: {
-            'zip': '<i class="glyphicon glyphicon-open-file"></i>',
+            'rar': '<i class="glyphicon glyphicon-open-file"></i>',
         },
         previewFileExtSettings: {
             'zip': function(ext) {
@@ -134,7 +135,7 @@
 /**/
 
 
-
+/*
 // 发布通知
     function uploadzip() {
         $.post("/uploads",
@@ -153,6 +154,6 @@
                         window.location.reload();
                 }
             });
-    }
+    }*/
 </script>
 </html>

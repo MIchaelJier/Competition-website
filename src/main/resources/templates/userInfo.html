@@ -22,23 +22,23 @@
         #menu a:hover{
             color: #5bc0de;
         }
-        #selfmessge {
+        table {
             border-collapse:separate;
             border-spacing:0 2rem;
         }
-        #selfmessge td,#selfmessge tr{
+        td,tr{
             padding: 5px;
         }
-        #selfmessge tr, #selfmessge{
+        table tr, table{
             width: 100% !important
         }
-        #selfmessge tr td:nth-child(2){
+        table tr td:nth-child(2){
             width: 60%;
         }
-        #selfmessge tr td:nth-child(3){
+        tabletr td:nth-child(3){
             width: 25%;
         }
-        #selfmessge td b {
+        table td b {
             color: green;
         }
     </style>
@@ -92,66 +92,108 @@
                 <div class="col-md-6"><img width="100%" height="100%" src="images/ava.jpg" alt="" style="padding-bottom: 20px;cursor: pointer"></div>
                 <div class="col-md-6 text-center">
                    <!-- <form action="/updateInfo" method="post">-->
-                        <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
-                        <table id="selfmessge">
-                            <input name="c_id" id="c_id" class="form-control" type="hidden" th:value="${userInfo?.c_id}" />
-                            <tr>
-                                <td>学号</td>
-                                <td>
-                                    <input id="sno" class="form-control" type="text" disabled th:value="${userInfo?.c_sno}" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>姓名</td>
-                                <td>
-                                    <input id="name"  class="form-control" type="text" th:value="${userInfo?.c_name}" style="display: inline"/>
-                                </td>
-                                <td>
-                                    <b>✔</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>性别</td>
-                                <td>
-                                    <span class="col-md-6"><input type="radio" id="women" value="女"  name="1" th:checked="${userInfo.c_gender=='女'}" >&nbsp;&nbsp;女</span>
-                                    <span class="col-md-6"><input type="radio" id="man" value="男" checked="checked" name="1" th:checked="${userInfo.c_gender=='男'}">&nbsp;&nbsp;男</span>
-                                </td>
-                                <td>
-                                    <b>✔</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>专业班级</td>
-                                <td>
-                                    <input id="major"  class="form-control" type="text" th:value="${userInfo?.c_major}" />
-                                </td>
-                                <td>
-                                    <b>✔</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>手机号</td>
-                                <td>
-                                    <input id="phone"  class="form-control" type="text" th:value="${userInfo?.c_phone}" />
-                                </td>
-                                <td>
-                                    <b>✔</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>QQ号</td>
-                                <td>
-                                    <input id="qq"  class="form-control" type="text" th:value="${userInfo?.c_QQ}" />
-                                </td>
-                                <td>
-                                    <b>✔</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改"></td>
-                            </tr>
-                        </table>
-                        <br>
+                    <span class="history">
+                        <ul id="myTab" class="nav nav-tabs">
+                           <li class="active"><a href="#messagepane" data-toggle="tab">个人信息</a></li>
+                           <li><a href="#passwordpane" data-toggle="tab">密码修改</a></li>
+                        </ul>
+                    </span>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="messagepane">
+                            <table id="selfmessge">
+                                <input name="c_id" type="hidden" th:value="${userInfo?.c_id}">
+                                <input name="c_id" id="c_id" class="form-control" type="hidden" th:value="${userInfo?.c_id}" />
+                                <tr>
+                                    <td>学号</td>
+                                    <td>
+                                        <input id="sno" class="form-control" type="text" disabled th:value="${userInfo?.c_sno}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>姓名</td>
+                                    <td>
+                                        <input id="name"  class="form-control" type="text" th:value="${userInfo?.c_name}" style="display: inline"/>
+                                    </td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>性别</td>
+                                    <td>
+                                        <span class="col-md-6"><input type="radio" id="women" value="女"  name="1" th:checked="${userInfo.c_gender=='女'}" >&nbsp;&nbsp;女</span>
+                                        <span class="col-md-6"><input type="radio" id="man" value="男" checked="checked" name="1" th:checked="${userInfo.c_gender=='男'}">&nbsp;&nbsp;男</span>
+                                    </td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>专业班级</td>
+                                    <td>
+                                        <input id="major"  class="form-control" type="text" th:value="${userInfo?.c_major}" />
+                                    </td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>手机号</td>
+                                    <td>
+                                        <input id="phone"  class="form-control" type="text" th:value="${userInfo?.c_phone}" />
+                                    </td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>QQ号</td>
+                                    <td>
+                                        <input id="qq"  class="form-control" type="text" th:value="${userInfo?.c_QQ}" />
+                                    </td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="passwordpane">
+                            <table id="passwordtable">
+                                <tr>
+                                    <td>用户名</td>
+                                    <td><input  class="form-control" type="text"  th:value="${userInfo?.c_sno}" disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td>原密码</td>
+                                    <td><input  type="text"  id="oldpass" class="form-control"></td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>新密码</td>
+                                    <td><input type="text"  id="newpass" class="form-control"></td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>确认密码</td>
+                                    <td><input type="text" id="repass" class="form-control"></td>
+                                    <td>
+                                        <b>✔</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><input id="send2"  class="btn btn-primary pull-right" value="提交修改"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                     <!--</form>-->
                 </div>
             </div>
@@ -218,6 +260,7 @@
             submitok();
         });
         //按钮确认修改
+        //修改个人信息
         $('#send').click(function () {
             var sno = $('#sno').val();
             var name = $('#name').val();
@@ -229,6 +272,21 @@
                 type: "POST",
                 url: "/updateInfo",
                 data: {'c_id':$('#c_id').val(),'c_sno':sno,'c_name':name,'c_gender':sex,'c_major':major,'c_phone':phone,'c_QQ':qq},
+                success: function (ok) {
+                    if(ok){alert('修改成功')}
+                }
+            });
+        });
+        //修改密码
+        $('#send2').click(function () {
+            var oldp = $('#oldpass').val();
+            var newp = $('#newpass').val();
+            var rep = $('#repass').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/#",
+                data: {},
                 success: function (ok) {
                     if(ok){alert('修改成功')}
                 }
