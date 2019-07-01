@@ -34,12 +34,14 @@ public class FileController {
 //    }
 
     //单文件上传
-    @RequestMapping(value = "/uploads")
-    public ModelAndView upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
+    @PostMapping(value = "/uploads")
+    @ResponseBody
+    public void upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) {
         try {
             if (file.isEmpty()) {
                 //空文件
-                return new ModelAndView("upload");
+                //return "Empty";//new ModelAndView("upload");
+                return ;
             }
             // 获取文件名
             String fileName = file.getOriginalFilename();
@@ -64,14 +66,17 @@ public class FileController {
             }
             file.transferTo(dest);// 文件写入
             //成功
-            return new ModelAndView("upload");
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            //return new ModelAndView("upload");
+            //return "OK";
+        } catch (Exception e) {
+            //logger.info("");
+            log.info("上传失败");
+            System.out.println("WA");
             e.printStackTrace();
         }
         //失败
-        return new ModelAndView("upload");
+        return ;//"FAIL";
+       /* return new ModelAndView("upload");*/
     }
 
     //多文件上传

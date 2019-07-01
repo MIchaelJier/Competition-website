@@ -124,27 +124,7 @@ public class ContestController {
         //System.out.println(contestInfo);
         return contestInfo;
     }
-/*
-    /**
-     * 显示详细内容
-     */
-    /*
-    @RequestMapping("/NgetNoticeByTT.action")
-    public String  getNoticeByTT(HttpServletRequest request, Model model) {
-        String gg_title=request.getParameter("gg_title");
 
-
-        Notice notice = noticeService.getNoticeByT(gg_title);
-
-        model.addAttribute("gtitle", notice.getGg_title());
-        model.addAttribute("gtext", notice.getGg_content());
-        model.addAttribute("gtime", notice.getGg_date());
-        //request.setAttribute("mainPage", "noticeDate.jsp");
-
-            return "noticeM";
-
-    }
-     */
 
 
     /**
