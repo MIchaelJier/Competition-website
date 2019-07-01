@@ -108,7 +108,7 @@
         language: 'zh', //设置语言
         textEncoding : "UTF-8",//文本编码
         uploadUrl: "/uploads", //上传的地址
-        allowedFileExtensions:  ['rar', 'zip'], //接收的文件后缀
+        allowedFileExtensions:  [ 'zip','rar'], //接收的文件后缀
         uploadAsync: true, //默认异步上传
         showUpload: true, //是否显示上传按钮
         showRemove : true, //显示移除按钮
@@ -128,13 +128,9 @@
                 return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
             }
         }
-
     }).on("fileuploaded", function (event, data, previewId, index) {
     });
 /**/
-
-
-
 // 发布通知
     function uploadzip() {
         $.post("/uploads",
