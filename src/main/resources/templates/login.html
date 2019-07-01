@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/Icomoon/style.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .form-horizontal{
             background: #fff;
@@ -117,6 +121,7 @@
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.backstretch.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/main.js"></script>
 <script>
     $(function(){
         //登录验证
@@ -184,5 +189,15 @@
         });
     });
 
+</script>
+<script type="text/javascript">
+    function load() {
+        var a= setTimeout("loading.style.transition='opacity 3s'",0);
+        //设置透明度改变的过渡时间为0.3秒
+        var b= setTimeout("loading.style.opacity=0",1000);
+        //2秒后加载动画开始变为透明
+        var c= setTimeout("loading.style.display='none'",6000);
+        //当透明度为0的时候，隐藏掉它
+    }
 </script>
 </html>
