@@ -35,7 +35,7 @@
         table tr td:nth-child(2){
             width: 60%;
         }
-        tabletr td:nth-child(3){
+        table tr td:nth-child(3){
             width: 25%;
         }
         table td b {
@@ -156,7 +156,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改"></td>
+                                    <td colspan="3"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改" disabled></td>
                                 </tr>
                             </table>
                         </div>
@@ -189,7 +189,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3"><input id="send2"  class="btn btn-primary pull-right" value="提交修改"></td>
+                                    <td colspan="3"><input id="send2"  class="btn btn-primary pull-right" value="提交修改" disabled></td>
                                 </tr>
                             </table>
                         </div>
@@ -202,7 +202,7 @@
 </main>
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script>
+<script th:inline="javascript">
     $(function () {
         var sno = $('#sno').val();
         var name = $('#name').val();
@@ -259,6 +259,40 @@
             }
             submitok();
         });
+        //旧密码
+        $('#oldpass').bind('input propertychange',function(){
+            var oldp = $(this).val();
+            if(oldp === [[${session.USER.getPassword()}]]){
+                $(this).parent().next().children().text('✔').css('color','green');
+            }else{
+                $(this).parent().next().children().text('旧密码不正确').css('color','red');
+            }
+            submitok2()
+        });
+        //密码 长度为10-20位包含数字、字母、特殊字符的密码
+        $('#newpass').bind('input propertychange',function(){
+            var newp = $('#newpass').val();
+            var regnewp = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{10,20}$/;//表示长度为10-20位包含数字、字母、特殊字符的密码
+            if($(this).val() == ""){
+                $(this).parent().next().children().text('新密码不能为空').css('color','red');
+            }else if(regnewp.test(newp) == false){
+                $(this).parent().next().children().text('10-20位数字、字母、特殊字符').css('color','red');
+            }else{
+                $(this).parent().next().children().text('✔').css('color','green');
+            }
+            submitok2()
+        });
+        //确认密码
+        $('#repass').bind('input propertychange',function(){
+            var newp = $('#newpass').val();
+            var rep = $(this).val();
+            if(newp === rep){
+                $(this).parent().next().children().text('✔').css('color','green');
+            }else{
+                $(this).parent().next().children().text('两次密码不一致').css('color','red');
+            }
+            submitok2()
+        });
         //按钮确认修改
         //修改个人信息
         $('#send').click(function () {
@@ -282,13 +316,13 @@
             var oldp = $('#oldpass').val();
             var newp = $('#newpass').val();
             var rep = $('#repass').val();
-
             $.ajax({
                 type: "POST",
                 url: "/updatePassword",
                 data: {'oldpassword':oldp,'password':rep},
                 success: function (ok) {
                     alert(ok);
+                    if(ok == '修改成功') window.location.href= "/logout.action";
                 }
             });
         });
@@ -306,6 +340,22 @@
                 $('#send').attr('disabled',false);
             }else{
                 $('#send').attr('disabled',true);
+            }
+        }
+        //2
+        function submitok2(){
+            var j = 0;
+            $('#passwordtable b').each(function () {
+                /*console.log($(this).text().length);*/
+                if($(this).text().length == 1){
+                    j++;
+                }
+            });
+            console.log(j);
+            if(j == 3){
+                $('#send2').attr('disabled',false);
+            }else{
+                $('#send2').attr('disabled',true);
             }
         }
     });
