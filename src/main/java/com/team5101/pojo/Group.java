@@ -7,6 +7,15 @@ public class Group {
     private String g_sn2;
     private String g_sn3;
     private String g_sn4;
+    private String g_code;
+
+    public String getG_code() {
+        return g_code;
+    }
+
+    public void setG_code(String g_code) {
+        this.g_code = g_code;
+    }
 
     public Integer getG_id() {
         return g_id;
@@ -65,6 +74,7 @@ public class Group {
                 ", g_sn2='" + g_sn2 + '\'' +
                 ", g_sn3='" + g_sn3 + '\'' +
                 ", g_sn4='" + g_sn4 + '\'' +
+                ", g_code='" + g_code + '\'' +
                 '}';
     }
 }

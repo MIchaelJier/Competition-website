@@ -87,31 +87,32 @@
 </body>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript">
+    //
     $(function () {
-        var sno = [[${session.USER.getPassword()}]];
         $('#newteam').click(function () {
             var name = $('#newteamname').val();
             $.ajax({
                 type: "POST",
-                url: "/#",
-                data: {'teamname':name,'sno':sno},
+                url: "/CreatGroup",
+                data: {'g_name':name},
                 success: function (ok) {
                     if(ok){
-                        alert('创建成功,你的小组的邀请码是'+ok)
+                        alert(ok)
                     }
                 }
             });
         });
+        //通过邀请码加入小组
         $('#addteam').click(function () {
             var code = $('#addteamcode').val();
             $.ajax({
                 type: "POST",
-                url: "/#",
-                data: {'id':code,'sno':sno},
+                url: "/joinGroup",
+                data: {'g_code':code},
                 success: function (ok) {
                     if(ok){
-                        alert('ok');
+                        alert(ok);
                     }
                 }
             });

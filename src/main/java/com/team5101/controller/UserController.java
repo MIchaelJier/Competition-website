@@ -7,6 +7,7 @@ import com.team5101.pojo.User;
 import com.team5101.service.NoticeService;
 import com.team5101.service.UserService;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hssf.record.FilePassRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import java.util.UUID;
 
 
 @Controller
@@ -39,6 +40,8 @@ public class UserController {
     public String login(String username,String password) {
             Integer num=userService.CheckUser(username, password);
            /* System.out.println(num);*/
+
+
             if(num==0)
                 return "error";
             else

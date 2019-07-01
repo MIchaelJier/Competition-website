@@ -8,6 +8,7 @@
         <result property="g_sn2" column="g_sn2"/>
         <result property="g_sn3" column="g_sn3"/>
         <result property="g_sn4" column="g_sn4"/>
+        <result property="g_code" column="g_code"/>
     </resultMap>
     <sql id="key">
         <trim suffixOverrides=",">
@@ -25,6 +26,9 @@
             </if>
             <if test="g_sn4!=null">
                 g_sn4,
+            </if>
+            <if test="g_code!=null">
+                g_code,
             </if>
         </trim>
     </sql>
@@ -45,6 +49,9 @@
             <if test="g_sn4!=null">
                 #{g_sn4},
             </if>
+            <if test="g_code!=null">
+                #{g_code},
+            </if>
         </trim>
     </sql>
 
@@ -52,7 +59,7 @@
         INSERT INTO x_group(<include refid="key"/>) VALUES(<include refid="value"/>)
     </insert>
 
-    <select id="findMember" resultType="INTEGER" >
+    <select id="findGname" resultType="Integer" >
         select * from x_group where g_name=#{g_name}
     </select>
 
@@ -61,8 +68,19 @@
     </select>
 
     <select id="GroupInfoBySno" resultType="com.team5101.pojo.Group" >
-        select * from x_group where #{g_sno}
+        select * from x_group where g_sn1=#{g_sn} or g_sn2=#{g_sn} or g_sn3=#{g_sn} or g_sn4=#{g_sn}
     </select>
+
+    <update id="joinGroup"  parameterType="com.team5101.pojo.Group">
+        update x_group
+        <trim prefix="set" suffixOverrides=",">
+            <if test="g_sn1!=null">g_sn1=#{g_sn1},</if>
+            <if test="g_sn2!=null">g_sn2=#{g_sn1},</if>
+            <if test="g_sn3!=null">g_sn3=#{g_sn1},</if>
+            <if test="g_sn4!=null">g_sn4=#{g_sn1},</if>
+        </trim>
+        WHERE g_code=#{g_code}
+    </update>
 
 
 
