@@ -122,6 +122,7 @@
         validateInitialCount:false,
         previewFileIconSettings: {
             'zip': '<i class="glyphicon glyphicon-open-file"></i>',
+            'rar': '<i class="glyphicon glyphicon-open-file"></i>',
         },
         previewFileExtSettings: {
             'zip': function(ext) {
@@ -132,7 +133,7 @@
     });
 /**/
 // 发布通知
-    function uploadzip() {
+  /*  function uploadzip() {
         $.post("/uploads",
             $("#uploadform").serialize(), function (data) {
           console.log(data);
@@ -149,6 +150,6 @@
                         window.location.reload();
                 }
             });
-    }
+    }*/
 </script>
 </html>
