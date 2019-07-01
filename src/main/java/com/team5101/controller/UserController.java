@@ -111,12 +111,23 @@ public class UserController {
     public String ContestResult(HttpServletRequest request, HttpSession session, Model model){
         return "ContestResult";
     }
-
+    @ResponseBody
     @RequestMapping(value="/updatePassword")
-    public String updatePassword(HttpServletRequest request, @Param("password")String password){
+    public String updatePassword(HttpServletRequest request, @RequestParam("password")String password,@RequestParam("oldpassword")String oldpassword){
         User u= (User) request.getSession().getAttribute("USER");
-        userMapper.updatePassword(u.getUsername(),password);
-        return "修改成功";
+        Integer num=userService.CheckUser(u.getUsername(), oldpassword);
+        /* System.out.println(num);*/
+        if(num==0){
+            System.out.println("原密码错误");
+            return "原密码不正确";
+        }
+        else{
+            userMapper.updatePassword(u.getUsername(),password);
+            System.out.println("修改成功");
+            System.out.println(u);
+            return "修改成功";
+        }
+
     }
 
 

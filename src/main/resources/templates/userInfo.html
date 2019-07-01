@@ -285,10 +285,10 @@
 
             $.ajax({
                 type: "POST",
-                url: "/#",
-                data: {},
+                url: "/updatePassword",
+                data: {'oldpassword':oldp,'password':rep},
                 success: function (ok) {
-                    if(ok){alert('修改成功')}
+                    alert(ok);
                 }
             });
         });
