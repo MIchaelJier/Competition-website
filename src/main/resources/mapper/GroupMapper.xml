@@ -82,6 +82,10 @@
         WHERE g_code=#{g_code}
     </update>
 
+    <select id="findGroupByCode" resultType="com.team5101.pojo.Group" >
+        select * from x_group
+    </select>
+
 
 
 

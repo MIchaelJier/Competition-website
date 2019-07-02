@@ -22,4 +22,6 @@ public interface GroupMapper {
     List<Group> findAllMember(String g_sn);
     //加入小组
     void joinGroup(Group group);
+    //根据邀请码查询小组
+    Group findGroupByCode(Group group);
 }

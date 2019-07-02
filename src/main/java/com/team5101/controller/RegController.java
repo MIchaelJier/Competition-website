@@ -170,17 +170,39 @@ public class RegController {
     }
     //所有小组信息
     @RequestMapping("/Group.getAll")
-    public ModelAndView allGroup(Model model){
-        model.addAttribute("groups",groupMapper.allGroups());
-        return new ModelAndView("GroupInfo");
+    public List<Group> allGroup(Model model){
+        List<Group> groupList=groupMapper.allGroups();
+        return groupList;
     }
     //加入小组
     @RequestMapping("/joinGroup")
     public String joinGroup(@RequestParam("g_code")String g_code,HttpServletRequest request,Group group){
         User u = (User) request.getSession().getAttribute("USER");
+        String s_n=u.getU_sno();
         group.setG_code(g_code);
-        group.setG_sn1(u.getU_sno());
-        groupMapper.joinGroup(group);
-        return "加入成功";
+        Group find=groupMapper.findGroupByCode(group);
+        System.out.println(find);
+        if(find.getG_sn2() == null||find.getG_sn2().equals("")){
+            find.setG_sn2(s_n);
+            System.out.println(find);
+            groupMapper.joinGroup(find);
+
+            return "加入成功";
+        }
+        if(find.getG_sn3()==null||!find.getG_sn3().equals("")){
+            find.setG_sn3(s_n);
+            System.out.println(find);
+            groupMapper.joinGroup(find);
+
+            return "加入成功";
+        }
+        if(find.getG_sn4()==null||find.getG_sn4().equals("")){
+            find.setG_sn4(s_n);
+            System.out.println(find);
+            groupMapper.joinGroup(find);
+
+            return "加入成功";
+        }
+        return "加入失败";
     }
 }

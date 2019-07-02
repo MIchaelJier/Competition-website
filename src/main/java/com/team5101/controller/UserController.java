@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.UUID;
 
 
@@ -99,9 +100,18 @@ public class UserController {
     public String logout(HttpServletRequest request, HttpSession session, Model model){
        // String username=  session.getAttribute("USER.username").toString();
         //System.out.println("1:"+username);
-        session.removeAttribute("USER");
+        //session.invalidate();
+        //session.removeAttribute("USER");
         //username=  session.getAttribute("USER.username").toString();
         //System.out.println("2:"+username);
+        Enumeration em = request.getSession().getAttributeNames();
+        while(em.hasMoreElements()){
+            request.getSession().removeAttribute(em.nextElement().toString());
+            System.out.println(session.toString());
+            System.out.println("清除Seesion");
+            session.setMaxInactiveInterval(0);
+            //session.invalidate();
+        }
             return "redirect:/";
     }
     //主页
