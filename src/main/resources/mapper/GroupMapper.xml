@@ -83,7 +83,7 @@
     </update>
 
     <select id="findGroupByCode" resultType="com.team5101.pojo.Group" >
-        select * from x_group
+        select * from x_group where g_code=#{g_code}
     </select>
 
 
