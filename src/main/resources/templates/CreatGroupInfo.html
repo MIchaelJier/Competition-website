@@ -80,7 +80,9 @@
             <div class="breadcrumb" style="margin-top: 100px">
                 <h6 style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">我的小组</h6>
             </div>
-            <div class="container"></div>
+            <div class="container" id="myteam">
+
+            </div>
         </div>
     </div>
 </main>
@@ -116,7 +118,18 @@
                     }
                 }
             });
-        })
+        });
+        //我的小组
+        $.ajax({
+            type: "POST",
+            url: "/GroupInfo",
+            success: function (ok) {
+                if(ok){
+                    //$('#myteam').html('<p>'ok)
+                    console.log(ok)
+                }
+            }
+        });
     })
 
 </script>

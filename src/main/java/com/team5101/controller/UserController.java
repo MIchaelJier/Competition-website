@@ -107,13 +107,10 @@ public class UserController {
         Enumeration em = request.getSession().getAttributeNames();
         while(em.hasMoreElements()){
             request.getSession().removeAttribute(em.nextElement().toString());
-
-            System.out.println("清除Seesion");
-//            session.invalidate();
-            session.removeAttribute("USER");
-
-
-
+            //System.out.println(session.toString());
+            //System.out.println("清除Seesion");
+            session.setMaxInactiveInterval(0);
+            session.invalidate();
         }
             return "redirect:/";
     }
