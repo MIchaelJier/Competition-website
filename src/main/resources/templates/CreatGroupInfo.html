@@ -72,9 +72,10 @@
             </div>
             <div class="container">
                 <div class="col-md-6 col-md-offset-3 text-center">
-                    <input type="text" id="newteamname" class="form-control"  placeholder="新小组的名字" style="width: 50%;display: inline"><button  class="btn btn-primary" id="newteam">创建小组</button>
-                    <br><br><br><br><br><br>
-                    <input type="text" id="addteamcode" class="form-control" placeholder="小组邀请码"  style="width: 50%;display: inline"><button  class="btn btn-primary" id="addteam" >加入小组</button>
+                    <br><br><br>
+                    <input type="text" id="newteamname" class="form-control"  placeholder="新小组的名字" style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="newteam">创建小组</button>
+                    <br><br><br>
+                    <input type="text" id="addteamcode" class="form-control" placeholder="小组邀请码"  style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="addteam" >加入小组</button>
                 </div>
             </div>
             <div class="breadcrumb" style="margin-top: 100px">
@@ -89,7 +90,7 @@
 </body>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
     //
     $(function () {
         $('#newteam').click(function () {
@@ -104,20 +105,24 @@
                     }
                 }
             });
+            window.location.reload()
         });
         //通过邀请码加入小组
         $('#addteam').click(function () {
             var code = $('#addteamcode').val();
+            var my = [[${session.USER}]];
+   /*         console.log({'g_code':code,my});*/
             $.ajax({
                 type: "POST",
                 url: "/joinGroup",
-                data: {'g_code':code},
+                data: {'g_code':code,'user':my},
                 success: function (ok) {
                     if(ok){
                         alert(ok);
                     }
                 }
             });
+           /* window.location.reload()*/
         });
         //我的小组
         $.ajax({
@@ -125,8 +130,11 @@
             url: "/GroupInfo",
             success: function (ok) {
                 if(ok){
+                   /* ok.each(function (i) {
+                        
+                    });
                     //$('#myteam').html('<p>'ok)
-                    console.log(ok)
+                    console.log(ok)*/
                 }
             }
         });
