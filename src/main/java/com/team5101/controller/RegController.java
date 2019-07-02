@@ -176,30 +176,31 @@ public class RegController {
     }
     //加入小组
     @RequestMapping("/joinGroup")
-    public String joinGroup(@RequestParam("g_code")String g_code,HttpServletRequest request,Group group){
-        User u = (User) request.getSession().getAttribute("USER");
+    public String joinGroup(@RequestParam("g_code")String g_code,HttpServletRequest request,User u){
+        u= (User) request.getSession().getAttribute("USER");
+        Group group=new Group();
         String s_n=u.getU_sno();
         group.setG_code(g_code);
-        Group find=groupMapper.findGroupByCode(group);
-        System.out.println(find);
-        if(find.getG_sn2() == null||find.getG_sn2().equals("")){
-            find.setG_sn2(s_n);
-            System.out.println(find);
-            groupMapper.joinGroup(find);
+        group=groupMapper.findGroupByCode(group);
+        System.out.println("原小组："+group);
+        if(group.getG_sn2() == null||group.getG_sn2().equals("")){
+            group.setG_sn2(s_n);
+            System.out.println(group);
+            groupMapper.joinGroup(group);
 
             return "加入成功";
         }
-        if(find.getG_sn3()==null||!find.getG_sn3().equals("")){
-            find.setG_sn3(s_n);
-            System.out.println(find);
-            groupMapper.joinGroup(find);
+        if(group.getG_sn3()==null||!group.getG_sn3().equals("")){
+            group.setG_sn3(s_n);
+            System.out.println(group);
+            groupMapper.joinGroup(group);
 
             return "加入成功";
         }
-        if(find.getG_sn4()==null||find.getG_sn4().equals("")){
-            find.setG_sn4(s_n);
-            System.out.println(find);
-            groupMapper.joinGroup(find);
+        if(group.getG_sn4()==null||group.getG_sn4().equals("")){
+            group.setG_sn4(s_n);
+            System.out.println(group);
+            groupMapper.joinGroup(group);
 
             return "加入成功";
         }

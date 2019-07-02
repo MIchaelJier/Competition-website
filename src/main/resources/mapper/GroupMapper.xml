@@ -67,7 +67,7 @@
         select * from x_group
     </select>
 
-    <select id="GroupInfoBySno" resultType="com.team5101.pojo.Group" >
+    <select id="findAllMember" resultType="com.team5101.pojo.Group" >
         select * from x_group where g_sn1=#{g_sn} or g_sn2=#{g_sn} or g_sn3=#{g_sn} or g_sn4=#{g_sn}
     </select>
 
@@ -85,6 +85,8 @@
     <select id="findGroupByCode" resultType="com.team5101.pojo.Group" >
         select * from x_group
     </select>
+
+
 
 
 
