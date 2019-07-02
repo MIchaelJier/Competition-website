@@ -109,8 +109,7 @@ public class UserController {
             request.getSession().removeAttribute(em.nextElement().toString());
             //System.out.println(session.toString());
             //System.out.println("清除Seesion");
-            session.setMaxInactiveInterval(0);
-            session.invalidate();
+//            session.invalidate();
         }
             return "redirect:/";
     }

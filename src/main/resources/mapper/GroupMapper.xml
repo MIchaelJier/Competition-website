@@ -75,9 +75,9 @@
         update x_group
         <trim prefix="set" suffixOverrides=",">
             <if test="g_sn1!=null">g_sn1=#{g_sn1},</if>
-            <if test="g_sn2!=null">g_sn2=#{g_sn1},</if>
-            <if test="g_sn3!=null">g_sn3=#{g_sn1},</if>
-            <if test="g_sn4!=null">g_sn4=#{g_sn1},</if>
+            <if test="g_sn2!=null">g_sn2=#{g_sn2},</if>
+            <if test="g_sn3!=null">g_sn3=#{g_sn3},</if>
+            <if test="g_sn4!=null">g_sn4=#{g_sn4},</if>
         </trim>
         WHERE g_code=#{g_code}
     </update>

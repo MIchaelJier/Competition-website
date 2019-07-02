@@ -177,33 +177,33 @@ public class RegController {
     //加入小组
     @RequestMapping("/joinGroup")
     public String joinGroup(@RequestParam("g_code")String g_code,HttpServletRequest request,User u){
-        u= (User) request.getSession().getAttribute("USER");
+
+        String sno=request.getParameter("s_no");
         Group group=new Group();
-        String s_n=u.getU_sno();
         group.setG_code(g_code);
         group=groupMapper.findGroupByCode(group);
         System.out.println("原小组："+group);
         if(group.getG_sn2() == null||group.getG_sn2().equals("")){
-            group.setG_sn2(s_n);
-            System.out.println(group);
+            group.setG_sn2(sno);
+            System.out.println(sno);
             groupMapper.joinGroup(group);
 
             return "加入成功";
         }
-        if(group.getG_sn3()==null||!group.getG_sn3().equals("")){
-            group.setG_sn3(s_n);
+        if(group.getG_sn3()==null||group.getG_sn3().equals("")){
+            group.setG_sn3(sno);
             System.out.println(group);
             groupMapper.joinGroup(group);
 
             return "加入成功";
         }
         if(group.getG_sn4()==null||group.getG_sn4().equals("")){
-            group.setG_sn4(s_n);
+            group.setG_sn4(sno);
             System.out.println(group);
             groupMapper.joinGroup(group);
 
             return "加入成功";
         }
-        return "加入失败";
+        return "加入失败,或人数已满";
     }
 }

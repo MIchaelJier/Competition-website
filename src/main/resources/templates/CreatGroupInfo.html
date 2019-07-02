@@ -105,17 +105,17 @@
                     }
                 }
             });
-            window.location.reload()
+            // window.location.reload()
         });
         //通过邀请码加入小组
         $('#addteam').click(function () {
             var code = $('#addteamcode').val();
-            var my = [[${session.USER}]];
+            var my = [[${session.USER.getU_sno()}]];
    /*         console.log({'g_code':code,my});*/
             $.ajax({
                 type: "POST",
                 url: "/joinGroup",
-                data: {'g_code':code,'user':my},
+                data: {'g_code':code,'s_no':my},
                 success: function (ok) {
                     if(ok){
                         alert(ok);
