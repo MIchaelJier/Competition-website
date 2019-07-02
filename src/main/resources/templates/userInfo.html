@@ -41,6 +41,11 @@
         table td b {
             color: green;
         }
+        .eye {
+            position: relative;
+            right: -46%;
+            top: -25px
+        }
     </style>
 
 </head>
@@ -156,7 +161,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3"><input id="send" type="submit"  class="btn btn-primary pull-right" value="提交修改" disabled></td>
+                                    <td colspan="3"><input id="send"  class="btn btn-primary pull-right" value="提交修改" disabled></td>
                                 </tr>
                             </table>
                         </div>
@@ -168,24 +173,33 @@
                                 </tr>
                                 <tr>
                                     <td>原密码</td>
-                                    <td><input  type="password"  id="oldpass" class="form-control"></td>
                                     <td>
-                                        <b>✔</b>
+                                        <input  type="password"  id="oldpass" class="form-control">
+                                        <span  class="eye glyphicon glyphicon-eye-close"></span> <!--glyphicon glyphicon-eye-open-->
+                                    </td>
+                                    <td>
+                                        <b></b>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>新密码</td>
-                                    <td><input type="password"  id="newpass" class="form-control"></td>
                                     <td>
-                                        <b>✔</b>
+                                        <input type="password"  id="newpass" class="form-control">
+                                        <span class="eye glyphicon glyphicon-eye-close"></span> <!--glyphicon glyphicon-eye-open-->
+                                    </td>
+                                    <td>
+                                        <b></b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>确认密码</td>
-                                    <td><input type="password" id="repass" class="form-control"></td>
                                     <td>
-                                        <b>✔</b>
+                                        <input type="password" id="repass" class="form-control">
+                                        <span class="eye glyphicon glyphicon-eye-close"></span> <!--glyphicon glyphicon-eye-open-->
+                                    </td>
+                                    <td>
+                                        <b></b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -204,6 +218,7 @@
 <script src="js/bootstrap.js"></script>
 <script th:inline="javascript">
     $(function () {
+        $('#selfmessge b').hide();
         var sno = $('#sno').val();
         var name = $('#name').val();
         var sex = $('input:radio:checked').val();
@@ -213,6 +228,7 @@
         //拟态框内 数据判断
         //名字 2-3位汉字
         $('#name').bind('input propertychange',function(){
+            $('#selfmessge b').show();
             var rename = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('姓名不能为空').css('color','red');
@@ -225,6 +241,7 @@
         });
         //专业班级 2-3位汉字+3位数字
         $('#major').bind('input propertychange',function(){
+            $('#selfmessge b').show();
             var remajor = /^[\u4E00-\u9FA5]{1,}\d{3}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('专业班级不能为空').css('color','red');
@@ -237,6 +254,7 @@
         });
         //手机号 1开头11位数字
         $('#phone').bind('input propertychange',function(){
+            $('#selfmessge b').show();
             var reMobile = /^1\d{10}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('手机号不能为空').css('color','red');
@@ -249,6 +267,7 @@
         });
         //qq号 3-9位数字
         $('#qq').bind('input propertychange',function(){
+            $('#selfmessge b').show();
             var reqq = /^[1-9]\d{3,9}$/;
             if($(this).val() == ""){
                 $(this).parent().next().children().text('QQ号不能为空').css('color','red');
@@ -358,6 +377,16 @@
                 $('#send2').attr('disabled',true);
             }
         }
+        //点击眼睛显示密码
+        $('.eye').click(function () {
+            if($(this).hasClass('glyphicon-eye-close')){
+                $(this).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+                $(this).prev().attr('type','text')
+            }else {
+                $(this).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+                $(this).prev().attr('type', 'password')
+            }
+        });
     });
 </script>
 </body>
