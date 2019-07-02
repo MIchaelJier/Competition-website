@@ -73,16 +73,15 @@
             <div class="container">
                 <div class="col-md-6 col-md-offset-3 text-center">
                     <br><br><br>
-                    <input type="text" id="newteamname" class="form-control"  placeholder="新小组的名字" style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="newteam">创建小组</button>
+                    <input type="text" id="newteamname" class="form-control"  placeholder="新小组的名字" style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="newteam" disabled>创建小组</button>
                     <br><br><br>
-                    <input type="text" id="addteamcode" class="form-control" placeholder="小组邀请码"  style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="addteam" >加入小组</button>
+                    <input type="text" id="addteamcode" class="form-control" placeholder="小组邀请码"  style="width: 50%;display: inline">&nbsp;&nbsp;<button  class="btn btn-primary" id="addteam" disabled>加入小组</button>
                 </div>
             </div>
             <div class="breadcrumb" style="margin-top: 100px">
                 <h6 style="font: 20px 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;">我的小组</h6>
             </div>
             <div class="container" id="myteam">
-
             </div>
         </div>
     </div>
@@ -93,6 +92,28 @@
 <script th:inline="javascript">
     //
     $(function () {
+        showmyteam();
+        $('#newteamname').bind('input propertychange',function(){
+            if($(this).val() == ""){
+                    $('#newteam').attr('disabled',true);
+
+                }else{
+                    $('#newteam').attr('disabled',false);
+                }
+        });
+        $('#addteamcode').bind('input propertychange',function(){
+            $('.codearr').each(function (i) {
+                if($(this).text() == $('#addteamcode').val()) {
+                    alert('不能重复加入小组');
+                    $('#addteamcode').val('');
+                }
+            });
+            if($(this).val() == ""){
+                $('#addteam').attr('disabled',true);
+            }else{
+                $('#addteam').attr('disabled',false);
+            }
+        });
         $('#newteam').click(function () {
             var name = $('#newteamname').val();
             $.ajax({
@@ -101,7 +122,8 @@
                 data: {'g_name':name},
                 success: function (ok) {
                     if(ok){
-                        alert(ok)
+                        alert(ok);
+                        showmyteam();
                     }
                 }
             });
@@ -119,25 +141,58 @@
                 success: function (ok) {
                     if(ok){
                         alert(ok);
+                        showmyteam();
                     }
                 }
             });
            /* window.location.reload()*/
         });
         //我的小组
-        $.ajax({
-            type: "POST",
-            url: "/GroupInfo",
-            success: function (ok) {
-                if(ok){
-                   /* ok.each(function (i) {
-                        
-                    });
-                    //$('#myteam').html('<p>'ok)
-                    console.log(ok)*/
+        function showmyteam(){
+            $('#myteam').html('');
+            $.ajax({
+                type: "POST",
+                url: "/GroupInfo",
+                success: function (ok) {
+                    if(ok){
+                        for(let i = 0 ; i < ok.length ; i++){
+                            if(ok[i].g_sn2 == null||ok[i].g_sn2 == "") ok[i].g_sn2 = '空';
+                            if(ok[i].g_sn3 == null||ok[i].g_sn3 == "") ok[i].g_sn3 = '空';
+                            if(ok[i].g_sn4 == null||ok[i].g_sn4 == "") ok[i].g_sn4 = '空';
+                            $('#myteam').append(' <div class="col-xs-6 col-md-3">\n' +
+                                '                    <table class="table">\n' +
+                                '                        <tr>\n' +
+                                '                            <td>小组名字</td>\n' +
+                                '                            <td> ' + ok[i].g_name + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                        <tr>\n' +
+                                '                            <td>邀请码</td>\n' +
+                                '                            <td class="codearr">' + ok[i].g_code + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                        <tr>\n' +
+                                '                            <td>组员1</td>\n' +
+                                '                            <td>' + ok[i].g_sn1 + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                        <tr>\n' +
+                                '                            <td>组员2</td>\n' +
+                                '                            <td>' + ok[i].g_sn2 + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                        <tr>\n' +
+                                '                            <td>组员3</td>\n' +
+                                '                            <td>' + ok[i].g_sn3 + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                        <tr>\n' +
+                                '                            <td>组员4</td>\n' +
+                                '                            <td>' + ok[i].g_sn4 + '</td>\n' +
+                                '                        </tr>\n' +
+                                '                    </table>\n' +
+                                '                </div>')
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+
     })
 
 </script>

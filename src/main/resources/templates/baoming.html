@@ -90,29 +90,51 @@
                 <button class="btn btn-primary pull-right" id="updownbtn">数据导出</button>
             </div>
             <div class="container">
-                <table id="dataTable" class="table table-hover table-bordered table-responsive">
-                    <thead>
-                    <tr>
-                        <th>报名ID</th>
-                        <th>参赛人</th>
-                        <th>竞赛类型</th>
-                        <th>竞赛简介</th>
-                      <!--  <th>竞赛官网</th>-->
-                        <th>竞赛名称</th>
-                        <th>报名时间</th>
-                        <th>报名状态</th>
-                    </tr>
-                    </thead>
-                    <tbody><!--插入处--></tbody>
-                </table>
+                <span class="pickup">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#one" data-toggle="tab">个人信息</a></li>
+                        <li><a href="#team" data-toggle="tab">团队信息</a></li>
+                    </ul>
+                </span>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="one" >
+                        <br>
+                        <table id="dataTable" class="table table-hover table-bordered table-responsive">
+                            <thead>
+                            <tr>
+                                <th>报名ID</th>
+                                <th>参赛人</th>
+                                <th>竞赛类型</th>
+                                <th>竞赛简介</th>
+                                <!--  <th>竞赛官网</th>-->
+                                <th>竞赛名称</th>
+                                <th>报名时间</th>
+                                <th>报名状态</th>
+                            </tr>
+                            </thead>
+                            <tbody><!--插入处--></tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="team">
+                        <br>
+                        <table id="teamTable" class="table table-hover table-bordered table-responsive">
+                            <thead>
+                            <tr>
+                                <th>队伍名称</th>
+                                <th>参赛人1</th>
+                                <th>参赛人2</th>
+                                <th>参赛人3</th>
+                                <th>参赛人4</th>
+                            </tr>
+                            </thead>
+                            <tbody><!--插入处--></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </div>
-
 </main>
-
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script>
@@ -158,6 +180,30 @@
                     }
                 }
 
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Group.getAll",
+            success: function (record) {
+                if(record.length == 0){
+                    $('#teamTable tbody').append('<tr><td colspan="5">无</td></tr>')
+                }else{
+                    for(let i = 0 ; i < record.length ; i++){
+                        if(record[i].g_sn2 == null||record[i].g_sn2 == "") record[i].g_sn2 = '无';
+                        if(record[i].g_sn3 == null||record[i].g_sn3 == "") record[i].g_sn3 = '无';
+                        if(record[i].g_sn4 == null||record[i].g_sn4 == "") record[i].g_sn4 = '无';
+                        $('#teamTable tbody').append(
+                            ' <tr>' +
+                            '            <td>' + record[i].g_name + '  </td>' +
+                            '            <td>' + record[i].g_sn1 + '</td>' +
+                            '            <td>' + record[i].g_sn2 + '</td>' +
+                            '            <td>' + record[i].g_sn3 + '</td>' +
+                            '            <td>' + record[i].g_sn4 + '</td>' +
+                            '        </tr>'
+                        );
+                    }
+                }
             }
         });
     });
