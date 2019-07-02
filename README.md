@@ -8,3 +8,4 @@
 - （学生）宣传模块：主页、获奖宣传、优秀学生展示等。（老师）宣传模块编辑。
   
  
+![](https://github.com/MIchaelJier/Competition-website/blob/master/src/main/resources/static/images/icpc-icon.jpg)
